@@ -2,17 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#161b22">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>OmniVault: Couples & Thematic Marathons</title>
+  <title>OmniVault</title>
 
-  <!-- PWA Manifest Hook -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- External Confetti Library for Celebrations -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
@@ -20,7 +16,6 @@
       --card-bg: #161b22;
       --card-border: #30363d;
       --accent: #f0883e;
-      --accent-hover: #ff9955;
       --p1: #58a6ff;
       --p2: #bc8cff;
       --date: #f778ba;
@@ -30,91 +25,27 @@
       --text: #c9d1d9;
       --text-bright: #f0f6fc;
       --text-muted: #8b949e;
-      --radius: 10px;
+      --radius: 8px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      padding-bottom: 90px;
-      user-select: none;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    ::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #21262d;
-      border-radius: 4px;
-    }
-
+    /* Top Sticky Header */
     header {
       background: var(--card-bg);
       border-bottom: 1px solid var(--card-border);
       padding: 10px 14px;
       position: sticky;
       top: 0;
-      z-index: 90;
+      z-index: 100;
     }
+    .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.05rem; color: var(--text-bright); }
+    .brand .logo-icon { background: var(--accent); color: #fff; width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; }
+    .brand small { display: block; font-size: 0.68rem; color: var(--text-muted); font-weight: normal; margin-top: -2px; }
 
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: var(--text-bright);
-      cursor: pointer;
-    }
-
-    .brand .logo-icon {
-      background: linear-gradient(135deg, #f0883e, #d29922);
-      color: #0b0f14;
-      width: 28px;
-      height: 28px;
-      border-radius: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      font-weight: 900;
-      box-shadow: 0 2px 6px rgba(240, 136, 62, 0.3);
-    }
-
-    .brand small {
-      display: block;
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      font-weight: normal;
-      margin-top: -2px;
-    }
-
-    .header-tools {
-      display: flex;
-      gap: 6px;
-    }
-
+    .header-tools { display: flex; gap: 6px; }
     .btn-tool {
       background: #21262d;
       border: 1px solid var(--card-border);
@@ -123,38 +54,14 @@
       border-radius: 6px;
       font-size: 0.75rem;
       cursor: pointer;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 4px;
-      font-weight: 600;
-      transition: all 0.15s ease;
     }
-    .btn-tool:active { transform: scale(0.96); }
-    .btn-tool.btn-add { background: #238636; border-color: rgba(240,246,252,0.1); color: #fff; }
-    .btn-tool.btn-eas { background: rgba(248, 81, 73, 0.15); border-color: var(--red); color: #ff7b72; }
+    .btn-tool.btn-add { background: #238636; border-color: rgba(240,246,252,0.1); color: #fff; font-weight: 600; }
 
-    .pwa-banner {
-      background: rgba(240, 136, 62, 0.12);
-      border: 1px solid rgba(240, 136, 62, 0.35);
-      border-radius: 6px;
-      padding: 5px 10px;
-      font-size: 0.72rem;
-      color: var(--accent);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .partner-bar {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .partner-bar::-webkit-scrollbar { display: none; }
-
+    /* Partner Filter Bar with Tap-to-Rename */
+    .partner-bar { display: flex; gap: 6px; align-items: center; overflow-x: auto; }
     .partner-pill {
       background: #21262d;
       border: 1px solid var(--card-border);
@@ -169,16 +76,16 @@
       white-space: nowrap;
       transition: all 0.15s;
     }
-    .partner-pill:active { transform: scale(0.96); }
-    .partner-pill.active-p1 { background: rgba(88, 166, 255, 0.22); border-color: var(--p1); color: var(--p1); font-weight: 700; }
-    .partner-pill.active-p2 { background: rgba(188, 140, 255, 0.22); border-color: var(--p2); color: var(--p2); font-weight: 700; }
-    .partner-pill.active-date { background: rgba(247, 120, 186, 0.22); border-color: var(--date); color: var(--date); font-weight: 700; }
-    .partner-edit-icon { font-size: 0.72rem; opacity: 0.55; padding: 2px 4px; border-radius: 4px; }
-    .partner-edit-icon:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+    .partner-pill.active-p1 { background: rgba(88, 166, 255, 0.2); border-color: var(--p1); color: var(--p1); font-weight: 700; }
+    .partner-pill.active-p2 { background: rgba(188, 140, 255, 0.2); border-color: var(--p2); color: var(--p2); font-weight: 700; }
+    .partner-pill.active-date { background: rgba(247, 120, 186, 0.2); border-color: var(--date); color: var(--date); font-weight: 700; }
+    .partner-edit-icon { font-size: 0.7rem; opacity: 0.5; padding: 2px; }
+    .partner-edit-icon:hover { opacity: 1; }
 
+    /* Navigation Bar */
     .nav-bar {
       display: flex;
-      gap: 5px;
+      gap: 4px;
       padding: 6px 12px 8px;
       background: var(--card-bg);
       border-bottom: 1px solid var(--card-border);
@@ -186,12 +93,11 @@
       scrollbar-width: none;
     }
     .nav-bar::-webkit-scrollbar { display: none; }
-
     .nav-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 6px 11px;
+      padding: 6px 10px;
       border-radius: 6px;
       font-size: 0.78rem;
       font-weight: 600;
@@ -200,58 +106,37 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      transition: all 0.15s ease;
     }
-    .nav-btn:active { transform: scale(0.96); }
-    .nav-btn.active {
-      background: #21262d;
-      color: var(--text-bright);
-      box-shadow: inset 0 0 0 1px var(--card-border);
-    }
+    .nav-btn.active { background: #21262d; color: var(--text-bright); }
 
-    .main-body {
-      padding: 12px 14px;
-      max-width: 960px;
-      margin: 0 auto;
-    }
+    /* Main Container */
+    .main-body { padding: 12px 14px; max-width: 960px; margin: 0 auto; }
 
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
+    /* Filter Cluster */
+    .filter-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .search-row { display: flex; gap: 8px; }
     .search-input {
-      width: 100%;
+      flex: 1;
       background: #0d1117;
       border: 1px solid var(--card-border);
-      border-radius: 7px;
+      border-radius: 6px;
       padding: 8px 12px;
       font-size: 0.85rem;
       color: var(--text-bright);
-      outline: none;
-      transition: border-color 0.2s;
     }
-    .search-input:focus { border-color: var(--accent); }
+    .sort-select {
+      background: #21262d;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      color: var(--text-bright);
+      cursor: pointer;
+    }
 
-    .pill-row {
-      display: flex;
-      gap: 5px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      align-items: center;
-    }
+    .pill-row { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; align-items: center; }
     .pill-row::-webkit-scrollbar { display: none; }
-
-    .row-label {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-      margin-right: 4px;
-      font-weight: 600;
-    }
-
+    .row-label { font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; margin-right: 4px; font-weight: 600; }
     .filter-chip {
       background: #21262d;
       border: 1px solid var(--card-border);
@@ -261,38 +146,12 @@
       font-size: 0.7rem;
       white-space: nowrap;
       cursor: pointer;
-      transition: all 0.15s;
     }
-    .filter-chip:active { transform: scale(0.96); }
-    .filter-chip.active {
-      background: #30363d;
-      color: var(--text-bright);
-      border-color: #8b949e;
-      font-weight: 600;
-    }
-    .filter-chip.chip-accent.active {
-      background: rgba(240, 136, 62, 0.2);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .filter-chip.chip-green.active {
-      background: rgba(63, 185, 80, 0.2);
-      border-color: var(--green);
-      color: var(--green);
-    }
-    .filter-chip.chip-blue.active {
-      background: rgba(88, 166, 255, 0.2);
-      border-color: var(--p1);
-      color: var(--p1);
-    }
+    .filter-chip.active { background: #30363d; color: var(--text-bright); border-color: #8b949e; font-weight: 600; }
+    .filter-chip.chip-accent.active { background: rgba(240, 136, 62, 0.2); border-color: var(--accent); color: var(--accent); }
 
-    .status-switch {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-      align-items: center;
-    }
-
+    /* Status Switch: Backlog vs Completed */
+    .status-switch { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
     .btn-status {
       background: #21262d;
       border: 1px solid var(--card-border);
@@ -302,28 +161,12 @@
       font-size: 0.75rem;
       cursor: pointer;
       font-weight: 600;
-      transition: all 0.15s;
     }
-    .btn-status.active {
-      background: #30363d;
-      color: var(--accent);
-      border-color: var(--accent);
-    }
+    .btn-status.active { background: #30363d; color: var(--accent); border-color: var(--accent); }
+    .reset-link { margin-left: auto; font-size: 0.7rem; color: var(--text-muted); text-decoration: underline; cursor: pointer; }
 
-    .reset-link {
-      margin-left: auto;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
-    }
-
+    /* Grid & Cards with Real Posters */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -332,27 +175,32 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      cursor: pointer;
       transition: transform 0.15s, border-color 0.15s;
     }
-    .card:hover { border-color: #484f58; }
-
+    .card:active { transform: scale(0.985); }
     .poster-box {
       width: 100%;
-      height: 195px;
-      background: linear-gradient(180deg, #1b2129 0%, #11151c 100%);
+      height: 215px;
+      background: #1f242c;
+      position: relative;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 2.8rem;
-      position: relative;
     }
-
+    .poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
     .poster-badge-top {
       position: absolute;
       top: 6px;
       right: 6px;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.75);
       backdrop-filter: blur(4px);
       padding: 2px 6px;
       border-radius: 4px;
@@ -360,7 +208,6 @@
       font-weight: 700;
       color: var(--red);
     }
-
     .media-type-tag {
       position: absolute;
       top: 6px;
@@ -375,37 +222,10 @@
       color: #8b949e;
     }
 
-    .card-info {
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .title-row {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-bright);
-      line-height: 1.25;
-      margin-bottom: 2px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .meta-row {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .badges-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3px;
-      margin-bottom: 8px;
-    }
-
+    .card-info { padding: 8px; display: flex; flex-direction: column; flex-grow: 1; }
+    .title-row { font-size: 0.82rem; font-weight: 700; color: var(--text-bright); line-height: 1.25; margin-bottom: 2px; }
+    .meta-row { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 6px; }
+    .badges-row { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
     .tag-pill {
       font-size: 0.6rem;
       padding: 2px 5px;
@@ -413,19 +233,11 @@
       background: #21262d;
       color: var(--text-muted);
       border: 1px solid rgba(255,255,255,0.05);
-      white-space: nowrap;
     }
     .tag-pill.safe { background: rgba(63, 185, 80, 0.12); color: var(--green); border-color: rgba(63, 185, 80, 0.3); }
-    .tag-pill.alert { background: rgba(248, 81, 73, 0.12); color: var(--red); border-color: rgba(248, 81, 73, 0.3); }
     .tag-pill.sound { background: rgba(88, 166, 255, 0.12); color: var(--p1); border-color: rgba(88, 166, 255, 0.3); }
 
-    .action-row {
-      margin-top: auto;
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
-
+    .action-row { margin-top: auto; display: flex; gap: 4px; align-items: center; }
     .btn-vote {
       flex: 1;
       padding: 5px 2px;
@@ -439,24 +251,9 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-weight: 600;
-      transition: all 0.15s;
     }
-    .btn-vote:active { transform: scale(0.96); }
-    .btn-vote.voted-p1 { border-color: var(--p1); background: rgba(88, 166, 255, 0.2); color: var(--p1); }
-    .btn-vote.voted-p2 { border-color: var(--p2); background: rgba(188, 140, 255, 0.2); color: var(--p2); }
-
-    .btn-card-toggle {
-      background: transparent;
-      border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      font-size: 0.72rem;
-      padding: 4px 6px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .btn-card-toggle.done { color: var(--green); border-color: rgba(63,185,80,0.4); }
-
+    .btn-vote.voted-p1 { border-color: var(--p1); background: rgba(88, 166, 255, 0.2); color: var(--p1); font-weight: 700; }
+    .btn-vote.voted-p2 { border-color: var(--p2); background: rgba(188, 140, 255, 0.2); color: var(--p2); font-weight: 700; }
     .btn-trash {
       background: transparent;
       border: none;
@@ -469,56 +266,53 @@
     }
     .btn-trash:hover { opacity: 1; background: rgba(248, 81, 73, 0.15); }
 
+    /* Interactive Containers */
     .view-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: var(--radius);
+      border-radius: 10px;
       padding: 16px;
       text-align: center;
       margin-bottom: 14px;
     }
-
-    .wheel-canvas {
-      margin: 10px auto;
-      display: block;
-      border-radius: 50%;
-      border: 4px solid var(--card-border);
-      max-width: 100%;
-    }
-
-    .duel-grid {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 10px;
-      align-items: center;
-      margin-top: 14px;
-    }
-
+    .wheel-canvas { margin: 12px auto; display: block; border-radius: 50%; border: 3px solid var(--card-border); }
+    .duel-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-top: 14px; }
     .duel-card {
       background: #0d1117;
       border: 2px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 14px 10px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.15s, border-color 0.15s;
-    }
-    .duel-card:active { transform: scale(0.97); }
-
-    .scratch-canvas {
-      background: #21262d;
-      margin: 10px auto;
       border-radius: 8px;
-      touch-action: none;
-      cursor: crosshair;
+      padding: 12px;
+      cursor: pointer;
     }
 
+    /* Scratch-Off Component */
+    .scratch-container {
+      position: relative;
+      width: 290px;
+      height: 180px;
+      margin: 14px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--card-border);
+    }
+    .scratch-prize {
+      position: absolute;
+      inset: 0;
+      background: #0d1117;
+      display: flex;
+      padding: 10px;
+      gap: 10px;
+      align-items: center;
+      text-align: left;
+    }
+    .scratch-prize-img { width: 90px; height: 100%; object-fit: cover; border-radius: 6px; }
+    .scratch-canvas { position: absolute; inset: 0; touch-action: none; cursor: crosshair; }
+
+    /* Modal Sheet Styling */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0,0,0,0.8);
       backdrop-filter: blur(4px);
       z-index: 200;
       display: none;
@@ -526,75 +320,43 @@
       justify-content: center;
       padding: 14px;
     }
-
     .modal-box {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: var(--radius);
+      border-radius: 12px;
       width: 100%;
-      max-width: 440px;
+      max-width: 480px;
       padding: 18px;
-      max-height: 90vh;
+      max-height: 88vh;
       overflow-y: auto;
-      color: var(--text-bright);
+      text-align: left;
     }
+    .modal-box h3 { color: var(--text-bright); margin-bottom: 4px; font-size: 1.15rem; }
+    .modal-box .subhead { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; }
+    .modal-section { margin-bottom: 10px; padding: 10px; background: #0d1117; border-radius: 6px; border: 1px solid var(--card-border); }
+    .modal-section-title { font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
 
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 8px;
-    }
-
-    .modal-close {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .form-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      display: block;
-      margin: 10px 0 4px;
-    }
-
-    .form-input, .form-select {
+    /* Form Fields in Add Modal */
+    .form-group { margin-bottom: 10px; }
+    .form-group label { display: block; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
+    .form-control {
       width: 100%;
       background: #0d1117;
       border: 1px solid var(--card-border);
       border-radius: 6px;
       padding: 8px 10px;
+      font-size: 0.82rem;
       color: var(--text-bright);
-      font-size: 0.85rem;
-      outline: none;
     }
-    .form-input:focus, .form-select:focus { border-color: var(--accent); }
-
-    /* Civil Defense EAS Siren Mode */
-    .eas-alarm-box {
-      border: 2px solid var(--red);
-      background: #1e0d0f;
-      color: #ff7b72;
-      animation: easFlash 1.5s infinite;
-    }
-    @keyframes easFlash {
-      0%, 100% { border-color: var(--red); }
-      50% { border-color: #ff9955; }
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   </style>
 </head>
 <body>
 
+  <!-- Top Global Header -->
   <header>
     <div class="header-top">
-      <div class="brand" onclick="switchTab('vault', document.querySelector('.nav-btn'))">
+      <div class="brand">
         <div class="logo-icon">Ω</div>
         <div>
           OmniVault
@@ -602,27 +364,20 @@
         </div>
       </div>
       <div class="header-tools">
-        <button class="btn-tool" onclick="exportData()" title="Backup JSON">💾 Backup</button>
-        <button class="btn-tool btn-eas" onclick="openEASModal()" title="Tie-breaker Civil Defense">🚨 EAS</button>
-        <button class="btn-tool btn-add" onclick="openAddModal()" title="Add Title">+ Add</button>
+        <button class="btn-tool" onclick="exportData()">💾 Backup</button>
+        <button class="btn-tool btn-add" onclick="openAddModal()">+ Add</button>
       </div>
-    </div>
-
-    <!-- PWA Installation Tip Banner (Dismissable) -->
-    <div class="pwa-banner" id="pwaBanner">
-      <span>📲 <b>Add to Home Screen:</b> Run full-screen offline like a native store app!</span>
-      <span style="font-weight:bold; cursor:pointer; padding:0 4px;" onclick="dismissPwaBanner()">✕</span>
     </div>
 
     <!-- Partner Selectors with Tap-to-Rename -->
     <div class="partner-bar">
       <div class="partner-pill" id="p1Pill" onclick="togglePartner('p1')">
         <span id="p1Label">Alex</span>
-        <span class="partner-edit-icon" onclick="event.stopPropagation(); promptRenamePartner(1)" title="Rename Partner 1">✏️</span>
+        <span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(1)" title="Rename">✏️</span>
       </div>
       <div class="partner-pill" id="p2Pill" onclick="togglePartner('p2')">
         <span id="p2Label">Sam</span>
-        <span class="partner-edit-icon" onclick="event.stopPropagation(); promptRenamePartner(2)" title="Rename Partner 2">✏️</span>
+        <span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(2)" title="Rename">✏️</span>
       </div>
       <div class="partner-pill" id="datePill" onclick="toggleDateNight()">
         💕 Date Night
@@ -630,6 +385,7 @@
     </div>
   </header>
 
+  <!-- Horizontal Navigation Bar -->
   <div class="nav-bar">
     <button class="nav-btn active" onclick="switchTab('vault', this)">🗄️ Vault</button>
     <button class="nav-btn" onclick="switchTab('marathons', this)">🍿 Marathons & Packs</button>
@@ -640,36 +396,61 @@
     <button class="nav-btn" onclick="switchTab('sync', this)">🔄 Sync Hub</button>
   </div>
 
-  <main class="main-body">
+  <div class="main-body">
 
+    <!-- 1. VAULT VIEW -->
     <section id="view-vault">
       <div class="filter-group">
-        <input type="text" class="search-input" id="searchBox" placeholder="Search titles, directors, shelf tags, or genres..." oninput="renderVault()">
-        
-        <!-- Media Type & Safety Chips -->
+        <div class="search-row">
+          <input type="text" class="search-input" id="searchBox" placeholder="Search titles, directors, shelf tags, or genres..." oninput="renderVault()">
+          <select class="sort-select" id="sortSelect" onchange="renderVault()">
+            <option value="default">Sort: Default</option>
+            <option value="title-asc">Title (A → Z)</option>
+            <option value="title-desc">Title (Z → A)</option>
+            <option value="year-desc">Year (Newest)</option>
+            <option value="year-asc">Year (Oldest)</option>
+            <option value="runtime-asc">Runtime (Shortest)</option>
+            <option value="runtime-desc">Runtime (Longest)</option>
+            <option value="rating-desc">Rating (Highest)</option>
+          </select>
+        </div>
+
+        <!-- Media row -->
         <div class="pill-row">
           <span class="filter-chip chip-accent active" onclick="setMediaType('all', this)">All</span>
           <span class="filter-chip" onclick="setMediaType('movie', this)">🎬 Movies</span>
           <span class="filter-chip" onclick="setMediaType('tv', this)">📺 TV</span>
           <span class="filter-chip" onclick="setMediaType('book', this)">📖 Books</span>
           <span class="filter-chip" onclick="setMediaType('game', this)">🎮 Games</span>
-          <span class="filter-chip chip-green" id="petChip" onclick="togglePetFilter(this)">🐾 Pet Safe Only</span>
-          <span class="filter-chip chip-blue" id="soundChip" onclick="toggleSoundFilter(this)">🔊 Balanced Mix</span>
+          <span class="filter-chip" id="petChip" onclick="togglePetFilter(this)">🐾 Pet Safe Only</span>
+          <span class="filter-chip" id="soundChip" onclick="toggleSoundFilter(this)">🔊 Balanced Mix</span>
         </div>
 
-        <!-- Time Budget Chips -->
+        <!-- Genre row -->
+        <div class="pill-row">
+          <span class="row-label">🎭 Genre:</span>
+          <span class="filter-chip active" onclick="setGenre('all', this)">All</span>
+          <span class="filter-chip" onclick="setGenre('sci-fi', this)">Sci-Fi</span>
+          <span class="filter-chip" onclick="setGenre('thriller', this)">Thriller</span>
+          <span class="filter-chip" onclick="setGenre('horror', this)">Horror</span>
+          <span class="filter-chip" onclick="setGenre('mystery', this)">Mystery</span>
+          <span class="filter-chip" onclick="setGenre('drama', this)">Drama</span>
+          <span class="filter-chip" onclick="setGenre('cyberpunk', this)">Cyberpunk</span>
+        </div>
+
+        <!-- Time Budget row -->
         <div class="pill-row">
           <span class="row-label">⏱️ Time Budget:</span>
-          <span class="filter-chip chip-accent active" onclick="setTimeBudget('any', this)">Any</span>
+          <span class="filter-chip active" onclick="setTimeBudget('any', this)">Any</span>
           <span class="filter-chip" onclick="setTimeBudget('short', this)">&lt;90m</span>
           <span class="filter-chip" onclick="setTimeBudget('med', this)">90-120m</span>
           <span class="filter-chip" onclick="setTimeBudget('long', this)">&gt;120m</span>
         </div>
 
-        <!-- Decades Chips -->
+        <!-- Decades row -->
         <div class="pill-row">
           <span class="row-label">⏳ Decades:</span>
-          <span class="filter-chip chip-accent active" onclick="setDecade('all', this)">All</span>
+          <span class="filter-chip active" onclick="setDecade('all', this)">All</span>
           <span class="filter-chip" onclick="setDecade('pre70', this)">&lt;70s</span>
           <span class="filter-chip" onclick="setDecade('70s', this)">70s</span>
           <span class="filter-chip" onclick="setDecade('80s', this)">80s</span>
@@ -680,353 +461,436 @@
         </div>
       </div>
 
-      <!-- Backlog vs Completed Switch -->
+      <!-- Status Switch: Backlog vs Completed -->
       <div class="status-switch">
         <button class="btn-status active" id="btnBacklog" onclick="setStatusTab('backlog')">Backlog (<span id="backlogCount">0</span>)</button>
         <button class="btn-status" id="btnCompleted" onclick="setStatusTab('completed')">Completed (<span id="completedCount">0</span>)</button>
         <span class="reset-link" onclick="resetFilters()">Reset Filters</span>
       </div>
 
-      <!-- Items Grid -->
+      <!-- Items Grid with Real Poster Images -->
       <div class="grid" id="itemsGrid"></div>
     </section>
 
+    <!-- 2. MARATHONS & PACKS VIEW -->
     <section id="view-marathons" style="display:none;">
       <div class="view-card" style="text-align:left;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <div>
-            <h3>🍿 Curated Marathons & Packs</h3>
-            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Thematic collections built for high-stakes viewing sessions.</p>
-          </div>
-          <button class="btn-tool btn-add" onclick="openNewMarathonModal()">+ New Pack</button>
-        </div>
-        <div id="marathonList" style="display:flex; flex-direction:column; gap:12px; margin-top:10px;"></div>
+        <h3>🍿 Curated Marathons & Packs</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 14px;">Thematic collections built for high-stakes viewing sessions.</p>
+        <div id="marathonList" style="display:flex; flex-direction:column; gap:10px;"></div>
       </div>
     </section>
 
+    <!-- 3. SPIN WHEEL VIEW WITH ADJUSTABLE SLICES & FILTERS -->
     <section id="view-wheel" style="display:none;">
       <div class="view-card">
-        <h3>🎡 Decision Spin Wheel</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">No endless scrolling. Spin the filtered backlog to let fate decide.</p>
-        <div style="position:relative; display:inline-block; margin-top:10px;">
-          <!-- Wheel Pointer -->
-          <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-top:18px solid var(--accent); z-index:10;"></div>
-          <canvas id="wheelCanvas" class="wheel-canvas" width="280" height="280"></canvas>
+        <h3>🎡 Decision Wheel of Chaos</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Filter your pool, configure slice count, and let fate settle the debate.</p>
+        
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px; margin:12px auto 6px; text-align:left; max-width:380px;">
+          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">SLICES ON WHEEL:</div>
+          <div class="pill-row" style="margin-bottom:8px;">
+            <span class="filter-chip" onclick="setWheelSlices(4, this)">4 Slices</span>
+            <span class="filter-chip active" onclick="setWheelSlices(6, this)">6 Slices</span>
+            <span class="filter-chip" onclick="setWheelSlices(8, this)">8 Slices</span>
+            <span class="filter-chip" onclick="setWheelSlices(10, this)">10 Slices</span>
+            <span class="filter-chip" onclick="setWheelSlices(12, this)">12 Slices</span>
+          </div>
+
+          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">WHEEL CANDIDATE POOL:</div>
+          <div class="pill-row">
+            <span class="filter-chip active" onclick="setWheelPool('all', this)">All Backlog</span>
+            <span class="filter-chip" id="wheelP1Chip" onclick="setWheelPool('p1', this)">Alex's Picks</span>
+            <span class="filter-chip" id="wheelP2Chip" onclick="setWheelPool('p2', this)">Sam's Picks</span>
+            <span class="filter-chip" onclick="setWheelPool('date', this)">💕 Date Night</span>
+          </div>
         </div>
-        <br>
-        <button class="btn-tool btn-add" style="margin:12px auto; padding:8px 24px; font-size:0.9rem;" onclick="spinTheWheel()">🌀 SPIN WHEEL</button>
-        <div id="wheelResult" style="font-weight:bold; margin-top:6px; font-size:1.05rem; color:var(--accent); min-height:24px;"></div>
+
+        <canvas id="wheelCanvas" class="wheel-canvas" width="280" height="280"></canvas>
+        
+        <div style="display:flex; justify-content:center; gap:8px; margin-top:6px;">
+          <button class="btn-tool btn-add" style="padding:8px 22px; font-size:0.9rem;" onclick="spinTheWheel()">🌀 SPIN WHEEL</button>
+          <button class="btn-tool" onclick="reshuffleWheel()">🎲 Reshuffle Pool</button>
+        </div>
+        
+        <div id="wheelStatus" style="font-size:0.72rem; color:var(--text-muted); margin-top:8px;"></div>
+        <div id="wheelResult" style="font-weight:bold; margin-top:10px; font-size:1.05rem; color:var(--accent);"></div>
       </div>
     </section>
 
+    <!-- 4. SHOWDOWN DUEL VIEW -->
     <section id="view-showdown" style="display:none;">
       <div class="view-card">
-        <h3>⚔️ The Showdown Duel</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">One pick from each partner enters the ring. Tap the victor to crown tonight's watch!</p>
+        <h3>⚔️ The Showdown</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">One pick from each partner enters the ring. Tap the victor!</p>
         <div class="duel-grid" id="showdownBox"></div>
         <button class="btn-tool" style="margin:16px auto 0;" onclick="setupShowdown()">🎲 Reroll Competitors</button>
       </div>
     </section>
 
+    <!-- 5. SCRATCH-OFF VIEW WITH FILTERS & HIGH-CONTRAST CARD -->
     <section id="view-scratch" style="display:none;">
       <div class="view-card">
-        <h3>🎟 Blind Mystery Scratch-Off</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Rub your finger or mouse across the silver foil to reveal tonight's pick.</p>
-        <div style="position:relative; width:260px; height:140px; margin:14px auto;">
-          <div id="scratchHiddenText" style="position:absolute; inset:0; background:#1b2129; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px; font-weight:bold; color:var(--accent);">
-            Loading mystery pick...
+        <h3>🎟️ Blind Mystery Scratch-Off</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Rub your finger across the ticket to reveal your mystery pick.</p>
+        
+        <!-- Scratch Ticket Filters -->
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:8px 12px; margin:10px auto; max-width:320px; text-align:left;">
+          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">SCRATCH TICKET POOL:</div>
+          <div class="pill-row">
+            <span class="filter-chip active" onclick="setScratchPool('all', this)">All</span>
+            <span class="filter-chip" onclick="setScratchPool('movie', this)">🎬 Movies</span>
+            <span class="filter-chip" onclick="setScratchPool('tv', this)">📺 TV</span>
+            <span class="filter-chip" onclick="setScratchPool('book', this)">📖 Books</span>
+            <span class="filter-chip" onclick="setScratchPool('date', this)">💕 Date Night</span>
           </div>
-          <canvas id="scratchCanvas" class="scratch-canvas" width="260" height="140" style="position:absolute; inset:0;"></canvas>
         </div>
-        <button class="btn-tool" style="margin:8px auto;" onclick="initScratchCard()">✨ New Mystery Ticket</button>
+
+        <div class="scratch-container" id="scratchContainer">
+          <div class="scratch-prize" id="scratchPrize">
+            <img id="scratchImg" class="scratch-prize-img" src="" alt="Poster">
+            <div>
+              <div id="scratchCategory" style="font-size:0.65rem; color:var(--accent); font-weight:bold; text-transform:uppercase;">MOVIE</div>
+              <h4 id="scratchTitle" style="color:var(--text-bright); font-size:0.95rem; margin:2px 0;">Title</h4>
+              <div id="scratchMeta" style="font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">2024 • 105m</div>
+              <p id="scratchSynopsis" style="font-size:0.68rem; color:var(--text); line-height:1.3; max-height:48px; overflow:hidden;">Synopsis teaser...</p>
+            </div>
+          </div>
+          <canvas id="scratchCanvas" class="scratch-canvas" width="290" height="180"></canvas>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:8px;">
+          <button class="btn-tool" onclick="revealScratchCard()">✨ Reveal Card</button>
+          <button class="btn-tool btn-add" onclick="initScratchCard()">🎲 New Mystery Ticket</button>
+        </div>
       </div>
     </section>
 
+    <!-- 6. SHELF & UPC SCANNER VIEW -->
     <section id="view-shelf" style="display:none;">
       <div class="view-card" style="text-align:left;">
         <h3>📦 Physical Shelf & UPC Scanner</h3>
         <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Map your physical disc library, 4K steelbooks, and shelf slot numbers.</p>
         <div style="display:flex; gap:6px; margin-bottom:12px;">
-          <input type="text" id="shelfBarcode" class="search-input" placeholder="Enter shelf # or barcode (e.g. A-01, B-12)...">
+          <input type="text" id="shelfBarcode" class="search-input" placeholder="Enter barcode or shelf # (e.g., A-01)...">
           <button class="btn-tool btn-add" onclick="locateShelfItem()">Search</button>
         </div>
-        <div id="shelfResults" style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">Enter a physical shelf tag or title to locate where it sits.</div>
+        <div id="shelfResults" style="font-size:0.8rem; color:var(--text-muted);">Enter a physical location code or title to look up shelf position.</div>
       </div>
     </section>
 
+    <!-- 7. SYNC HUB VIEW -->
     <section id="view-sync" style="display:none;">
       <div class="view-card" style="text-align:left;">
         <h3>🔄 Device Sync & Backup Hub</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 14px;">OmniVault saves 100% of your data locally inside your browser storage. Keep devices synced by transferring the backup file.</p>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">OmniVault saves 100% of your data locally. Sync between phones by sharing the JSON state file.</p>
         <div style="display:flex; flex-direction:column; gap:10px;">
-          <button class="btn-tool" style="justify-content:center; padding:11px;" onclick="exportData()">📤 Download JSON Backup File</button>
-          <label class="btn-tool" style="justify-content:center; padding:11px; cursor:pointer;">
-            📥 Restore from JSON Backup File
-            <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importDataFile(event)">
+          <button class="btn-tool" style="justify-content:center; padding:10px;" onclick="exportData()">📤 Export Vault Backup (.json)</button>
+          <label class="btn-tool" style="justify-content:center; padding:10px; cursor:pointer;">
+            📥 Import Backup (.json)
+            <input type="file" id="importInput" style="display:none;" onchange="importData(event)">
           </label>
-          <button class="btn-tool" style="justify-content:center; padding:11px; color:#ff7b72;" onclick="promptResetFactory()">⚠️ Factory Reset Default Library</button>
         </div>
       </div>
     </section>
 
-  </main>
+  </div>
 
-  <!-- MODAL: ADD TITLE -->
-  <div class="modal-overlay" id="modalAdd">
-    <div class="modal-box">
-      <div class="modal-header">
-        <strong style="color:var(--text-bright);">+ Add New Title to Vault</strong>
-        <button class="modal-close" onclick="closeModal('modalAdd')">✕</button>
-      </div>
-      <div>
-        <label class="form-label">Title *</label>
-        <input type="text" id="addTitle" class="form-input" placeholder="e.g. Alien: Romulus">
-
-        <label class="form-label">Media Type</label>
-        <select id="addType" class="form-select">
-          <option value="movie">🎬 Movie</option>
-          <option value="tv">📺 TV Series</option>
-          <option value="book">📖 Book</option>
-          <option value="game">🎮 Game</option>
-        </select>
-
-        <div style="display:flex; gap:8px;">
-          <div style="flex:1;">
-            <label class="form-label">Year</label>
-            <input type="number" id="addYear" class="form-input" value="2024">
-          </div>
-          <div style="flex:1;">
-            <label class="form-label">Runtime (Mins)</label>
-            <input type="number" id="addRuntime" class="form-input" value="105">
-          </div>
+  <!-- MOVIE DETAIL / PREVIEW INSPECTION MODAL -->
+  <div class="modal-overlay" id="detailModal" onclick="closeDetailModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <h3 id="modalTitle">Movie Title</h3>
+          <div class="subhead" id="modalMeta">2024 • 115m • 🍿 Movie</div>
         </div>
+        <button class="btn-tool" style="border:none; font-size:1.1rem; padding:2px 8px;" onclick="document.getElementById('detailModal').style.display='none'">✕</button>
+      </div>
 
-        <div style="display:flex; gap:8px;">
-          <div style="flex:1;">
-            <label class="form-label">Pet Safety</label>
-            <select id="addPetSafe" class="form-select">
-              <option value="true">🐾 Pet Safe</option>
-              <option value="false">⚠️ Pet Danger / Alert</option>
-            </select>
-          </div>
-          <div style="flex:1;">
-            <label class="form-label">Sound Mix</label>
-            <select id="addSoundMix" class="form-select">
-              <option value="Balanced Mix">Balanced Mix</option>
-              <option value="Wide Dynamic Range">Wide Dynamic Range</option>
-            </select>
-          </div>
+      <div style="display:flex; gap:12px; margin-bottom:12px;">
+        <img id="modalPoster" src="" alt="Poster" style="width:100px; height:145px; object-fit:cover; border-radius:6px; background:#21262d;">
+        <div style="flex:1;">
+          <div class="modal-section-title">Overview</div>
+          <p id="modalSynopsis" style="font-size:0.78rem; line-height:1.4; color:var(--text);">Plot synopsis goes here.</p>
         </div>
+      </div>
 
-        <label class="form-label">Physical Shelf Location / Code</label>
-        <input type="text" id="addShelf" class="form-input" placeholder="e.g. A-14, Steelbook-02, Digital">
+      <div class="modal-section">
+        <div class="modal-section-title">🐾 Pet Safety & House Alerts</div>
+        <p id="modalPetAlert" style="font-size:0.78rem; line-height:1.4; color:var(--text);">Checking pet safety profile...</p>
+      </div>
 
-        <label class="form-label">Icon / Emoji</label>
-        <input type="text" id="addEmoji" class="form-input" value="🎬">
+      <div class="modal-section">
+        <div class="modal-section-title">🔊 Sound Dynamics & Acoustics</div>
+        <p id="modalSoundMix" style="font-size:0.78rem; line-height:1.4; color:var(--text);">Acoustic profile details.</p>
+      </div>
 
-        <button class="btn-tool btn-add" style="width:100%; margin-top:16px; padding:10px; justify-content:center;" onclick="saveNewItem()">Save to OmniVault</button>
+      <div class="modal-section">
+        <div class="modal-section-title">📦 Media Format & Location</div>
+        <p id="modalShelf" style="font-size:0.78rem; line-height:1.4; color:var(--text);">Shelf location slot.</p>
+      </div>
+
+      <div style="display:flex; gap:6px; margin-top:14px;">
+        <button class="btn-tool" style="flex:1; justify-content:center;" id="modalToggleWatched" onclick="toggleWatchedFromModal()">Mark Completed</button>
+        <button class="btn-tool" style="color:var(--red);" id="modalDeleteBtn" onclick="deleteFromModal()">🗑️ Remove</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: EAS CIVIL DEFENSE TIE-BREAKER -->
-  <div class="modal-overlay" id="modalEAS">
-    <div class="modal-box eas-alarm-box">
-      <div class="modal-header" style="border-color:var(--red);">
-        <strong style="color:#ff7b72;">🚨 CIVIL DEFENSE EMERGENCY PROTOCOL</strong>
-        <button class="modal-close" style="color:#ff7b72;" onclick="closeModal('modalEAS')">✕</button>
+  <!-- + ADD MODAL WITH LIVE AUTOFILL & DYNAMIC FIELDS -->
+  <div class="modal-overlay" id="addModal" onclick="closeAddModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+        <h3>+ Add Title to Vault</h3>
+        <button class="btn-tool" style="border:none; font-size:1.1rem; padding:2px 8px;" onclick="document.getElementById('addModal').style.display='none'">✕</button>
       </div>
-      <p style="font-size:0.8rem; line-height:1.4; margin-bottom:12px;">
-        <b>ATTENTION:</b> Living room decision paralysis detected! All democratic couples veto privileges are suspended immediately.
-      </p>
-      <div id="easWinnerBox" style="background:#0b0f14; border:1px solid var(--red); padding:14px; border-radius:6px; margin-bottom:14px; text-align:center;">
-        <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Mandatory Draft Selection</span>
-        <div id="easMovieTitle" style="font-size:1.15rem; font-weight:800; color:#fff; margin-top:4px;">Drawing decree...</div>
-      </div>
-      <button class="btn-tool" style="width:100%; justify-content:center; padding:10px; background:var(--red); color:#fff; font-weight:bold;" onclick="triggerEASSelection()">🎲 Enforce Emergency Random Pick</button>
-    </div>
-  </div>
 
-  <!-- MODAL: RENAME PARTNER -->
-  <div class="modal-overlay" id="modalRename">
-    <div class="modal-box">
-      <div class="modal-header">
-        <strong style="color:var(--text-bright);" id="renameModalTitle">Edit Partner Name</strong>
-        <button class="modal-close" onclick="closeModal('modalRename')">✕</button>
+      <!-- Auto-populate search box -->
+      <div class="form-group">
+        <label>Title *</label>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="addTitleInput" class="form-control" placeholder="e.g. Alien: Romulus, Neuromancer...">
+          <button class="btn-tool btn-add" style="white-space:nowrap;" onclick="autoFetchMetadata()">⚡ Autofill</button>
+        </div>
+        <div id="fetchStatus" style="font-size:0.7rem; color:var(--accent); margin-top:4px;"></div>
       </div>
-      <div>
-        <label class="form-label">Partner Name</label>
-        <input type="text" id="renameInput" class="form-input">
-        <button class="btn-tool btn-add" style="width:100%; margin-top:14px; padding:10px; justify-content:center;" onclick="saveRenamedPartner()">Save Name</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- MODAL: CREATE MARATHON -->
-  <div class="modal-overlay" id="modalNewMarathon">
-    <div class="modal-box">
-      <div class="modal-header">
-        <strong style="color:var(--text-bright);">+ Create Thematic Marathon Pack</strong>
-        <button class="modal-close" onclick="closeModal('modalNewMarathon')">✕</button>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Media Type</label>
+          <select id="addTypeSelect" class="form-control" onchange="adjustAddFormFields()">
+            <option value="movie">🎬 Movie</option>
+            <option value="tv">📺 TV Show</option>
+            <option value="book">📖 Book</option>
+            <option value="game">🎮 Video Game</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label id="addAuthorOrGenreLabel">Primary Genre</label>
+          <input type="text" id="addGenreInput" class="form-control" placeholder="e.g. Sci-Fi">
+        </div>
       </div>
-      <div>
-        <label class="form-label">Marathon Title *</label>
-        <input type="text" id="mPackTitle" class="form-input" placeholder="e.g. 90s Paranoia Sprint">
-        <label class="form-label">Description / Theme Rule</label>
-        <input type="text" id="mPackDesc" class="form-input" placeholder="e.g. Tense psychological isolation.">
-        <label class="form-label">Pick Titles from Vault (comma-separated titles)</label>
-        <input type="text" id="mPackTitles" class="form-input" placeholder="Coherence, Annihilation, Panic Room">
-        <button class="btn-tool btn-add" style="width:100%; margin-top:14px; padding:10px; justify-content:center;" onclick="saveCustomMarathon()">Create Pack</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- REUSABLE IN-APP MESSAGE / CONFIRMATION MODAL (No alert() or confirm()) -->
-  <div class="modal-overlay" id="modalConfirm">
-    <div class="modal-box">
-      <div class="modal-header">
-        <strong style="color:var(--text-bright);" id="confirmTitle">Confirm Action</strong>
-        <button class="modal-close" onclick="closeModal('modalConfirm')">✕</button>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Year</label>
+          <input type="number" id="addYearInput" class="form-control" value="2024">
+        </div>
+        <div class="form-group">
+          <label id="addRuntimeOrPagesLabel">Runtime (Mins)</label>
+          <input type="number" id="addRuntimeInput" class="form-control" value="105">
+        </div>
       </div>
-      <p id="confirmMessage" style="font-size:0.85rem; color:var(--text); line-height:1.4; margin-bottom:16px;">Are you sure?</p>
-      <div style="display:flex; justify-content:flex-end; gap:8px;">
-        <button class="btn-tool" onclick="closeModal('modalConfirm')">Cancel</button>
-        <button class="btn-tool" id="btnConfirmAction" style="background:var(--red); color:#fff;">Confirm</button>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Pet Safety</label>
+          <select id="addPetSafeSelect" class="form-control">
+            <option value="safe">🐾 Pet Safe</option>
+            <option value="alert">⚠️ Pet Alert</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Sound Mix</label>
+          <select id="addSoundMixSelect" class="form-control">
+            <option value="Balanced Mix">Balanced Mix</option>
+            <option value="Wide Dynamic Range">Wide Dynamic Range</option>
+          </select>
+        </div>
       </div>
+
+      <div class="form-group">
+        <label>Poster Artwork URL</label>
+        <input type="text" id="addPosterInput" class="form-control" placeholder="https://...">
+      </div>
+
+      <div class="form-group">
+        <label>Physical Shelf Location / Slot</label>
+        <input type="text" id="addShelfInput" class="form-control" placeholder="e.g. A-14, Steelbook-02, Digital">
+      </div>
+
+      <div class="form-group">
+        <label>Plot Synopsis</label>
+        <textarea id="addSynopsisInput" class="form-control" style="height:60px;" placeholder="Brief synopsis..."></textarea>
+      </div>
+
+      <button class="btn-tool btn-add" style="width:100%; justify-content:center; padding:10px; font-size:0.85rem; margin-top:8px;" onclick="saveNewTitle()">Save to OmniVault</button>
     </div>
   </div>
 
   <script>
     /* ========================================================
-       1. WEB AUDIO SYNTHESIZER (Pure JS sounds, zero external audio URLs)
-       ======================================================== */
-    let audioCtx = null;
-    function playBeep(freq = 440, duration = 0.08, type = 'sine') {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
-    }
-
-    function playFanfare() {
-      [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
-        setTimeout(() => playBeep(freq, 0.2, 'triangle'), idx * 75);
-      });
-    }
-
-    function playSirens() {
-      [880, 440, 880, 440, 880].forEach((f, i) => {
-        setTimeout(() => playBeep(f, 0.18, 'sawtooth'), i * 160);
-      });
-    }
-
-    /* ========================================================
-       2. PERSISTENT PARTNER & VAULT STATE
+       1. PARTNER DATA & PERSISTENCE
        ======================================================== */
     let p1 = localStorage.getItem('omni_p1') || 'Alex';
     let p2 = localStorage.getItem('omni_p2') || 'Sam';
-    let partnerFilter = 'all'; // 'p1', 'p2', 'date', or 'all'
-    let mediaTypeFilter = 'all';
-    let timeBudgetFilter = 'any';
-    let decadeFilter = 'all';
+    let currentPartnerFilter = 'all';
+    let currentStatus = 'backlog';
+    let currentMediaType = 'all';
+    let currentGenre = 'all';
+    let currentTimeBudget = 'any';
+    let currentDecade = 'all';
     let filterPetOnly = false;
     let filterSoundOnly = false;
-    let statusTab = 'backlog'; // 'backlog' or 'completed'
-    let renamingPartnerIndex = 1;
+    let activeDetailMovieId = null;
 
+    function initPartners() {
+      document.getElementById('p1Label').textContent = p1;
+      document.getElementById('p2Label').textContent = p2;
+      const w1 = document.getElementById('wheelP1Chip');
+      const w2 = document.getElementById('wheelP2Chip');
+      if (w1) w1.textContent = `${p1}'s Picks`;
+      if (w2) w2.textContent = `${p2}'s Picks`;
+    }
+
+    function renamePartner(num) {
+      const current = num === 1 ? p1 : p2;
+      const updated = prompt(`Enter name for Partner ${num}:`, current);
+      if (updated && updated.trim() !== '') {
+        if (num === 1) {
+          p1 = updated.trim();
+          localStorage.setItem('omni_p1', p1);
+        } else {
+          p2 = updated.trim();
+          localStorage.setItem('omni_p2', p2);
+        }
+        initPartners();
+        renderVault();
+      }
+    }
+
+    function togglePartner(p) {
+      currentPartnerFilter = currentPartnerFilter === p ? 'all' : p;
+      updatePartnerUI();
+      renderVault();
+    }
+
+    function toggleDateNight() {
+      currentPartnerFilter = currentPartnerFilter === 'date' ? 'all' : 'date';
+      updatePartnerUI();
+      renderVault();
+    }
+
+    function updatePartnerUI() {
+      document.getElementById('p1Pill').className = 'partner-pill' + (currentPartnerFilter === 'p1' ? ' active-p1' : '');
+      document.getElementById('p2Pill').className = 'partner-pill' + (currentPartnerFilter === 'p2' ? ' active-p2' : '');
+      document.getElementById('datePill').className = 'partner-pill' + (currentPartnerFilter === 'date' ? ' active-date' : '');
+    }
+
+    /* ========================================================
+       2. CATALOG WITH HIGH-RES REAL POSTER ARTWORK
+       ======================================================== */
     const DEFAULT_CATALOG = [
-      { id: '1', title: 'Coherence', type: 'movie', year: 2013, runtime: 89, petSafe: true, soundMix: 'Balanced Mix', p1: true, p2: true, completed: false, rating: '100%', shelf: 'A-01', emoji: '🌌' },
-      { id: '2', title: 'Annihilation', type: 'movie', year: 2018, runtime: 115, petSafe: true, soundMix: 'Wide Dynamic Range', p1: true, p2: false, completed: false, rating: '85%', shelf: 'A-02', emoji: '🧬' },
-      { id: '3', title: 'Neuromancer', type: 'book', year: 1984, runtime: 271, petSafe: true, soundMix: 'Balanced Mix', p1: true, p2: true, completed: false, rating: '100%', shelf: 'Book-04', emoji: '📖' },
-      { id: '4', title: 'Panic Room', type: 'movie', year: 2002, runtime: 112, petSafe: true, soundMix: 'Balanced Mix', p1: false, p2: true, completed: false, rating: '100%', shelf: 'B-12', emoji: '🚪' },
-      { id: '5', title: 'The Thing', type: 'movie', year: 1982, runtime: 109, petSafe: false, soundMix: 'Wide Dynamic Range', p1: true, p2: true, completed: false, rating: '95%', shelf: 'Steelbook-01', emoji: '❄️' },
-      { id: '6', title: 'Severance (Season 1)', type: 'tv', year: 2022, runtime: 450, petSafe: true, soundMix: 'Balanced Mix', p1: true, p2: true, completed: true, rating: '98%', shelf: 'Stream', emoji: '💼' }
-    ];
-
-    const DEFAULT_MARATHONS = [
-      { id: 'm1', title: "🧠 Claustrophobic Paranoia", desc: "No exits, creeping panic, and uncertain reality.", list: ["Coherence", "Panic Room", "The Thing"] },
-      { id: 'm2', title: "🐾 Jasper-Approved Quiet Night", desc: "No doorbells, zero thunder, no animal jeopardy.", list: ["Neuromancer", "Fantastic Mr. Fox", "Wall-E"] },
-      { id: 'm3', title: "⚡ High-Stakes Sci-Fi Escapes", desc: "Futuristic anomalies and survival under pressure.", list: ["Annihilation", "Ex Machina", "Interstellar"] }
+      {
+        id: '1',
+        title: 'Coherence',
+        type: 'movie',
+        genre: 'Sci-Fi',
+        year: 2013,
+        runtime: 89,
+        petSafe: true,
+        petNotes: '🐾 Zero doorbells, fireworks, or animal distress sounds.',
+        soundMix: 'Balanced Mix',
+        soundNotes: 'Dialogue-driven indie audio mix; safe for late-night viewing.',
+        synopsis: 'On the night of an astronomical anomaly, eight friends at a dinner party experience a troubling chain of reality-bending events.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BNzQ1OTA5MjQ1Ml5BMl5BanBnXkFtZTgwMDUyODMzMjE@._V1_FMjpg_UX600_.jpg',
+        p1: true,
+        p2: true,
+        completed: false,
+        rating: '100%',
+        shelf: 'A-01'
+      },
+      {
+        id: '2',
+        title: 'Annihilation',
+        type: 'movie',
+        genre: 'Sci-Fi',
+        year: 2018,
+        runtime: 115,
+        petSafe: false,
+        petNotes: '⚠️️ High Alert: Mutated bear scene produces screeching creature sounds.',
+        soundMix: 'Wide Dynamic Range',
+        soundNotes: 'Bass-heavy synth drone with massive volume spikes.',
+        synopsis: 'A biologist signs up for a secret expedition into a mysterious environmental anomaly where the laws of nature do not apply.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BMTk2Mjc2NzYxN15BMl5BanBnXkFtZTgwMTA2OTA1NDM@._V1_FMjpg_UX600_.jpg',
+        p1: true,
+        p2: false,
+        completed: false,
+        rating: '85%',
+        shelf: 'A-02'
+      },
+      {
+        id: '3',
+        title: 'Neuromancer',
+        type: 'book',
+        genre: 'Cyberpunk',
+        year: 1984,
+        runtime: 271,
+        petSafe: true,
+        petNotes: '🐾 100% Pet-Safe (Audiobook / Paperback format).',
+        soundMix: 'Balanced Mix',
+        soundNotes: 'Clean narration tone.',
+        synopsis: 'Case was the sharpest data-thief in the matrix until ex-employers crippled his nervous system. Now a shadowy employer offers a cure in exchange for a target run.',
+        poster: 'https://covers.openlibrary.org/b/id/12843860-L.jpg',
+        p1: true,
+        p2: true,
+        completed: false,
+        rating: '100%',
+        shelf: 'Book-04'
+      },
+      {
+        id: '4',
+        title: 'Panic Room',
+        type: 'movie',
+        genre: 'Thriller',
+        year: 2002,
+        runtime: 112,
+        petSafe: true,
+        petNotes: '🐾 Confined interior suspense. No dog barks or surprise chimes.',
+        soundMix: 'Balanced Mix',
+        soundNotes: 'Fincher directional audio mix; well-balanced dialogue channel.',
+        synopsis: 'A divorced woman and her diabetic daughter take refuge in their newly purchased New York home’s safe room when intruders invade.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BMjA5OTY2MzY0Nl5BMl5BanBnXkFtZTYwODU4Mzg5._V1_FMjpg_UX600_.jpg',
+        p1: false,
+        p2: true,
+        completed: false,
+        rating: '100%',
+        shelf: 'B-12'
+      },
+      {
+        id: '5',
+        title: 'The Thing',
+        type: 'movie',
+        genre: 'Horror',
+        year: 1982,
+        runtime: 109,
+        petSafe: false,
+        petNotes: '⚠️ High Alert: Kennel scene contains severe dog distress noises.',
+        soundMix: 'Wide Dynamic Range',
+        soundNotes: 'Ennio Morricone synth score with intense screams and flamethrower bursts.',
+        synopsis: 'A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BNGViZWZmM2EtNGYzZi00NWNiLTg2ODMtGRlOGE1N2FhYzYwXkEyXkFqcGc@._V1_FMjpg_UX600_.jpg',
+        p1: true,
+        p2: true,
+        completed: false,
+        rating: '95%',
+        shelf: 'Steelbook-01'
+      }
     ];
 
     let vault = JSON.parse(localStorage.getItem('omni_vault_data')) || DEFAULT_CATALOG;
-    let marathons = JSON.parse(localStorage.getItem('omni_marathons_data')) || DEFAULT_MARATHONS;
 
     function saveVault() {
       localStorage.setItem('omni_vault_data', JSON.stringify(vault));
     }
-    function saveMarathons() {
-      localStorage.setItem('omni_marathons_data', JSON.stringify(marathons));
-    }
 
     /* ========================================================
-       3. PARTNER MANAGEMENT & FILTER CONTROLS
-       ======================================================== */
-    function initPartnerUI() {
-      document.getElementById('p1Label').textContent = p1;
-      document.getElementById('p2Label').textContent = p2;
-    }
-
-    function promptRenamePartner(partnerNum) {
-      renamingPartnerIndex = partnerNum;
-      document.getElementById('renameModalTitle').textContent = `Edit Name for Partner ${partnerNum}`;
-      document.getElementById('renameInput').value = partnerNum === 1 ? p1 : p2;
-      openModal('modalRename');
-      setTimeout(() => document.getElementById('renameInput').focus(), 150);
-    }
-
-    function saveRenamedPartner() {
-      const val = document.getElementById('renameInput').value.trim();
-      if (!val) return;
-      if (renamingPartnerIndex === 1) {
-        p1 = val;
-        localStorage.setItem('omni_p1', p1);
-      } else {
-        p2 = val;
-        localStorage.setItem('omni_p2', p2);
-      }
-      initPartnerUI();
-      renderVault();
-      closeModal('modalRename');
-      playBeep(640, 0.08);
-    }
-
-    function togglePartner(which) {
-      partnerFilter = partnerFilter === which ? 'all' : which;
-      updatePartnerBarUI();
-      renderVault();
-      playBeep(520, 0.04);
-    }
-
-    function toggleDateNight() {
-      partnerFilter = partnerFilter === 'date' ? 'all' : 'date';
-      updatePartnerBarUI();
-      renderVault();
-      playBeep(580, 0.04);
-    }
-
-    function updatePartnerBarUI() {
-      document.getElementById('p1Pill').className = 'partner-pill' + (partnerFilter === 'p1' ? ' active-p1' : '');
-      document.getElementById('p2Pill').className = 'partner-pill' + (partnerFilter === 'p2' ? ' active-p2' : '');
-      document.getElementById('datePill').className = 'partner-pill' + (partnerFilter === 'date' ? ' active-date' : '');
-    }
-
-    /* ========================================================
-       4. VAULT RENDERING ENGINE
+       3. SORTING & FILTER ENGINE
        ======================================================== */
     function renderVault() {
       const grid = document.getElementById('itemsGrid');
-      const query = (document.getElementById('searchBox').value || '').toLowerCase().trim();
+      const query = (document.getElementById('searchBox').value || '').toLowerCase();
+      const sortMode = document.getElementById('sortSelect').value;
       grid.innerHTML = '';
 
       const backlogList = vault.filter(i => !i.completed);
@@ -1034,66 +898,78 @@
       document.getElementById('backlogCount').textContent = backlogList.length;
       document.getElementById('completedCount').textContent = completedList.length;
 
-      const filtered = vault.filter(item => {
-        if (statusTab === 'backlog' && item.completed) return false;
-        if (statusTab === 'completed' && !item.completed) return false;
+      let filtered = vault.filter(item => {
+        if (currentStatus === 'backlog' && item.completed) return false;
+        if (currentStatus === 'completed' && !item.completed) return false;
+        if (currentMediaType !== 'all' && item.type !== currentMediaType) return false;
+        if (currentGenre !== 'all' && (item.genre || '').toLowerCase() !== currentGenre.toLowerCase()) return false;
 
-        if (mediaTypeFilter !== 'all' && item.type !== mediaTypeFilter) return false;
-        if (partnerFilter === 'p1' && !item.p1) return false;
-        if (partnerFilter === 'p2' && !item.p2) return false;
-        if (partnerFilter === 'date' && (!item.p1 || !item.p2)) return false;
+        if (currentPartnerFilter === 'p1' && !item.p1) return false;
+        if (currentPartnerFilter === 'p2' && !item.p2) return false;
+        if (currentPartnerFilter === 'date' && (!item.p1 || !item.p2)) return false;
 
         if (filterPetOnly && !item.petSafe) return false;
         if (filterSoundOnly && item.soundMix !== 'Balanced Mix') return false;
 
-        if (timeBudgetFilter === 'short' && item.runtime >= 90) return false;
-        if (timeBudgetFilter === 'med' && (item.runtime < 90 || item.runtime > 120)) return false;
-        if (timeBudgetFilter === 'long' && item.runtime <= 120) return false;
+        if (currentTimeBudget === 'short' && item.runtime >= 90) return false;
+        if (currentTimeBudget === 'med' && (item.runtime < 90 || item.runtime > 120)) return false;
+        if (currentTimeBudget === 'long' && item.runtime <= 120) return false;
 
-        if (decadeFilter === 'pre70' && item.year >= 1970) return false;
-        if (decadeFilter === '70s' && (item.year < 1970 || item.year > 1979)) return false;
-        if (decadeFilter === '80s' && (item.year < 1980 || item.year > 1989)) return false;
-        if (decadeFilter === '90s' && (item.year < 1990 || item.year > 1999)) return false;
-        if (decadeFilter === '2000s' && (item.year < 2000 || item.year > 2009)) return false;
-        if (decadeFilter === '2010s' && (item.year < 2010 || item.year > 2019)) return false;
-        if (decadeFilter === '2020s' && item.year < 2020) return false;
+        if (currentDecade === 'pre70' && item.year >= 1970) return false;
+        if (currentDecade === '70s' && (item.year < 1970 || item.year > 1979)) return false;
+        if (currentDecade === '80s' && (item.year < 1980 || item.year > 1989)) return false;
+        if (currentDecade === '90s' && (item.year < 1990 || item.year > 1999)) return false;
+        if (currentDecade === '2000s' && (item.year < 2000 || item.year > 2009)) return false;
+        if (currentDecade === '2010s' && (item.year < 2010 || item.year > 2019)) return false;
+        if (currentDecade === '2020s' && item.year < 2020) return false;
 
-        if (query) {
-          const matchTitle = item.title.toLowerCase().includes(query);
-          const matchShelf = (item.shelf || '').toLowerCase().includes(query);
-          const matchYear = String(item.year).includes(query);
-          if (!matchTitle && !matchShelf && !matchYear) return false;
-        }
+        if (query && !item.title.toLowerCase().includes(query) && !(item.shelf || '').toLowerCase().includes(query) && !(item.genre || '').toLowerCase().includes(query)) return false;
 
         return true;
       });
 
+      // Sorting Logic
+      filtered.sort((a, b) => {
+        if (sortMode === 'title-asc') return a.title.localeCompare(b.title);
+        if (sortMode === 'title-desc') return b.title.localeCompare(a.title);
+        if (sortMode === 'year-desc') return b.year - a.year;
+        if (sortMode === 'year-asc') return a.year - b.year;
+        if (sortMode === 'runtime-asc') return a.runtime - b.runtime;
+        if (sortMode === 'runtime-desc') return b.runtime - a.runtime;
+        if (sortMode === 'rating-desc') return parseInt(b.rating || 0) - parseInt(a.rating || 0);
+        return 0;
+      });
+
       if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:34px 10px; color:var(--text-muted); font-size:0.85rem;">No vault entries match your active filters.</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">No entries match your filters.</div>`;
         return;
       }
 
       filtered.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
+        card.onclick = () => openDetailModal(item.id);
+        
+        const fallbackSrc = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
+        const posterUrl = item.poster && item.poster.trim() !== '' ? item.poster : fallbackSrc;
+
         card.innerHTML = `
           <div class="poster-box">
+            <img class="poster-img" src="${posterUrl}" alt="${item.title}" onerror="this.src='${fallbackSrc}'">
             <span class="media-type-tag">${item.type}</span>
-            <span class="poster-badge-top">${item.rating}</span>
-            ${item.emoji}
+            <span class="poster-badge-top">${item.rating || '100%'}</span>
           </div>
           <div class="card-info">
-            <div class="title-row" title="${item.title}">${item.title}</div>
-            <div class="meta-row">${item.year} • ${item.runtime}m ${item.shelf ? '• ['+item.shelf+']' : ''}</div>
+            <div class="title-row">${item.title}</div>
+            <div class="meta-row">${item.year} • ${item.type === 'book' ? item.runtime + 'p' : item.runtime + 'm'} ${item.shelf ? '• ['+item.shelf+']' : ''}</div>
             <div class="badges-row">
-              <span class="tag-pill ${item.petSafe ? 'safe' : 'alert'}">${item.petSafe ? '🐾 Pet Safe' : '⚠️️ Pet Alert'}</span>
+              <span class="tag-pill ${item.petSafe ? 'safe' : ''}">${item.petSafe ? '🐾 Pet Safe' : '⚠️ Pet Alert'}</span>
               <span class="tag-pill sound">${item.soundMix}</span>
             </div>
-            <div class="action-row">
-              <button class="btn-vote ${item.p1 ? 'voted-p1' : ''}" onclick="toggleVote('${item.id}', 1)" title="Vote ${p1}">${p1} ${item.p1 ? '✓' : ''}</button>
-              <button class="btn-vote ${item.p2 ? 'voted-p2' : ''}" onclick="toggleVote('${item.id}', 2)" title="Vote ${p2}">${p2} ${item.p2 ? '✓' : ''}</button>
-              <button class="btn-card-toggle ${item.completed ? 'done' : ''}" onclick="toggleCompleted('${item.id}')" title="Toggle Completed">${item.completed ? '✅' : '○'}</button>
-              <button class="btn-trash" onclick="confirmDeleteMovie('${item.id}')" title="Delete">🗑️</button>
+            <div class="action-row" onclick="event.stopPropagation()">
+              <button class="btn-vote ${item.p1 ? 'voted-p1' : ''}" onclick="toggleVote('${item.id}', 1)">${p1} ${item.p1 ? '✓' : ''}</button>
+              <button class="btn-vote ${item.p2 ? 'voted-p2' : ''}" onclick="toggleVote('${item.id}', 2)">${p2} ${item.p2 ? '✓' : ''}</button>
+              <button class="btn-trash" onclick="deleteItem('${item.id}')" title="Delete">🗑️</button>
             </div>
           </div>
         `;
@@ -1108,38 +984,31 @@
       if (partnerNum === 2) match.p2 = !match.p2;
       saveVault();
       renderVault();
-      playBeep(partnerNum === 1 ? 580 : 720, 0.05);
     }
 
-    function toggleCompleted(id) {
+    function deleteItem(id) {
       const match = vault.find(i => i.id === id);
       if (!match) return;
-      match.completed = !match.completed;
-      saveVault();
-      renderVault();
-      playBeep(match.completed ? 880 : 440, 0.07);
-    }
-
-    function confirmDeleteMovie(id) {
-      const match = vault.find(i => i.id === id);
-      if (!match) return;
-      document.getElementById('confirmTitle').textContent = "Delete from Vault?";
-      document.getElementById('confirmMessage').textContent = `Are you sure you want to permanently remove "${match.title}" from OmniVault?`;
-      document.getElementById('btnConfirmAction').onclick = function() {
+      if (confirm(`Permanently remove "${match.title}" from OmniVault?`)) {
         vault = vault.filter(i => i.id !== id);
         saveVault();
         renderVault();
-        closeModal('modalConfirm');
-        playBeep(320, 0.1);
-      };
-      openModal('modalConfirm');
+      }
     }
 
+    /* Filter Chips Handlers */
     function setMediaType(type, el) {
-      mediaTypeFilter = type;
+      currentMediaType = type;
       el.parentElement.querySelectorAll('.filter-chip').forEach(c => {
         if (!['🐾 Pet Safe Only', '🔊 Balanced Mix'].includes(c.textContent.trim())) c.classList.remove('active');
       });
+      el.classList.add('active');
+      renderVault();
+    }
+
+    function setGenre(genre, el) {
+      currentGenre = genre;
+      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
       renderVault();
     }
@@ -1157,48 +1026,245 @@
     }
 
     function setTimeBudget(val, el) {
-      timeBudgetFilter = val;
+      currentTimeBudget = val;
       el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
       renderVault();
     }
 
     function setDecade(val, el) {
-      decadeFilter = val;
+      currentDecade = val;
       el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
       renderVault();
     }
 
     function setStatusTab(status) {
-      statusTab = status;
+      currentStatus = status;
       document.getElementById('btnBacklog').className = 'btn-status' + (status === 'backlog' ? ' active' : '');
       document.getElementById('btnCompleted').className = 'btn-status' + (status === 'completed' ? ' active' : '');
       renderVault();
     }
 
     function resetFilters() {
-      partnerFilter = 'all';
-      mediaTypeFilter = 'all';
-      timeBudgetFilter = 'any';
-      decadeFilter = 'all';
+      currentPartnerFilter = 'all';
+      currentMediaType = 'all';
+      currentGenre = 'all';
+      currentTimeBudget = 'any';
+      currentDecade = 'all';
       filterPetOnly = false;
       filterSoundOnly = false;
       document.getElementById('searchBox').value = '';
-      updatePartnerBarUI();
-
+      document.getElementById('sortSelect').value = 'default';
+      updatePartnerUI();
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.chip-accent').forEach(c => c.classList.add('active'));
+      document.querySelector('.chip-accent').classList.add('active');
       renderVault();
-      playBeep(440, 0.05);
     }
 
     /* ========================================================
-       5. NAVIGATION & MARATHONS VIEW
+       4. MOVIE DETAIL PREVIEW MODAL
+       ======================================================== */
+    function openDetailModal(id) {
+      const item = vault.find(i => i.id === id);
+      if (!item) return;
+
+      activeDetailMovieId = id;
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalMeta').textContent = `${item.year} • ${item.type === 'book' ? item.runtime + ' pages' : item.runtime + 'm'} • ${item.type.toUpperCase()} • ${item.genre || 'General'}`;
+      document.getElementById('modalPoster').src = item.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
+      document.getElementById('modalSynopsis').textContent = item.synopsis || 'No synopsis added yet.';
+      document.getElementById('modalPetAlert').textContent = item.petNotes || (item.petSafe ? '🐾 Pet Safe: No registered bark, doorbell, or animal trauma triggers.' : '⚠️ Warning: May contain loud sudden noises or creature distress.');
+      document.getElementById('modalSoundMix').textContent = `${item.soundMix} — ${item.soundNotes || 'Standard mix profile.'}`;
+      document.getElementById('modalShelf').textContent = item.shelf ? `Physical Location: [${item.shelf}]` : 'Digital library copy.';
+
+      document.getElementById('modalToggleWatched').textContent = item.completed ? 'Mark Backlog' : 'Mark Completed';
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function closeDetailModal(e) {
+      if (e.target.id === 'detailModal') {
+        document.getElementById('detailModal').style.display = 'none';
+      }
+    }
+
+    function toggleWatchedFromModal() {
+      if (!activeDetailMovieId) return;
+      const item = vault.find(i => i.id === activeDetailMovieId);
+      if (!item) return;
+      item.completed = !item.completed;
+      saveVault();
+      renderVault();
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    function deleteFromModal() {
+      if (!activeDetailMovieId) return;
+      deleteItem(activeDetailMovieId);
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    /* ========================================================
+       5. AUTO-POPULATE METADATA ENGINE (FREE & KEYLESS)
+       ======================================================== */
+    function adjustAddFormFields() {
+      const type = document.getElementById('addTypeSelect').value;
+      const runtimeLabel = document.getElementById('addRuntimeOrPagesLabel');
+      const genreLabel = document.getElementById('addAuthorOrGenreLabel');
+
+      if (type === 'book') {
+        runtimeLabel.textContent = 'Page Count';
+        genreLabel.textContent = 'Author';
+      } else {
+        runtimeLabel.textContent = 'Runtime (Mins)';
+        genreLabel.textContent = 'Primary Genre';
+      }
+    }
+
+    async function autoFetchMetadata() {
+      const title = document.getElementById('addTitleInput').value.trim();
+      const type = document.getElementById('addTypeSelect').value;
+      const status = document.getElementById('fetchStatus');
+
+      if (!title) {
+        status.textContent = '⚠️ Please enter a title first.';
+        return;
+      }
+
+      status.textContent = '🔍 Fetching details & poster artwork...';
+
+      try {
+        if (type === 'movie' || type === 'tv') {
+          const entity = type === 'tv' ? 'tvSeason' : 'movie';
+          const resp = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(title)}&entity=${entity}&limit=1`);
+          const data = await resp.json();
+
+          if (data.results && data.results.length > 0) {
+            const item = data.results[0];
+            const name = item.trackName || item.collectionName || title;
+            document.getElementById('addTitleInput').value = name;
+            document.getElementById('addYearInput').value = item.releaseDate ? new Date(item.releaseDate).getFullYear() : 2024;
+            
+            if (item.trackTimeMillis) {
+              document.getElementById('addRuntimeInput').value = Math.round(item.trackTimeMillis / 60000);
+            }
+            if (item.primaryGenreName) {
+              document.getElementById('addGenreInput').value = item.primaryGenreName;
+            }
+            if (item.longDescription || item.shortDescription) {
+              document.getElementById('addSynopsisInput').value = item.longDescription || item.shortDescription;
+            }
+            if (item.artworkUrl100) {
+              // Get higher-res artwork by replacing size
+              const hiRes = item.artworkUrl100.replace('100x100bb.jpg', '600x600bb.jpg');
+              document.getElementById('addPosterInput').value = hiRes;
+            }
+
+            // Estimate acoustic mix based on genre
+            const g = (item.primaryGenreName || '').toLowerCase();
+            if (g.includes('action') || g.includes('horror') || g.includes('sci-fi')) {
+              document.getElementById('addSoundMixSelect').value = 'Wide Dynamic Range';
+              document.getElementById('addPetSafeSelect').value = 'alert';
+            } else {
+              document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
+              document.getElementById('addPetSafeSelect').value = 'safe';
+            }
+
+            status.textContent = `✅ Found: "${name}" (${document.getElementById('addYearInput').value})`;
+          } else {
+            status.textContent = '❌ No direct match found. You can enter details manually.';
+          }
+        } else if (type === 'book') {
+          const resp = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=1`);
+          const data = await resp.json();
+
+          if (data.docs && data.docs.length > 0) {
+            const doc = data.docs[0];
+            document.getElementById('addTitleInput').value = doc.title;
+            if (doc.first_publish_year) document.getElementById('addYearInput').value = doc.first_publish_year;
+            if (doc.number_of_pages_median) document.getElementById('addRuntimeInput').value = doc.number_of_pages_median;
+            if (doc.author_name && doc.author_name.length > 0) document.getElementById('addGenreInput').value = doc.author_name[0];
+            if (doc.cover_i) {
+              document.getElementById('addPosterInput').value = `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
+            }
+            document.getElementById('addPetSafeSelect').value = 'safe';
+            document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
+            status.textContent = `✅ Found book: "${doc.title}"`;
+          } else {
+            status.textContent = '❌ Book not found on OpenLibrary. Fill manually.';
+          }
+        } else {
+          status.textContent = '🎮 Video game: set details & artwork.';
+        }
+      } catch (err) {
+        status.textContent = '⚠️ Network error while fetching. Enter manually.';
+      }
+    }
+
+    function openAddModal() {
+      document.getElementById('fetchStatus').textContent = '';
+      document.getElementById('addTitleInput').value = '';
+      document.getElementById('addPosterInput').value = '';
+      document.getElementById('addSynopsisInput').value = '';
+      document.getElementById('addShelfInput').value = '';
+      document.getElementById('addModal').style.display = 'flex';
+      adjustAddFormFields();
+    }
+
+    function closeAddModal(e) {
+      if (e.target.id === 'addModal') {
+        document.getElementById('addModal').style.display = 'none';
+      }
+    }
+
+    function saveNewTitle() {
+      const title = document.getElementById('addTitleInput').value.trim();
+      if (!title) {
+        alert('Please provide a title.');
+        return;
+      }
+
+      const type = document.getElementById('addTypeSelect').value;
+      const genre = document.getElementById('addGenreInput').value.trim() || 'General';
+      const year = parseInt(document.getElementById('addYearInput').value) || new Date().getFullYear();
+      const runtime = parseInt(document.getElementById('addRuntimeInput').value) || 100;
+      const petSafe = document.getElementById('addPetSafeSelect').value === 'safe';
+      const soundMix = document.getElementById('addSoundMixSelect').value;
+      const poster = document.getElementById('addPosterInput').value.trim();
+      const shelf = document.getElementById('addShelfInput').value.trim() || 'Digital';
+      const synopsis = document.getElementById('addSynopsisInput').value.trim();
+
+      vault.unshift({
+        id: Date.now().toString(),
+        title,
+        type,
+        genre,
+        year,
+        runtime,
+        petSafe,
+        petNotes: petSafe ? '🐾 Pet-Safe: Verified minimal abrupt noise triggers.' : '⚠️ Warning: Contains sudden loud bursts or intense creatures.',
+        soundMix,
+        soundNotes: soundMix === 'Balanced Mix' ? 'Acoustically compressed center channel.' : 'Wide dynamic peaks; subwoofer dynamic spikes.',
+        synopsis: synopsis || 'Added by user.',
+        poster: poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80',
+        p1: false,
+        p2: false,
+        completed: false,
+        rating: '100%',
+        shelf
+      });
+
+      saveVault();
+      renderVault();
+      document.getElementById('addModal').style.display = 'none';
+    }
+
+    /* ========================================================
+       6. NAVIGATION VIEW SWITCHER
        ======================================================== */
     function switchTab(tab, btn) {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
+      btn.classList.add('active');
 
       ['vault', 'marathons', 'wheel', 'showdown', 'scratch', 'shelf', 'sync'].forEach(t => {
         const el = document.getElementById(`view-${t}`);
@@ -1206,435 +1272,277 @@
       });
 
       if (tab === 'marathons') renderMarathons();
-      if (tab === 'wheel') drawWheel();
+      if (tab === 'wheel') { initWheelState(); drawWheel(); }
       if (tab === 'showdown') setupShowdown();
       if (tab === 'scratch') initScratchCard();
     }
 
-    function renderMarathons() {
-      const container = document.getElementById('marathonList');
-      container.innerHTML = marathons.map(m => `
-        <div style="background:#0d1117; border:1px solid var(--card-border); padding:12px; border-radius:8px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="color:var(--text-bright); font-size:0.9rem;">${m.title}</strong>
-            <span class="tag-pill">${m.list.length} Titles</span>
-          </div>
-          <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 8px;">${m.desc}</p>
-          <div style="display:flex; gap:5px; flex-wrap:wrap;">
-            ${m.list.map(t => {
-              const inVault = vault.find(v => v.title.toLowerCase() === t.toLowerCase());
-              const done = inVault && inVault.completed;
-              return `<span class="tag-pill ${done ? 'safe' : ''}" style="${done ? 'text-decoration:line-through; opacity:0.8;' : ''}">${done ? '✓ ' : ''}${t}</span>`;
-            }).join('')}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function openNewMarathonModal() {
-      document.getElementById('mPackTitle').value = '';
-      document.getElementById('mPackDesc').value = '';
-      document.getElementById('mPackTitles').value = '';
-      openModal('modalNewMarathon');
-    }
-
-    function saveCustomMarathon() {
-      const title = document.getElementById('mPackTitle').value.trim();
-      const desc = document.getElementById('mPackDesc').value.trim();
-      const titles = document.getElementById('mPackTitles').value.split(',').map(s => s.trim()).filter(Boolean);
-      if (!title) return;
-
-      marathons.unshift({
-        id: 'm_' + Date.now(),
-        title: title,
-        desc: desc || 'Custom couples challenge pack.',
-        list: titles.length > 0 ? titles : ["Untitled"]
-      });
-      saveMarathons();
-      renderMarathons();
-      closeModal('modalNewMarathon');
-      playBeep(620, 0.08);
-    }
-
     /* ========================================================
-       6. INTERACTIVE SPIN WHEEL
+       7. SPIN WHEEL ENGINE (SLICES & DEDICATED FILTERS)
        ======================================================== */
-    let wheelCanvas = null;
-    let wheelAngle = 0;
-    let isSpinning = false;
+    let wheelSliceCount = 6;
+    let wheelPoolFilter = 'all';
+    let currentWheelCandidates = [];
+
+    function setWheelSlices(count, el) {
+      wheelSliceCount = count;
+      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      reshuffleWheel();
+    }
+
+    function setWheelPool(pool, el) {
+      wheelPoolFilter = pool;
+      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      reshuffleWheel();
+    }
+
+    function initWheelState() {
+      const eligible = vault.filter(i => {
+        if (i.completed) return false;
+        if (wheelPoolFilter === 'p1' && !i.p1) return false;
+        if (wheelPoolFilter === 'p2' && !i.p2) return false;
+        if (wheelPoolFilter === 'date' && (!i.p1 || !i.p2)) return false;
+        return true;
+      });
+
+      document.getElementById('wheelStatus').textContent = `${eligible.length} eligible backlog titles in pool (${wheelSliceCount} slices active).`;
+      const shuffled = [...eligible].sort(() => 0.5 - Math.random());
+      currentWheelCandidates = shuffled.slice(0, wheelSliceCount);
+    }
+
+    function reshuffleWheel() {
+      initWheelState();
+      drawWheel();
+      document.getElementById('wheelResult').textContent = '';
+    }
 
     function drawWheel() {
-      wheelCanvas = document.getElementById('wheelCanvas');
-      if (!wheelCanvas) return;
-      const ctx = wheelCanvas.getContext('2d');
-      const candidates = vault.filter(i => !i.completed).slice(0, 8);
-      const num = Math.max(candidates.length, 1);
-      const arc = (2 * Math.PI) / num;
-      const colors = ['#f0883e', '#58a6ff', '#bc8cff', '#3fb950', '#d29922', '#f778ba', '#ff7b72', '#79c0ff'];
+      const canvas = document.getElementById('wheelCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
-      const cx = 140, cy = 140, r = 132;
+      if (currentWheelCandidates.length === 0) {
+        ctx.fillStyle = '#6e7681';
+        ctx.font = '12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('No eligible titles for this filter', 140, 140);
+        return;
+      }
 
-      for (let i = 0; i < num; i++) {
-        const start = wheelAngle + i * arc;
+      const numSlices = currentWheelCandidates.length;
+      const sliceAngle = (2 * Math.PI) / numSlices;
+      const colors = ['#e36209', '#58a6ff', '#bc8cff', '#3fb950', '#d29922', '#f778ba', '#388bfd', '#2ea043'];
+
+      currentWheelCandidates.forEach((c, idx) => {
         ctx.beginPath();
-        ctx.fillStyle = colors[i % colors.length];
-        ctx.moveTo(cx, cy);
-        ctx.arc(cx, cy, r, start, start + arc);
-        ctx.lineTo(cx, cy);
+        ctx.fillStyle = colors[idx % colors.length];
+        ctx.moveTo(140, 140);
+        ctx.arc(140, 140, 130, idx * sliceAngle, (idx + 1) * sliceAngle);
         ctx.fill();
-        ctx.strokeStyle = 'rgba(0,0,0,0.3)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
 
         ctx.save();
-        ctx.translate(cx, cy);
-        ctx.rotate(start + arc / 2);
-        ctx.fillStyle = '#0b0f14';
+        ctx.translate(140, 140);
+        ctx.rotate(idx * sliceAngle + sliceAngle / 2);
+        ctx.fillStyle = '#fff';
         ctx.font = 'bold 11px sans-serif';
-        const label = candidates[i] ? candidates[i].title.slice(0, 11) : 'Empty Vault';
-        ctx.fillText(label, 40, 4);
+        ctx.textAlign = 'right';
+        ctx.fillText(c.title.length > 13 ? c.title.slice(0, 11) + '..' : c.title, 120, 4);
         ctx.restore();
-      }
+      });
     }
 
     function spinTheWheel() {
-      if (isSpinning) return;
-      const candidates = vault.filter(i => !i.completed).slice(0, 8);
-      if (candidates.length === 0) {
-        document.getElementById('wheelResult').textContent = "Backlog is empty!";
-        return;
-      }
-
-      isSpinning = true;
-      document.getElementById('wheelResult').textContent = "Spinning destiny...";
-      const extraRounds = 4 + Math.random() * 4;
-      const targetAngle = wheelAngle + extraRounds * 2 * Math.PI;
-      const startAngle = wheelAngle;
-      const duration = 2800;
-      const startTime = performance.now();
-      let lastTick = startAngle;
-
-      function frame(time) {
-        const elapsed = time - startTime;
-        const p = Math.min(elapsed / duration, 1);
-        const easeOut = 1 - Math.pow(1 - p, 3);
-        wheelAngle = startAngle + (targetAngle - startAngle) * easeOut;
-
-        if (Math.abs(wheelAngle - lastTick) > 0.4) {
-          playBeep(800, 0.02, 'triangle');
-          lastTick = wheelAngle;
-        }
-
-        drawWheel();
-
-        if (p < 1) {
-          requestAnimationFrame(frame);
-        } else {
-          isSpinning = false;
-          const num = candidates.length;
-          const arc = (2 * Math.PI) / num;
-          const normalized = (wheelAngle % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
-          const pointer = (3 * Math.PI / 2);
-          let idx = Math.floor((pointer - normalized + 2 * Math.PI) % (2 * Math.PI) / arc);
-          idx = (idx + num) % num;
-          const winner = candidates[idx] || candidates[0];
-
-          document.getElementById('wheelResult').textContent = `🎉 The Wheel Chooses: ${winner.title}!`;
-          playFanfare();
-          if (typeof confetti === 'function') confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
-        }
-      }
-      requestAnimationFrame(frame);
+      if (currentWheelCandidates.length === 0) return;
+      const resultBox = document.getElementById('wheelResult');
+      resultBox.textContent = 'Spinning... 🌀';
+      setTimeout(() => {
+        const pick = currentWheelCandidates[Math.floor(Math.random() * currentWheelCandidates.length)];
+        resultBox.textContent = `🎉 Tonight's Pick: ${pick.title}`;
+      }, 1100);
     }
 
     /* ========================================================
-       7. SHOWDOWN DUEL MODE
+       8. SCRATCH-OFF CARD WITH CATEGORY FILTERS & REAL ARTWORK
        ======================================================== */
-    function setupShowdown() {
-      const box = document.getElementById('showdownBox');
-      const p1Candidates = vault.filter(i => i.p1 && !i.completed);
-      const p2Candidates = vault.filter(i => i.p2 && !i.completed);
+    let currentScratchPool = 'all';
+    let scratchItem = null;
 
-      if (p1Candidates.length === 0 || p2Candidates.length === 0) {
-        box.innerHTML = `<div style="grid-column:1/-1; color:var(--text-muted); font-size:0.8rem; padding:16px;">Both ${p1} and ${p2} need at least one voted backlog title to face off!</div>`;
-        return;
-      }
-
-      const pick1 = p1Candidates[Math.floor(Math.random() * p1Candidates.length)];
-      const pick2 = p2Candidates[Math.floor(Math.random() * p2Candidates.length)];
-
-      box.innerHTML = `
-        <div class="duel-card" style="border-color:var(--p1);" onclick="crownShowdownWinner('${escapeQuotes(pick1.title)}', '${p1}')">
-          <div style="font-size:0.7rem; color:var(--p1); font-weight:800; text-transform:uppercase;">${p1}'s Fighter</div>
-          <div style="font-size:2.4rem; margin:8px 0;">${pick1.emoji}</div>
-          <strong style="font-size:0.85rem; color:var(--text-bright); text-align:center;">${pick1.title}</strong>
-          <span style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">${pick1.runtime}m • ${pick1.year}</span>
-        </div>
-
-        <strong style="color:var(--text-muted); font-size:1.1rem;">VS</strong>
-
-        <div class="duel-card" style="border-color:var(--p2);" onclick="crownShowdownWinner('${escapeQuotes(pick2.title)}', '${p2}')">
-          <div style="font-size:0.7rem; color:var(--p2); font-weight:800; text-transform:uppercase;">${p2}'s Fighter</div>
-          <div style="font-size:2.4rem; margin:8px 0;">${pick2.emoji}</div>
-          <strong style="font-size:0.85rem; color:var(--text-bright); text-align:center;">${pick2.title}</strong>
-          <span style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">${pick2.runtime}m • ${pick2.year}</span>
-        </div>
-      `;
+    function setScratchPool(pool, el) {
+      currentScratchPool = pool;
+      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      initScratchCard();
     }
-
-    function crownShowdownWinner(title, partner) {
-      playFanfare();
-      if (typeof confetti === 'function') confetti({ particleCount: 75, spread: 80, origin: { y: 0.6 } });
-      document.getElementById('confirmTitle').textContent = `🏆 ${partner} Wins the Showdown!`;
-      document.getElementById('confirmMessage').textContent = `"${title}" has been crowned tonight's victorious pick! Prepare the popcorn.`;
-      document.getElementById('btnConfirmAction').textContent = "Let's Watch";
-      document.getElementById('btnConfirmAction').onclick = function() { closeModal('modalConfirm'); };
-      openModal('modalConfirm');
-    }
-
-    /* ========================================================
-       8. MYSTERY SCRATCH-OFF CARD
-       ======================================================== */
-    let scratchCanvas = null;
-    let scratchCtx = null;
-    let isScratching = false;
 
     function initScratchCard() {
-      scratchCanvas = document.getElementById('scratchCanvas');
-      if (!scratchCanvas) return;
-      scratchCtx = scratchCanvas.getContext('2d');
-      const textContainer = document.getElementById('scratchHiddenText');
-      const pool = vault.filter(i => !i.completed);
-      const pick = pool[Math.floor(Math.random() * pool.length)] || { title: "Add More Titles", emoji: "🍿", year: 2026 };
+      const candidates = vault.filter(i => {
+        if (i.completed) return false;
+        if (currentScratchPool === 'movie' && i.type !== 'movie') return false;
+        if (currentScratchPool === 'tv' && i.type !== 'tv') return false;
+        if (currentScratchPool === 'book' && i.type !== 'book') return false;
+        if (currentScratchPool === 'date' && (!i.p1 || !i.p2)) return false;
+        return true;
+      });
 
-      textContainer.innerHTML = `
-        <span style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Tonight's Mystery Pick</span>
-        <div style="font-size:1.8rem; margin:2px 0;">${pick.emoji}</div>
-        <span style="font-size:1rem; font-weight:800; color:#fff;">${pick.title} (${pick.year})</span>
-      `;
+      scratchItem = candidates[Math.floor(Math.random() * candidates.length)] || vault[0];
 
-      // Fill silver scratch coating
-      scratchCtx.globalCompositeOperation = 'source-over';
-      scratchCtx.fillStyle = '#6e7681';
-      scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
-      scratchCtx.fillStyle = '#f0f6fc';
-      scratchCtx.font = 'bold 12px sans-serif';
-      scratchCtx.fillText('★ SCRATCH FOIL TO REVEAL ★', 40, 75);
+      document.getElementById('scratchTitle').textContent = scratchItem.title;
+      document.getElementById('scratchMeta').textContent = `${scratchItem.year} • ${scratchItem.type === 'book' ? scratchItem.runtime + ' pages' : scratchItem.runtime + 'm'}`;
+      document.getElementById('scratchCategory').textContent = scratchItem.type;
+      document.getElementById('scratchSynopsis').textContent = scratchItem.synopsis || 'Tap to inspect full details in the vault!';
+      document.getElementById('scratchImg').src = scratchItem.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
 
-      function scratchAt(e) {
-        if (!isScratching) return;
-        const rect = scratchCanvas.getBoundingClientRect();
+      const canvas = document.getElementById('scratchCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.globalCompositeOperation = 'source-over';
+
+      // Draw metallic silver layer
+      ctx.fillStyle = '#8b949e';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#161b22';
+      ctx.font = 'bold 13px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🪙 SCRATCH HERE TO REVEAL', 145, 95);
+
+      let isDrawing = false;
+      let scratchedPixels = 0;
+
+      function scratch(e) {
+        if (!isDrawing) return;
+        const rect = canvas.getBoundingClientRect();
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
         const x = clientX - rect.left;
         const y = clientY - rect.top;
 
-        scratchCtx.globalCompositeOperation = 'destination-out';
-        scratchCtx.beginPath();
-        scratchCtx.arc(x, y, 16, 0, Math.PI * 2);
-        scratchCtx.fill();
-        playBeep(320, 0.02, 'sawtooth');
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 22, 0, Math.PI * 2);
+        ctx.fill();
+
+        scratchedPixels++;
+        if (scratchedPixels > 30) {
+          revealScratchCard();
+        }
       }
 
-      scratchCanvas.onmousedown = scratchCanvas.ontouchstart = (e) => { isScratching = true; scratchAt(e); };
-      window.onmouseup = window.ontouchend = () => { isScratching = false; };
-      scratchCanvas.onmousemove = scratchCanvas.ontouchmove = scratchAt;
+      canvas.onmousedown = canvas.ontouchstart = () => { isDrawing = true; };
+      canvas.onmouseup = canvas.ontouchend = () => { isDrawing = false; };
+      canvas.onmousemove = canvas.ontouchmove = scratch;
+    }
+
+    function revealScratchCard() {
+      const canvas = document.getElementById('scratchCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     /* ========================================================
-       9. SHELF & UPC LOOKUP + SYNC HUB
+       9. SHOWDOWN, MARATHONS, SHELF & BACKUP
        ======================================================== */
-    function locateShelfItem() {
-      const query = (document.getElementById('shelfBarcode').value || '').toLowerCase().trim();
-      const res = document.getElementById('shelfResults');
-      if (!query) {
-        res.innerHTML = `Please enter a shelf code or title.`;
+    const MARATHONS = [
+      { title: "🧠 Claustrophobic Paranoia", desc: "No exits, rising panic, questionable realities.", list: ["Coherence", "Panic Room", "The Thing"] },
+      { title: "🐾 Quiet Night", desc: "No doorbells, zero thunder, no animal jeopardy.", list: ["Neuromancer", "Coherence", "Panic Room"] },
+      { title: "⚡ High-Stakes Sci-Fi Escapes", desc: "Futuristic anomalies and survival under pressure.", list: ["Annihilation", "Coherence", "Neuromancer"] }
+    ];
+
+    function renderMarathons() {
+      const container = document.getElementById('marathonList');
+      container.innerHTML = MARATHONS.map(m => `
+        <div style="background:#0d1117; border:1px solid var(--card-border); padding:12px; border-radius:6px;">
+          <strong style="color:var(--text-bright);">${m.title}</strong>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin:3px 0 6px;">${m.desc}</p>
+          <div style="display:flex; gap:4px; flex-wrap:wrap;">
+            ${m.list.map(t => `<span class="tag-pill">${t}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setupShowdown() {
+      const box = document.getElementById('showdownBox');
+      const p1List = vault.filter(i => i.p1);
+      const p2List = vault.filter(i => i.p2);
+
+      if (p1List.length === 0 || p2List.length === 0) {
+        box.innerHTML = `<div style="grid-column:1/-1; color:var(--text-muted); font-size:0.8rem;">Both ${p1} and ${p2} need at least one voted entry to fight.</div>`;
         return;
       }
 
-      const matches = vault.filter(i => (i.shelf || '').toLowerCase().includes(query) || i.title.toLowerCase().includes(query));
+      const pick1 = p1List[Math.floor(Math.random() * p1List.length)];
+      const pick2 = p2List[Math.floor(Math.random() * p2List.length)];
+
+      box.innerHTML = `
+        <div class="duel-card" style="border-color:var(--p1);" onclick="alert('🏆 Winner: ' + '${pick1.title}' + ' for ' + '${p1}!')">
+          <div style="font-size:0.75rem; color:var(--p1); font-weight:bold;">${p1}'s Pick</div>
+          <img src="${pick1.poster || ''}" style="width:100%; height:110px; object-fit:cover; border-radius:4px; margin:6px 0;">
+          <strong>${pick1.title}</strong>
+        </div>
+        <strong style="color:var(--text-muted);">VS</strong>
+        <div class="duel-card" style="border-color:var(--p2);" onclick="alert('🏆 Winner: ' + '${pick2.title}' + ' for ' + '${p2}!')">
+          <div style="font-size:0.75rem; color:var(--p2); font-weight:bold;">${p2}'s Pick</div>
+          <img src="${pick2.poster || ''}" style="width:100%; height:110px; object-fit:cover; border-radius:4px; margin:6px 0;">
+          <strong>${pick2.title}</strong>
+        </div>
+      `;
+    }
+
+    function locateShelfItem() {
+      const code = (document.getElementById('shelfBarcode').value || '').toLowerCase();
+      const res = document.getElementById('shelfResults');
+      const matches = vault.filter(i => (i.shelf || '').toLowerCase().includes(code) || i.title.toLowerCase().includes(code));
       if (matches.length > 0) {
-        res.innerHTML = matches.map(m => `
-          <div style="background:#0d1117; padding:8px 10px; border-radius:6px; margin-top:6px; border:1px solid var(--card-border);">
-            ✅ <strong>${m.title}</strong> is filed at <strong>[${m.shelf || 'Unassigned'}]</strong> (${m.type.toUpperCase()})
-          </div>
-        `).join('');
-        playBeep(640, 0.05);
+        res.innerHTML = matches.map(m => `<div>✅ <strong>${m.title}</strong> ➔ Shelf Slot: <strong>[${m.shelf || 'Unassigned'}]</strong></div>`).join('');
       } else {
-        res.innerHTML = `<div style="color:var(--red); margin-top:6px;">No physical shelf location found for "${query}".</div>`;
+        res.innerHTML = `<div style="color:var(--red);">No physical slot found for "${code}".</div>`;
       }
     }
 
     function exportData() {
-      const dump = { p1, p2, vault, marathons, exportDate: new Date().toISOString() };
+      const dump = { p1, p2, vault };
       const blob = new Blob([JSON.stringify(dump, null, 2)], { type: 'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = `omnivault_backup_${new Date().toISOString().slice(0,10)}.json`;
       a.click();
-      playBeep(520, 0.08);
     }
 
-    function importDataFile(e) {
-      const file = e.target.files && e.target.files[0];
+    function importData(e) {
+      const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (event) => {
         try {
           const parsed = JSON.parse(event.target.result);
           if (parsed.vault) vault = parsed.vault;
-          if (parsed.marathons) marathons = parsed.marathons;
           if (parsed.p1) p1 = parsed.p1;
           if (parsed.p2) p2 = parsed.p2;
-
           saveVault();
-          saveMarathons();
           localStorage.setItem('omni_p1', p1);
           localStorage.setItem('omni_p2', p2);
-
-          initPartnerUI();
+          initPartners();
           renderVault();
-          playFanfare();
-
-          document.getElementById('confirmTitle').textContent = "Restore Successful";
-          document.getElementById('confirmMessage').textContent = `OmniVault successfully restored ${vault.length} titles and custom preferences!`;
-          document.getElementById('btnConfirmAction').textContent = "OK";
-          document.getElementById('btnConfirmAction').onclick = function() { closeModal('modalConfirm'); };
-          openModal('modalConfirm');
+          alert('Vault data imported successfully!');
         } catch(err) {
-          document.getElementById('confirmTitle').textContent = "Restore Failed";
-          document.getElementById('confirmMessage').textContent = "The uploaded file is not a valid OmniVault JSON backup.";
-          document.getElementById('btnConfirmAction').textContent = "Dismiss";
-          document.getElementById('btnConfirmAction').onclick = function() { closeModal('modalConfirm'); };
-          openModal('modalConfirm');
+          alert('Invalid backup file.');
         }
       };
       reader.readAsText(file);
     }
 
-    function promptResetFactory() {
-      document.getElementById('confirmTitle').textContent = "Factory Reset OmniVault?";
-      document.getElementById('confirmMessage').textContent = "This will restore the original 6 curated classics and sample marathons. Your current custom entries will be overwritten.";
-      document.getElementById('btnConfirmAction').textContent = "Factory Reset";
-      document.getElementById('btnConfirmAction').onclick = function() {
-        vault = [...DEFAULT_CATALOG];
-        marathons = [...DEFAULT_MARATHONS];
-        p1 = 'Alex';
-        p2 = 'Sam';
-        saveVault();
-        saveMarathons();
-        localStorage.setItem('omni_p1', p1);
-        localStorage.setItem('omni_p2', p2);
-        initPartnerUI();
-        renderVault();
-        closeModal('modalConfirm');
-        playBeep(320, 0.1);
-      };
-      openModal('modalConfirm');
+    /* Startup */
+    initPartners();
+    renderVault();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
     }
-
-    /* ========================================================
-       10. CIVIL DEFENSE EAS SYSTEM & ADD TITLE
-       ======================================================== */
-    function openEASModal() {
-      openModal('modalEAS');
-      triggerEASSelection();
-      playSirens();
-    }
-
-    function triggerEASSelection() {
-      const candidates = vault.filter(i => !i.completed);
-      const titleEl = document.getElementById('easMovieTitle');
-      if (candidates.length === 0) {
-        titleEl.textContent = "Backlog is empty!";
-        return;
-      }
-      let counter = 0;
-      const interval = setInterval(() => {
-        const rand = candidates[Math.floor(Math.random() * candidates.length)];
-        titleEl.textContent = rand.title;
-        counter++;
-        if (counter > 12) {
-          clearInterval(interval);
-          playFanfare();
-          if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 80, origin: { y: 0.5 } });
-        }
-      }, 70);
-    }
-
-    function openAddModal() {
-      document.getElementById('addTitle').value = '';
-      document.getElementById('addShelf').value = '';
-      openModal('modalAdd');
-    }
-
-    function saveNewItem() {
-      const title = document.getElementById('addTitle').value.trim();
-      if (!title) return;
-
-      const type = document.getElementById('addType').value;
-      const year = parseInt(document.getElementById('addYear').value) || new Date().getFullYear();
-      const runtime = parseInt(document.getElementById('addRuntime').value) || 100;
-      const petSafe = document.getElementById('addPetSafe').value === 'true';
-      const soundMix = document.getElementById('addSoundMix').value;
-      const shelf = document.getElementById('addShelf').value.trim() || 'Digital';
-      const emoji = document.getElementById('addEmoji').value.trim() || '🎬';
-
-      vault.unshift({
-        id: 'user_' + Date.now(),
-        title,
-        type,
-        year,
-        runtime,
-        petSafe,
-        soundMix,
-        p1: false,
-        p2: false,
-        completed: false,
-        rating: '100%',
-        shelf,
-        emoji
-      });
-
-      saveVault();
-      renderVault();
-      closeModal('modalAdd');
-      playBeep(640, 0.08);
-    }
-
-    /* ========================================================
-       11. MODAL HELPERS & LIFECYCLE
-       ======================================================== */
-    function openModal(id) {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'flex';
-    }
-
-    function closeModal(id) {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    }
-
-    function dismissPwaBanner() {
-      document.getElementById('pwaBanner').style.display = 'none';
-    }
-
-    function escapeQuotes(str) {
-      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
-    }
-
-    // Startup initialization
-    window.addEventListener('DOMContentLoaded', () => {
-      initPartnerUI();
-      renderVault();
-      drawWheel();
-
-      // Register PWA service worker if supported
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
-      }
-    });
   </script>
 </body>
 </html>

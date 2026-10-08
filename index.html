@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#161b22">
+  <meta name="theme-color" content="#0b0f14">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>OmniVault</title>
@@ -21,7 +21,6 @@
       --date: #f778ba;
       --green: #3fb950;
       --red: #f85149;
-      --gold: #d29922;
       --text: #c9d1d9;
       --text-bright: #f0f6fc;
       --text-muted: #8b949e;
@@ -31,361 +30,114 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; }
 
-    /* Top Sticky Header */
-    header {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--card-border);
-      padding: 10px 14px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+    header { background: var(--card-bg); border-bottom: 1px solid var(--card-border); padding: 10px 14px; position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.05rem; color: var(--text-bright); }
     .brand .logo-icon { background: var(--accent); color: #fff; width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; }
     .brand small { display: block; font-size: 0.68rem; color: var(--text-muted); font-weight: normal; margin-top: -2px; }
-
     .header-tools { display: flex; gap: 6px; }
-    .btn-tool {
-      background: #21262d;
-      border: 1px solid var(--card-border);
-      color: var(--text-bright);
-      padding: 5px 10px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .btn-tool { background: #21262d; border: 1px solid var(--card-border); color: var(--text-bright); padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 4px; }
     .btn-tool.btn-add { background: #238636; border-color: rgba(240,246,252,0.1); color: #fff; font-weight: 600; }
 
-    /* Partner Filter Bar with Tap-to-Rename */
     .partner-bar { display: flex; gap: 6px; align-items: center; overflow-x: auto; }
-    .partner-pill {
-      background: #21262d;
-      border: 1px solid var(--card-border);
-      color: var(--text);
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      white-space: nowrap;
-      transition: all 0.15s;
-    }
+    .partner-pill { background: #21262d; border: 1px solid var(--card-border); color: var(--text); padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; transition: all 0.15s; }
     .partner-pill.active-p1 { background: rgba(88, 166, 255, 0.2); border-color: var(--p1); color: var(--p1); font-weight: 700; }
     .partner-pill.active-p2 { background: rgba(188, 140, 255, 0.2); border-color: var(--p2); color: var(--p2); font-weight: 700; }
     .partner-pill.active-date { background: rgba(247, 120, 186, 0.2); border-color: var(--date); color: var(--date); font-weight: 700; }
     .partner-edit-icon { font-size: 0.7rem; opacity: 0.5; padding: 2px; }
     .partner-edit-icon:hover { opacity: 1; }
 
-    /* Navigation Bar */
-    .nav-bar {
-      display: flex;
-      gap: 4px;
-      padding: 6px 12px 8px;
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--card-border);
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
+    .nav-bar { display: flex; gap: 4px; padding: 6px 12px 8px; background: var(--card-bg); border-bottom: 1px solid var(--card-border); overflow-x: auto; scrollbar-width: none; }
     .nav-bar::-webkit-scrollbar { display: none; }
-    .nav-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+    .nav-btn { background: transparent; border: none; color: var(--text-muted); padding: 6px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: 5px; }
     .nav-btn.active { background: #21262d; color: var(--text-bright); }
 
-    /* Main Container */
     .main-body { padding: 12px 14px; max-width: 960px; margin: 0 auto; }
 
-    /* Filter Cluster */
     .filter-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
     .search-row { display: flex; gap: 8px; }
-    .search-input {
-      flex: 1;
-      background: #0d1117;
-      border: 1px solid var(--card-border);
-      border-radius: 6px;
-      padding: 8px 12px;
-      font-size: 0.85rem;
-      color: var(--text-bright);
-    }
-    .sort-select {
-      background: #21262d;
-      border: 1px solid var(--card-border);
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 0.78rem;
-      color: var(--text-bright);
-      cursor: pointer;
-    }
-
+    .search-input { flex: 1; background: #0d1117; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 12px; font-size: 0.85rem; color: var(--text-bright); }
+    .sort-select { background: #21262d; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 10px; font-size: 0.78rem; color: var(--text-bright); cursor: pointer; }
     .pill-row { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; align-items: center; }
     .pill-row::-webkit-scrollbar { display: none; }
     .row-label { font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; margin-right: 4px; font-weight: 600; }
-    .filter-chip {
-      background: #21262d;
-      border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      padding: 4px 9px;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      white-space: nowrap;
-      cursor: pointer;
-    }
+    .filter-chip { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 4px 9px; border-radius: 12px; font-size: 0.7rem; white-space: nowrap; cursor: pointer; }
     .filter-chip.active { background: #30363d; color: var(--text-bright); border-color: #8b949e; font-weight: 600; }
     .filter-chip.chip-accent.active { background: rgba(240, 136, 62, 0.2); border-color: var(--accent); color: var(--accent); }
 
-    /* Status Switch: Backlog vs Completed */
     .status-switch { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
-    .btn-status {
-      background: #21262d;
-      border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      font-weight: 600;
-    }
+    .btn-status { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; }
     .btn-status.active { background: #30363d; color: var(--accent); border-color: var(--accent); }
     .reset-link { margin-left: auto; font-size: 0.7rem; color: var(--text-muted); text-decoration: underline; cursor: pointer; }
 
-    /* Grid & Cards with Real Posters */
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s;
-    }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; position: relative; cursor: pointer; transition: transform 0.15s; }
     .card:active { transform: scale(0.985); }
-    .poster-box {
-      width: 100%;
-      height: 215px;
-      background: #1f242c;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .poster-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: opacity 0.2s;
-    }
-    .poster-badge-top {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: var(--red);
-    }
-    .media-type-tag {
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      background: rgba(13,17,23,0.85);
-      border: 1px solid var(--card-border);
-      padding: 2px 5px;
-      border-radius: 4px;
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: #8b949e;
-    }
-
+    .poster-box { width: 100%; height: 215px; background: #1f242c; position: relative; display: flex; align-items: center; justify-content: center; }
+    .poster-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .poster-badge-top { position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; color: var(--text-bright); display: flex; gap: 6px; }
+    .media-type-tag { position: absolute; top: 6px; left: 6px; background: rgba(13,17,23,0.85); border: 1px solid var(--card-border); padding: 2px 5px; border-radius: 4px; font-size: 0.6rem; text-transform: uppercase; font-weight: 700; color: #8b949e; }
     .card-info { padding: 8px; display: flex; flex-direction: column; flex-grow: 1; }
     .title-row { font-size: 0.82rem; font-weight: 700; color: var(--text-bright); line-height: 1.25; margin-bottom: 2px; }
     .meta-row { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 6px; }
     .badges-row { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
-    .tag-pill {
-      font-size: 0.6rem;
-      padding: 2px 5px;
-      border-radius: 3px;
-      background: #21262d;
-      color: var(--text-muted);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
+    .tag-pill { font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; background: #21262d; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.05); }
     .tag-pill.safe { background: rgba(63, 185, 80, 0.12); color: var(--green); border-color: rgba(63, 185, 80, 0.3); }
-    .tag-pill.sound { background: rgba(88, 166, 255, 0.12); color: var(--p1); border-color: rgba(88, 166, 255, 0.3); }
-
-    .action-row { margin-top: auto; display: flex; gap: 4px; align-items: center; }
-    .btn-vote {
-      flex: 1;
-      padding: 5px 2px;
-      font-size: 0.68rem;
-      background: #21262d;
-      border: 1px solid var(--card-border);
-      border-radius: 4px;
-      color: var(--text-muted);
-      cursor: pointer;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+        .action-row { margin-top: auto; display: flex; gap: 4px; align-items: center; }
+    .btn-vote { flex: 1; padding: 5px 2px; font-size: 0.68rem; background: #21262d; border: 1px solid var(--card-border); border-radius: 4px; color: var(--text-muted); cursor: pointer; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .btn-vote.voted-p1 { border-color: var(--p1); background: rgba(88, 166, 255, 0.2); color: var(--p1); font-weight: 700; }
     .btn-vote.voted-p2 { border-color: var(--p2); background: rgba(188, 140, 255, 0.2); color: var(--p2); font-weight: 700; }
-    .btn-trash {
-      background: transparent;
-      border: none;
-      color: var(--red);
-      font-size: 0.8rem;
-      padding: 4px 6px;
-      cursor: pointer;
-      border-radius: 4px;
-      opacity: 0.7;
-    }
+    .btn-trash { background: transparent; border: none; color: var(--red); font-size: 0.8rem; padding: 4px 6px; cursor: pointer; border-radius: 4px; opacity: 0.7; }
     .btn-trash:hover { opacity: 1; background: rgba(248, 81, 73, 0.15); }
 
-    /* Interactive Containers */
-    .view-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 16px;
-      text-align: center;
-      margin-bottom: 14px;
-    }
+    .view-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px; text-align: center; margin-bottom: 14px; }
     .wheel-canvas { margin: 12px auto; display: block; border-radius: 50%; border: 3px solid var(--card-border); }
     .duel-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-top: 14px; }
-    .duel-card {
-      background: #0d1117;
-      border: 2px solid var(--card-border);
-      border-radius: 8px;
-      padding: 12px;
-      cursor: pointer;
-    }
+    .duel-card { background: #0d1117; border: 2px solid var(--card-border); border-radius: 8px; padding: 12px; cursor: pointer; }
 
-    /* Scratch-Off Component */
-    .scratch-container {
-      position: relative;
-      width: 290px;
-      height: 180px;
-      margin: 14px auto;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 2px solid var(--card-border);
-    }
-    .scratch-prize {
-      position: absolute;
-      inset: 0;
-      background: #0d1117;
-      display: flex;
-      padding: 10px;
-      gap: 10px;
-      align-items: center;
-      text-align: left;
-    }
+    .scratch-container { position: relative; width: 290px; height: 180px; margin: 14px auto; border-radius: 10px; overflow: hidden; border: 2px solid var(--card-border); }
+    .scratch-prize { position: absolute; inset: 0; background: #0d1117; display: flex; padding: 10px; gap: 10px; align-items: center; text-align: left; }
     .scratch-prize-img { width: 90px; height: 100%; object-fit: cover; border-radius: 6px; }
     .scratch-canvas { position: absolute; inset: 0; touch-action: none; cursor: crosshair; }
 
-    /* Modal Sheet Styling */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(4px);
-      z-index: 200;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 14px;
-    }
-    .modal-box {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 480px;
-      padding: 18px;
-      max-height: 88vh;
-      overflow-y: auto;
-      text-align: left;
-    }
-    .modal-box h3 { color: var(--text-bright); margin-bottom: 4px; font-size: 1.15rem; }
-    .modal-box .subhead { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; }
-    .modal-section { margin-bottom: 10px; padding: 10px; background: #0d1117; border-radius: 6px; border: 1px solid var(--card-border); }
-    .modal-section-title { font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+    .disambig-item { display: flex; gap: 10px; align-items: center; background: #161b22; border: 1px solid var(--card-border); padding: 8px; border-radius: 6px; cursor: pointer; transition: background 0.15s; text-align: left; }
+    .disambig-item:hover { background: #30363d; }
+    .disambig-item img { width: 40px; height: 55px; object-fit: cover; border-radius: 4px; background: #0d1117; }
+    .disambig-item div { font-size: 0.78rem; color: var(--text-bright); line-height: 1.3; }
+    .disambig-item small { color: var(--text-muted); font-size: 0.7rem; }
 
-    /* Form Fields in Add Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 14px; }
+    .modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; width: 100%; max-width: 480px; padding: 18px; max-height: 88vh; overflow-y: auto; text-align: left; }
+    
     .form-group { margin-bottom: 10px; }
     .form-group label { display: block; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
-    .form-control {
-      width: 100%;
-      background: #0d1117;
-      border: 1px solid var(--card-border);
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 0.82rem;
-      color: var(--text-bright);
-    }
+    .form-control { width: 100%; background: #0d1117; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 10px; font-size: 0.82rem; color: var(--text-bright); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   </style>
 </head>
 <body>
 
-  <!-- Top Global Header -->
   <header>
     <div class="header-top">
       <div class="brand">
         <div class="logo-icon">Ω</div>
-        <div>
-          OmniVault
-          <small>Couples, Pet-Safe & Thematic Marathons</small>
-        </div>
+        <div>OmniVault<small>Couples, Pet-Safe & Marathons</small></div>
       </div>
       <div class="header-tools">
-        <button class="btn-tool" onclick="exportData()">💾 Backup</button>
         <button class="btn-tool btn-add" onclick="openAddModal()">+ Add</button>
       </div>
     </div>
-
-    <!-- Partner Selectors with Tap-to-Rename -->
     <div class="partner-bar">
       <div class="partner-pill" id="p1Pill" onclick="togglePartner('p1')">
-        <span id="p1Label">Alex</span>
-        <span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(1)" title="Rename">✏️</span>
+        <span id="p1Label">Alex</span><span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(1)">✏️</span>
       </div>
       <div class="partner-pill" id="p2Pill" onclick="togglePartner('p2')">
-        <span id="p2Label">Sam</span>
-        <span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(2)" title="Rename">✏️</span>
+        <span id="p2Label">Sam</span><span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(2)">✏️</span>
       </div>
-      <div class="partner-pill" id="datePill" onclick="toggleDateNight()">
-        💕 Date Night
-      </div>
+      <div class="partner-pill" id="datePill" onclick="toggleDateNight()">💕 Date Night</div>
     </div>
   </header>
 
-  <!-- Horizontal Navigation Bar -->
   <div class="nav-bar">
     <button class="nav-btn active" onclick="switchTab('vault', this)">🗄️ Vault</button>
     <button class="nav-btn" onclick="switchTab('marathons', this)">🍿 Marathons & Packs</button>
@@ -395,27 +147,23 @@
     <button class="nav-btn" onclick="switchTab('shelf', this)">📦 Shelf & UPC</button>
     <button class="nav-btn" onclick="switchTab('sync', this)">🔄 Sync Hub</button>
   </div>
-
-  <div class="main-body">
+    <div class="main-body">
 
     <!-- 1. VAULT VIEW -->
     <section id="view-vault">
       <div class="filter-group">
         <div class="search-row">
-          <input type="text" class="search-input" id="searchBox" placeholder="Search titles, directors, shelf tags, or genres..." oninput="renderVault()">
+          <input type="text" class="search-input" id="searchBox" placeholder="Search titles, directors, genres..." oninput="renderVault()">
           <select class="sort-select" id="sortSelect" onchange="renderVault()">
             <option value="default">Sort: Default</option>
             <option value="title-asc">Title (A → Z)</option>
-            <option value="title-desc">Title (Z → A)</option>
             <option value="year-desc">Year (Newest)</option>
             <option value="year-asc">Year (Oldest)</option>
-            <option value="runtime-asc">Runtime (Shortest)</option>
-            <option value="runtime-desc">Runtime (Longest)</option>
-            <option value="rating-desc">Rating (Highest)</option>
+            <option value="imdb-desc">IMDb (Highest)</option>
+            <option value="rt-desc">Rotten Tomatoes (Highest)</option>
           </select>
         </div>
 
-        <!-- Media row -->
         <div class="pill-row">
           <span class="filter-chip chip-accent active" onclick="setMediaType('all', this)">All</span>
           <span class="filter-chip" onclick="setMediaType('movie', this)">🎬 Movies</span>
@@ -426,19 +174,16 @@
           <span class="filter-chip" id="soundChip" onclick="toggleSoundFilter(this)">🔊 Balanced Mix</span>
         </div>
 
-        <!-- Genre row -->
         <div class="pill-row">
           <span class="row-label">🎭 Genre:</span>
           <span class="filter-chip active" onclick="setGenre('all', this)">All</span>
           <span class="filter-chip" onclick="setGenre('sci-fi', this)">Sci-Fi</span>
           <span class="filter-chip" onclick="setGenre('thriller', this)">Thriller</span>
           <span class="filter-chip" onclick="setGenre('horror', this)">Horror</span>
-          <span class="filter-chip" onclick="setGenre('mystery', this)">Mystery</span>
+          <span class="filter-chip" onclick="setGenre('action', this)">Action</span>
           <span class="filter-chip" onclick="setGenre('drama', this)">Drama</span>
-          <span class="filter-chip" onclick="setGenre('cyberpunk', this)">Cyberpunk</span>
         </div>
 
-        <!-- Time Budget row -->
         <div class="pill-row">
           <span class="row-label">⏱️ Time Budget:</span>
           <span class="filter-chip active" onclick="setTimeBudget('any', this)">Any</span>
@@ -447,7 +192,6 @@
           <span class="filter-chip" onclick="setTimeBudget('long', this)">&gt;120m</span>
         </div>
 
-        <!-- Decades row -->
         <div class="pill-row">
           <span class="row-label">⏳ Decades:</span>
           <span class="filter-chip active" onclick="setDecade('all', this)">All</span>
@@ -461,18 +205,16 @@
         </div>
       </div>
 
-      <!-- Status Switch: Backlog vs Completed -->
       <div class="status-switch">
         <button class="btn-status active" id="btnBacklog" onclick="setStatusTab('backlog')">Backlog (<span id="backlogCount">0</span>)</button>
         <button class="btn-status" id="btnCompleted" onclick="setStatusTab('completed')">Completed (<span id="completedCount">0</span>)</button>
         <span class="reset-link" onclick="resetFilters()">Reset Filters</span>
       </div>
 
-      <!-- Items Grid with Real Poster Images -->
       <div class="grid" id="itemsGrid"></div>
     </section>
 
-    <!-- 2. MARATHONS & PACKS VIEW -->
+    <!-- MARATHONS VIEW -->
     <section id="view-marathons" style="display:none;">
       <div class="view-card" style="text-align:left;">
         <h3>🍿 Curated Marathons & Packs</h3>
@@ -480,61 +222,56 @@
         <div id="marathonList" style="display:flex; flex-direction:column; gap:10px;"></div>
       </div>
     </section>
-
-    <!-- 3. SPIN WHEEL VIEW WITH ADJUSTABLE SLICES & FILTERS -->
+        <!-- SPIN WHEEL VIEW -->
     <section id="view-wheel" style="display:none;">
       <div class="view-card">
         <h3>🎡 Decision Wheel of Chaos</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Filter your pool, configure slice count, and let fate settle the debate.</p>
-        
         <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px; margin:12px auto 6px; text-align:left; max-width:380px;">
-          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">SLICES ON WHEEL:</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">MEDIA CATEGORY:</div>
           <div class="pill-row" style="margin-bottom:8px;">
-            <span class="filter-chip" onclick="setWheelSlices(4, this)">4 Slices</span>
-            <span class="filter-chip active" onclick="setWheelSlices(6, this)">6 Slices</span>
-            <span class="filter-chip" onclick="setWheelSlices(8, this)">8 Slices</span>
-            <span class="filter-chip" onclick="setWheelSlices(10, this)">10 Slices</span>
-            <span class="filter-chip" onclick="setWheelSlices(12, this)">12 Slices</span>
+            <span class="filter-chip active" onclick="setWheelCategory('all', this)">All Media</span>
+            <span class="filter-chip" onclick="setWheelCategory('movie', this)">🎬 Movies</span>
+            <span class="filter-chip" onclick="setWheelCategory('tv', this)">📺 TV</span>
+            <span class="filter-chip" onclick="setWheelCategory('book', this)">📖 Books</span>
           </div>
-
           <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">WHEEL CANDIDATE POOL:</div>
-          <div class="pill-row">
+          <div class="pill-row" style="margin-bottom:8px;">
             <span class="filter-chip active" onclick="setWheelPool('all', this)">All Backlog</span>
             <span class="filter-chip" id="wheelP1Chip" onclick="setWheelPool('p1', this)">Alex's Picks</span>
             <span class="filter-chip" id="wheelP2Chip" onclick="setWheelPool('p2', this)">Sam's Picks</span>
             <span class="filter-chip" onclick="setWheelPool('date', this)">💕 Date Night</span>
           </div>
+          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">SLICES ON WHEEL:</div>
+          <div class="pill-row">
+            <span class="filter-chip" onclick="setWheelSlices(4, this)">4 Slices</span>
+            <span class="filter-chip active" onclick="setWheelSlices(6, this)">6 Slices</span>
+            <span class="filter-chip" onclick="setWheelSlices(8, this)">8 Slices</span>
+            <span class="filter-chip" onclick="setWheelSlices(12, this)">12 Slices</span>
+          </div>
         </div>
-
         <canvas id="wheelCanvas" class="wheel-canvas" width="280" height="280"></canvas>
-        
         <div style="display:flex; justify-content:center; gap:8px; margin-top:6px;">
           <button class="btn-tool btn-add" style="padding:8px 22px; font-size:0.9rem;" onclick="spinTheWheel()">🌀 SPIN WHEEL</button>
           <button class="btn-tool" onclick="reshuffleWheel()">🎲 Reshuffle Pool</button>
         </div>
-        
         <div id="wheelStatus" style="font-size:0.72rem; color:var(--text-muted); margin-top:8px;"></div>
         <div id="wheelResult" style="font-weight:bold; margin-top:10px; font-size:1.05rem; color:var(--accent);"></div>
       </div>
     </section>
 
-    <!-- 4. SHOWDOWN DUEL VIEW -->
+    <!-- SHOWDOWN VIEW -->
     <section id="view-showdown" style="display:none;">
       <div class="view-card">
         <h3>⚔️ The Showdown</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">One pick from each partner enters the ring. Tap the victor!</p>
         <div class="duel-grid" id="showdownBox"></div>
         <button class="btn-tool" style="margin:16px auto 0;" onclick="setupShowdown()">🎲 Reroll Competitors</button>
       </div>
     </section>
 
-    <!-- 5. SCRATCH-OFF VIEW WITH FILTERS & HIGH-CONTRAST CARD -->
+    <!-- SCRATCH-OFF VIEW -->
     <section id="view-scratch" style="display:none;">
       <div class="view-card">
-        <h3>🎟️ Blind Mystery Scratch-Off</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Rub your finger across the ticket to reveal your mystery pick.</p>
-        
-        <!-- Scratch Ticket Filters -->
+        <h3>🎟️ Mystery Scratch-Off</h3>
         <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:8px 12px; margin:10px auto; max-width:320px; text-align:left;">
           <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">SCRATCH TICKET POOL:</div>
           <div class="pill-row">
@@ -545,7 +282,6 @@
             <span class="filter-chip" onclick="setScratchPool('date', this)">💕 Date Night</span>
           </div>
         </div>
-
         <div class="scratch-container" id="scratchContainer">
           <div class="scratch-prize" id="scratchPrize">
             <img id="scratchImg" class="scratch-prize-img" src="" alt="Poster">
@@ -558,33 +294,29 @@
           </div>
           <canvas id="scratchCanvas" class="scratch-canvas" width="290" height="180"></canvas>
         </div>
-
         <div style="display:flex; justify-content:center; gap:8px;">
           <button class="btn-tool" onclick="revealScratchCard()">✨ Reveal Card</button>
           <button class="btn-tool btn-add" onclick="initScratchCard()">🎲 New Mystery Ticket</button>
         </div>
       </div>
     </section>
-
-    <!-- 6. SHELF & UPC SCANNER VIEW -->
+        <!-- SHELF VIEW -->
     <section id="view-shelf" style="display:none;">
       <div class="view-card" style="text-align:left;">
-        <h3>📦 Physical Shelf & UPC Scanner</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Map your physical disc library, 4K steelbooks, and shelf slot numbers.</p>
-        <div style="display:flex; gap:6px; margin-bottom:12px;">
+        <h3>📦 Physical Shelf Scanner</h3>
+        <div style="display:flex; gap:6px; margin-bottom:12px; margin-top:10px;">
           <input type="text" id="shelfBarcode" class="search-input" placeholder="Enter barcode or shelf # (e.g., A-01)...">
           <button class="btn-tool btn-add" onclick="locateShelfItem()">Search</button>
         </div>
-        <div id="shelfResults" style="font-size:0.8rem; color:var(--text-muted);">Enter a physical location code or title to look up shelf position.</div>
+        <div id="shelfResults" style="font-size:0.8rem; color:var(--text-muted);">Enter a physical location code or title.</div>
       </div>
     </section>
 
-    <!-- 7. SYNC HUB VIEW -->
+    <!-- SYNC HUB -->
     <section id="view-sync" style="display:none;">
       <div class="view-card" style="text-align:left;">
-        <h3>🔄 Device Sync & Backup Hub</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">OmniVault saves 100% of your data locally. Sync between phones by sharing the JSON state file.</p>
-        <div style="display:flex; flex-direction:column; gap:10px;">
+        <h3>🔄 Device Sync & Backup</h3>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:14px;">
           <button class="btn-tool" style="justify-content:center; padding:10px;" onclick="exportData()">📤 Export Vault Backup (.json)</button>
           <label class="btn-tool" style="justify-content:center; padding:10px; cursor:pointer;">
             📥 Import Backup (.json)
@@ -592,52 +324,20 @@
           </label>
         </div>
       </div>
+
+      <div class="view-card" style="text-align:left; margin-top:14px;">
+        <h3>⚙️ IMDb & Rotten Tomatoes Integrations</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Add a free OMDb API key to automatically pull IMDb ratings, Rotten Tomatoes scores, and full Cast & Crew when adding movies.</p>
+        <div class="form-group">
+          <label>OMDb API Key</label>
+          <input type="text" id="omdbKeyInput" class="form-control" placeholder="Paste key here..." onchange="saveOmdbKey()">
+          <a href="https://www.omdbapi.com/apikey.aspx" target="_blank" style="font-size:0.7rem; color:var(--p1); display:inline-block; margin-top:6px;">Get a free key (1,000 requests/day)</a>
+        </div>
+      </div>
     </section>
-
   </div>
 
-  <!-- MOVIE DETAIL / PREVIEW INSPECTION MODAL -->
-  <div class="modal-overlay" id="detailModal" onclick="closeDetailModal(event)">
-    <div class="modal-box" onclick="event.stopPropagation()">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <div>
-          <h3 id="modalTitle">Movie Title</h3>
-          <div class="subhead" id="modalMeta">2024 • 115m • 🍿 Movie</div>
-        </div>
-        <button class="btn-tool" style="border:none; font-size:1.1rem; padding:2px 8px;" onclick="document.getElementById('detailModal').style.display='none'">✕</button>
-      </div>
-
-      <div style="display:flex; gap:12px; margin-bottom:12px;">
-        <img id="modalPoster" src="" alt="Poster" style="width:100px; height:145px; object-fit:cover; border-radius:6px; background:#21262d;">
-        <div style="flex:1;">
-          <div class="modal-section-title">Overview</div>
-          <p id="modalSynopsis" style="font-size:0.78rem; line-height:1.4; color:var(--text);">Plot synopsis goes here.</p>
-        </div>
-      </div>
-
-      <div class="modal-section">
-        <div class="modal-section-title">🐾 Pet Safety & House Alerts</div>
-        <p id="modalPetAlert" style="font-size:0.78rem; line-height:1.4; color:var(--text);">Checking pet safety profile...</p>
-      </div>
-
-      <div class="modal-section">
-        <div class="modal-section-title">🔊 Sound Dynamics & Acoustics</div>
-        <p id="modalSoundMix" style="font-size:0.78rem; line-height:1.4; color:var(--text);">Acoustic profile details.</p>
-      </div>
-
-      <div class="modal-section">
-        <div class="modal-section-title">📦 Media Format & Location</div>
-        <p id="modalShelf" style="font-size:0.78rem; line-height:1.4; color:var(--text);">Shelf location slot.</p>
-      </div>
-
-      <div style="display:flex; gap:6px; margin-top:14px;">
-        <button class="btn-tool" style="flex:1; justify-content:center;" id="modalToggleWatched" onclick="toggleWatchedFromModal()">Mark Completed</button>
-        <button class="btn-tool" style="color:var(--red);" id="modalDeleteBtn" onclick="deleteFromModal()">🗑️ Remove</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- + ADD MODAL WITH LIVE AUTOFILL & DYNAMIC FIELDS -->
+  <!-- + ADD MODAL -->
   <div class="modal-overlay" id="addModal" onclick="closeAddModal(event)">
     <div class="modal-box" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
@@ -645,14 +345,14 @@
         <button class="btn-tool" style="border:none; font-size:1.1rem; padding:2px 8px;" onclick="document.getElementById('addModal').style.display='none'">✕</button>
       </div>
 
-      <!-- Auto-populate search box -->
       <div class="form-group">
         <label>Title *</label>
         <div style="display:flex; gap:6px;">
-          <input type="text" id="addTitleInput" class="form-control" placeholder="e.g. Alien: Romulus, Neuromancer...">
+          <input type="text" id="addTitleInput" class="form-control" placeholder="e.g. Resident Evil, Alien...">
           <button class="btn-tool btn-add" style="white-space:nowrap;" onclick="autoFetchMetadata()">⚡ Autofill</button>
         </div>
         <div id="fetchStatus" style="font-size:0.7rem; color:var(--accent); margin-top:4px;"></div>
+        <div id="disambiguationList" style="display:none; flex-direction:column; gap:6px; margin-top:8px; max-height:160px; overflow-y:auto; padding-right:4px;"></div>
       </div>
 
       <div class="form-row">
@@ -662,12 +362,32 @@
             <option value="movie">🎬 Movie</option>
             <option value="tv">📺 TV Show</option>
             <option value="book">📖 Book</option>
-            <option value="game">🎮 Video Game</option>
           </select>
         </div>
         <div class="form-group">
-          <label id="addAuthorOrGenreLabel">Primary Genre</label>
-          <input type="text" id="addGenreInput" class="form-control" placeholder="e.g. Sci-Fi">
+          <label id="addAuthorOrGenreLabel">Primary Genre(s)</label>
+          <input type="text" id="addGenreInput" class="form-control" placeholder="e.g. Sci-Fi, Horror">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Director / Author</label>
+          <input type="text" id="addDirectorInput" class="form-control" placeholder="e.g. Paul W.S. Anderson">
+        </div>
+        <div class="form-group">
+          <label>Top Cast</label>
+          <input type="text" id="addCastInput" class="form-control" placeholder="e.g. Milla Jovovich, Michelle Rodriguez">
+        </div>
+      </div>
+            <div class="form-row">
+        <div class="form-group">
+          <label>IMDb Rating</label>
+          <input type="text" id="addImdbInput" class="form-control" placeholder="e.g. 7.2">
+        </div>
+        <div class="form-group">
+          <label>Rotten Tomatoes</label>
+          <input type="text" id="addRtInput" class="form-control" placeholder="e.g. 85%">
         </div>
       </div>
 
@@ -687,7 +407,7 @@
           <label>Pet Safety</label>
           <select id="addPetSafeSelect" class="form-control">
             <option value="safe">🐾 Pet Safe</option>
-            <option value="alert">⚠️ Pet Alert</option>
+            <option value="alert">⚠ Pet Alert</option>
           </select>
         </div>
         <div class="form-group">
@@ -699,9 +419,9 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" style="display:none;">
         <label>Poster Artwork URL</label>
-        <input type="text" id="addPosterInput" class="form-control" placeholder="https://...">
+        <input type="text" id="addPosterInput" class="form-control">
       </div>
 
       <div class="form-group">
@@ -718,10 +438,79 @@
     </div>
   </div>
 
+  <!-- IMDB-STYLE MOVIE DOSSIER MODAL -->
+  <div class="modal-overlay" id="detailModal" onclick="closeDetailModal(event)">
+    <div class="modal-box" style="max-width:520px; padding:0; overflow:hidden;" onclick="event.stopPropagation()">
+      <div style="position:relative; width:100%; height:190px; background:#0b0f14;">
+        <img id="modalBackdrop" src="" style="width:100%; height:100%; object-fit:cover; opacity:0.35;">
+        <button class="btn-tool" style="position:absolute; top:12px; right:12px; border:none; background:rgba(0,0,0,0.6); font-size:1.1rem; padding:4px 10px;" onclick="document.getElementById('detailModal').style.display='none'">✕</button>
+        <img id="modalPoster" src="" style="position:absolute; bottom:-25px; left:16px; width:85px; height:125px; object-fit:cover; border-radius:6px; border:2px solid var(--card-bg); box-shadow:0 4px 12px rgba(0,0,0,0.6);">
+      </div>
+
+      <div style="padding:32px 16px 16px;">
+        <h3 id="modalTitle" style="font-size:1.45rem; margin-bottom:2px;">Movie Title</h3>
+        <div class="subhead" id="modalMeta" style="margin-bottom:12px; font-size:0.75rem; color:var(--text-muted);"></div>
+        <p id="modalSynopsis" style="font-size:0.85rem; line-height:1.45; color:var(--text-bright); margin-bottom:14px;">Synopsis goes here...</p>
+        <div id="modalGenres" class="pill-row" style="margin-bottom:18px; display:flex; flex-wrap:wrap;"></div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px; border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); padding:12px 0;">
+           <div style="font-size:0.75rem;"><strong style="color:var(--text-muted); display:block; margin-bottom:3px; text-transform:uppercase;">Director</strong><span id="modalDirector" style="color:var(--p1);"></span></div>
+           <div style="font-size:0.75rem;"><strong style="color:var(--text-muted); display:block; margin-bottom:3px; text-transform:uppercase;">Top Cast</strong><span id="modalCast"></span></div>
+        </div>
+
+        <div class="modal-section" style="background:#0d1117; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid var(--card-border);">
+          <div class="modal-section-title" style="margin-bottom:8px;">⭐ PARTNER RATINGS</div>
+          <div style="display:flex; gap:12px;">
+            <div style="flex:1;">
+              <label id="modalP1RatingLabel" style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;"></label>
+              <select id="modalP1Rating" class="form-control" onchange="updatePartnerRating(1)">
+                <option value="0">Unrated</option>
+                <option value="1">1 / 10</option>
+                <option value="2">2 / 10</option>
+                <option value="3">3 / 10</option>
+                <option value="4">4 / 10</option>
+                                <option value="5">5 / 10</option>
+                <option value="6">6 / 10</option>
+                <option value="7">7 / 10</option>
+                <option value="8">8 / 10</option>
+                <option value="9">9 / 10</option>
+                <option value="10">10 / 10</option>
+              </select>
+            </div>
+            <div style="flex:1;">
+              <label id="modalP2RatingLabel" style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;"></label>
+              <select id="modalP2Rating" class="form-control" onchange="updatePartnerRating(2)">
+                <option value="0">Unrated</option>
+                <option value="1">1 / 10</option>
+                <option value="2">2 / 10</option>
+                <option value="3">3 / 10</option>
+                <option value="4">4 / 10</option>
+                <option value="5">5 / 10</option>
+                <option value="6">6 / 10</option>
+                <option value="7">7 / 10</option>
+                <option value="8">8 / 10</option>
+                <option value="9">9 / 10</option>
+                <option value="10">10 / 10</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section" style="background:#0d1117; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid var(--card-border);">
+          <div style="font-size:0.7rem; font-weight:700; color:var(--accent); margin-bottom:6px;">🐾 PET SAFETY & SOUND DYNAMICS</div>
+          <p id="modalPetAlert" style="font-size:0.75rem; color:var(--text); margin-bottom:6px;"></p>
+          <p id="modalSoundMix" style="font-size:0.75rem; color:var(--text);"></p>
+        </div>
+
+        <div style="display:flex; gap:6px; margin-top:16px;">
+          <button class="btn-tool" style="flex:1; justify-content:center; padding:10px;" id="modalToggleWatched" onclick="toggleWatchedFromModal()">Mark Completed</button>
+          <button class="btn-tool" style="color:var(--red); padding:10px;" id="modalDeleteBtn" onclick="deleteFromModal()">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    /* ========================================================
-       1. PARTNER DATA & PERSISTENCE
-       ======================================================== */
     let p1 = localStorage.getItem('omni_p1') || 'Alex';
     let p2 = localStorage.getItem('omni_p2') || 'Sam';
     let currentPartnerFilter = 'all';
@@ -737,184 +526,316 @@
     function initPartners() {
       document.getElementById('p1Label').textContent = p1;
       document.getElementById('p2Label').textContent = p2;
-      const w1 = document.getElementById('wheelP1Chip');
-      const w2 = document.getElementById('wheelP2Chip');
-      if (w1) w1.textContent = `${p1}'s Picks`;
-      if (w2) w2.textContent = `${p2}'s Picks`;
+      if (document.getElementById('wheelP1Chip')) document.getElementById('wheelP1Chip').textContent = `${p1}'s Picks`;
+      if (document.getElementById('wheelP2Chip')) document.getElementById('wheelP2Chip').textContent = `${p2}'s Picks`;
+      if (document.getElementById('modalP1RatingLabel')) document.getElementById('modalP1RatingLabel').textContent = `${p1}'s Score:`;
+      if (document.getElementById('modalP2RatingLabel')) document.getElementById('modalP2RatingLabel').textContent = `${p2}'s Score:`;
     }
 
     function renamePartner(num) {
       const current = num === 1 ? p1 : p2;
       const updated = prompt(`Enter name for Partner ${num}:`, current);
       if (updated && updated.trim() !== '') {
-        if (num === 1) {
-          p1 = updated.trim();
-          localStorage.setItem('omni_p1', p1);
-        } else {
-          p2 = updated.trim();
-          localStorage.setItem('omni_p2', p2);
-        }
-        initPartners();
-        renderVault();
+        if (num === 1) { p1 = updated.trim(); localStorage.setItem('omni_p1', p1); }
+        else { p2 = updated.trim(); localStorage.setItem('omni_p2', p2); }
+        initPartners(); renderVault();
       }
     }
 
-    function togglePartner(p) {
-      currentPartnerFilter = currentPartnerFilter === p ? 'all' : p;
-      updatePartnerUI();
-      renderVault();
-    }
-
-    function toggleDateNight() {
-      currentPartnerFilter = currentPartnerFilter === 'date' ? 'all' : 'date';
-      updatePartnerUI();
-      renderVault();
-    }
-
+    function togglePartner(p) { currentPartnerFilter = currentPartnerFilter === p ? 'all' : p; updatePartnerUI(); renderVault(); }
+    function toggleDateNight() { currentPartnerFilter = currentPartnerFilter === 'date' ? 'all' : 'date'; updatePartnerUI(); renderVault(); }
     function updatePartnerUI() {
       document.getElementById('p1Pill').className = 'partner-pill' + (currentPartnerFilter === 'p1' ? ' active-p1' : '');
       document.getElementById('p2Pill').className = 'partner-pill' + (currentPartnerFilter === 'p2' ? ' active-p2' : '');
       document.getElementById('datePill').className = 'partner-pill' + (currentPartnerFilter === 'date' ? ' active-date' : '');
     }
 
-    /* ========================================================
-       2. CATALOG WITH HIGH-RES REAL POSTER ARTWORK
-       ======================================================== */
     const DEFAULT_CATALOG = [
       {
-        id: '1',
-        title: 'Coherence',
-        type: 'movie',
-        genre: 'Sci-Fi',
-        year: 2013,
-        runtime: 89,
-        petSafe: true,
-        petNotes: '🐾 Zero doorbells, fireworks, or animal distress sounds.',
-        soundMix: 'Balanced Mix',
-        soundNotes: 'Dialogue-driven indie audio mix; safe for late-night viewing.',
-        synopsis: 'On the night of an astronomical anomaly, eight friends at a dinner party experience a troubling chain of reality-bending events.',
+        id: '1', title: 'Coherence', type: 'movie', genre: 'Sci-Fi, Psychological Thriller, Mystery', year: 2013, runtime: 89,
+        director: 'James Ward Byrkit', cast: 'Emily Baldoni, Maury Sterling, Nicholas Brendon, Lorene Scafaria',
+        imdbRating: '7.2', rtRating: '88%', p1Rating: 8, p2Rating: 9,
+        petSafe: true, petNotes: '🐾 Zero doorbells, fireworks, or animal distress sounds.', soundMix: 'Balanced Mix',
+        synopsis: 'Strange things begin to happen when a group of friends gather for a dinner party on an evening when a comet is passing overhead.',
         poster: 'https://m.media-amazon.com/images/M/MV5BNzQ1OTA5MjQ1Ml5BMl5BanBnXkFtZTgwMDUyODMzMjE@._V1_FMjpg_UX600_.jpg',
-        p1: true,
-        p2: true,
-        completed: false,
-        rating: '100%',
-        shelf: 'A-01'
+        p1: true, p2: true, completed: true, shelf: 'A-01'
       },
       {
-        id: '2',
-        title: 'Annihilation',
-        type: 'movie',
-        genre: 'Sci-Fi',
-        year: 2018,
-        runtime: 115,
-        petSafe: false,
-        petNotes: '⚠️️ High Alert: Mutated bear scene produces screeching creature sounds.',
-        soundMix: 'Wide Dynamic Range',
-        soundNotes: 'Bass-heavy synth drone with massive volume spikes.',
+        id: '2', title: 'Annihilation', type: 'movie', genre: 'Sci-Fi, Horror, Adventure', year: 2018, runtime: 115,
+        director: 'Alex Garland', cast: 'Natalie Portman, Jennifer Jason Leigh, Tessa Thompson, Oscar Isaac',
+        imdbRating: '6.8', rtRating: '88%', p1Rating: 0, p2Rating: 0,
+        petSafe: false, petNotes: '⚠ High Alert: Mutated bear scene produces screeching creature sounds.', soundMix: 'Wide Dynamic Range',
         synopsis: 'A biologist signs up for a secret expedition into a mysterious environmental anomaly where the laws of nature do not apply.',
         poster: 'https://m.media-amazon.com/images/M/MV5BMTk2Mjc2NzYxN15BMl5BanBnXkFtZTgwMTA2OTA1NDM@._V1_FMjpg_UX600_.jpg',
-        p1: true,
-        p2: false,
-        completed: false,
-        rating: '85%',
-        shelf: 'A-02'
+        p1: true, p2: false, completed: false, shelf: 'A-02'
       },
-      {
-        id: '3',
-        title: 'Neuromancer',
-        type: 'book',
-        genre: 'Cyberpunk',
-        year: 1984,
-        runtime: 271,
-        petSafe: true,
-        petNotes: '🐾 100% Pet-Safe (Audiobook / Paperback format).',
-        soundMix: 'Balanced Mix',
-        soundNotes: 'Clean narration tone.',
-        synopsis: 'Case was the sharpest data-thief in the matrix until ex-employers crippled his nervous system. Now a shadowy employer offers a cure in exchange for a target run.',
-        poster: 'https://covers.openlibrary.org/b/id/12843860-L.jpg',
-        p1: true,
-        p2: true,
-        completed: false,
-        rating: '100%',
-        shelf: 'Book-04'
-      },
-      {
-        id: '4',
-        title: 'Panic Room',
-        type: 'movie',
-        genre: 'Thriller',
-        year: 2002,
-        runtime: 112,
-        petSafe: true,
-        petNotes: '🐾 Confined interior suspense. No dog barks or surprise chimes.',
-        soundMix: 'Balanced Mix',
-        soundNotes: 'Fincher directional audio mix; well-balanced dialogue channel.',
-        synopsis: 'A divorced woman and her diabetic daughter take refuge in their newly purchased New York home’s safe room when intruders invade.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BMjA5OTY2MzY0Nl5BMl5BanBnXkFtZTYwODU4Mzg5._V1_FMjpg_UX600_.jpg',
-        p1: false,
-        p2: true,
-        completed: false,
-        rating: '100%',
-        shelf: 'B-12'
-      },
-      {
-        id: '5',
-        title: 'The Thing',
-        type: 'movie',
-        genre: 'Horror',
-        year: 1982,
-        runtime: 109,
-        petSafe: false,
-        petNotes: '⚠️ High Alert: Kennel scene contains severe dog distress noises.',
-        soundMix: 'Wide Dynamic Range',
-        soundNotes: 'Ennio Morricone synth score with intense screams and flamethrower bursts.',
-        synopsis: 'A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BNGViZWZmM2EtNGYzZi00NWNiLTg2ODMtGRlOGE1N2FhYzYwXkEyXkFqcGc@._V1_FMjpg_UX600_.jpg',
-        p1: true,
-        p2: true,
-        completed: false,
-        rating: '95%',
-        shelf: 'Steelbook-01'
+          {
+        id: '5', title: 'Resident Evil', type: 'movie', genre: 'Horror, Action, Sci-Fi', year: 2002, runtime: 100,
+        director: 'Paul W.S. Anderson', cast: 'Milla Jovovich, Michelle Rodriguez, Eric Mabius',
+        imdbRating: '6.6', rtRating: '35%', p1Rating: 0, p2Rating: 0,
+        petSafe: false, petNotes: '⚠️ Contains zombie dogs and loud combat gunfire sequences.', soundMix: 'Wide Dynamic Range',
+        synopsis: 'A special military unit fights a powerful, out-of-control supercomputer and hundreds of scientists who have mutated into flesh-eating creatures after a laboratory accident.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BZmI1ZGRhNDYtOGVjZC00MmVhLThlZzItMzQwNGJiNDFhZWJhXkEyXkFqcGc@._V1_FMjpg_UX600_.jpg',
+        p1: true, p2: true, completed: false, shelf: 'Digital'
       }
     ];
 
     let vault = JSON.parse(localStorage.getItem('omni_vault_data')) || DEFAULT_CATALOG;
+    function saveVault() { localStorage.setItem('omni_vault_data', JSON.stringify(vault)); }
 
-    function saveVault() {
-      localStorage.setItem('omni_vault_data', JSON.stringify(vault));
+    function openDetailModal(id) {
+      const item = vault.find(i => i.id === id);
+      if (!item) return;
+      activeDetailMovieId = id;
+
+      document.getElementById('modalTitle').textContent = item.title;
+      const lengthStr = item.type === 'book' ? `${item.runtime} pages` : `${Math.floor(item.runtime / 60)}h ${item.runtime % 60}m`;
+      
+      let ratingStr = [];
+      if (item.imdbRating) ratingStr.push(`⭐ ${item.imdbRating}`);
+      if (item.rtRating) ratingStr.push(`🍅 ${item.rtRating}`);
+      
+      document.getElementById('modalMeta').textContent = `${item.year} • ${ratingStr.join(' | ') || 'Unrated'} • ${lengthStr} • ${item.type.toUpperCase()}`;
+      
+      const posterSrc = item.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
+      document.getElementById('modalPoster').src = posterSrc;
+      document.getElementById('modalBackdrop').src = posterSrc;
+
+      document.getElementById('modalSynopsis').textContent = item.synopsis || 'No synopsis added yet.';
+      
+      const genresDiv = document.getElementById('modalGenres');
+      genresDiv.innerHTML = '';
+      if (item.genre) {
+        item.genre.split(',').forEach(g => {
+          const span = document.createElement('span');
+          span.className = 'tag-pill';
+          span.style.background = '#21262d';
+          span.style.fontSize = '0.7rem';
+          span.style.padding = '4px 8px';
+          span.textContent = g.trim();
+          genresDiv.appendChild(span);
+        });
+      }
+
+      document.getElementById('modalDirector').textContent = item.director || 'N/A';
+      document.getElementById('modalCast').textContent = item.cast || 'N/A';
+      document.getElementById('modalPetAlert').textContent = item.petNotes;
+      document.getElementById('modalSoundMix').innerHTML = `<strong>${item.soundMix || 'Balanced Mix'}</strong> — Standard profile.`;
+      
+      document.getElementById('modalP1Rating').value = item.p1Rating || 0;
+      document.getElementById('modalP2Rating').value = item.p2Rating || 0;
+      
+      document.getElementById('modalToggleWatched').textContent = item.completed ? 'Mark Backlog' : 'Mark Completed';
+      document.getElementById('detailModal').style.display = 'flex';
     }
 
-    /* ========================================================
-       3. SORTING & FILTER ENGINE
-       ======================================================== */
+    function closeDetailModal(e) { if (e.target.id === 'detailModal') document.getElementById('detailModal').style.display = 'none'; }
+    function toggleWatchedFromModal() { const item = vault.find(i => i.id === activeDetailMovieId); if (item) { item.completed = !item.completed; saveVault(); renderVault(); document.getElementById('detailModal').style.display = 'none'; } }
+    function deleteFromModal() { if (activeDetailMovieId) deleteItem(activeDetailMovieId); document.getElementById('detailModal').style.display = 'none'; }
+    
+    function updatePartnerRating(partnerNum) {
+      const item = vault.find(i => i.id === activeDetailMovieId);
+      if (!item) return;
+      if (partnerNum === 1) item.p1Rating = parseInt(document.getElementById('modalP1Rating').value);
+      if (partnerNum === 2) item.p2Rating = parseInt(document.getElementById('modalP2Rating').value);
+      saveVault();
+      renderVault();
+    }
+
+    function adjustAddFormFields() {
+      const type = document.getElementById('addTypeSelect').value;
+      document.getElementById('addRuntimeOrPagesLabel').textContent = type === 'book' ? 'Page Count' : 'Runtime (Mins)';
+      document.getElementById('addAuthorOrGenreLabel').textContent = type === 'book' ? 'Author' : 'Primary Genre';
+    }
+
+    async function autoFetchMetadata() {
+      const title = document.getElementById('addTitleInput').value.trim();
+      const type = document.getElementById('addTypeSelect').value;
+      const status = document.getElementById('fetchStatus');
+      const list = document.getElementById('disambiguationList');
+
+      if (!title) { status.textContent = '⚠ Please enter a title first.'; list.style.display = 'none'; return; }
+      status.textContent = '🔍 Searching databases...';
+      list.innerHTML = '';
+      list.style.display = 'none';
+
+      try {
+        if (type === 'movie' || type === 'tv') {
+          const media = type === 'tv' ? 'tvShow' : 'movie';
+          const entity = type === 'tv' ? 'tvSeason' : 'movie';
+          
+          const resp = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(title)}&media=${media}&entity=${entity}&limit=6`);
+          const data = await resp.json();
+
+          if (data.results && data.results.length > 0) {
+            status.textContent = 'Match found! Click the correct title below:';
+            list.style.display = 'flex';
+            data.results.forEach(item => {
+              const name = item.trackName || item.collectionName || title;
+              const year = item.releaseDate ? new Date(item.releaseDate).getFullYear() : 'N/A';
+              const thumb = item.artworkUrl100 ? item.artworkUrl100.replace('100x100bb', '200x200bb') : '';
+              
+              const div = document.createElement('div');
+              div.className = 'disambig-item';
+              div.innerHTML = `<img src="${thumb}" onerror="this.style.display='none'"><div><strong>${name}</strong> (${year})<br><small>${item.primaryGenreName || type} • ${item.artistName || 'Unknown'}</small></div>`;
+              div.onclick = () => applyMediaMetadata(item, type, name, year);
+              list.appendChild(div);
+            });
+          } else {
+            status.textContent = '❌ No matches found. You can enter details manually.';
+          }
+        } else if (type === 'book') {
+              const resp = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=6`);
+          const data = await resp.json();
+
+          if (data.docs && data.docs.length > 0) {
+            status.textContent = 'Match found! Click the correct book below:';
+            list.style.display = 'flex';
+            data.docs.forEach(doc => {
+              const name = doc.title;
+              const year = doc.first_publish_year || 'N/A';
+              const author = doc.author_name ? doc.author_name[0] : 'Unknown Author';
+              const thumb = doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-S.jpg` : '';
+              
+              const div = document.createElement('div');
+              div.className = 'disambig-item';
+              div.innerHTML = `<img src="${thumb}"><div><strong>${name}</strong> (${year})<br><small>${author}</small></div>`;
+              div.onclick = () => applyBookMetadata(doc);
+              list.appendChild(div);
+            });
+          } else {
+            status.textContent = '❌ Book not found. Fill manually.';
+          }
+        }
+      } catch (err) {
+        status.textContent = '⚠️ Network error. Enter manually.';
+      }
+    }
+
+    async function applyMediaMetadata(item, type, name, year) {
+        document.getElementById('disambiguationList').style.display = 'none';
+        
+        document.getElementById('addTitleInput').value = name;
+        document.getElementById('addYearInput').value = year;
+        document.getElementById('addDirectorInput').value = item.artistName || '';
+        
+        if (item.trackTimeMillis) document.getElementById('addRuntimeInput').value = Math.round(item.trackTimeMillis / 60000);
+        if (item.primaryGenreName) document.getElementById('addGenreInput').value = item.primaryGenreName;
+        if (item.longDescription || item.shortDescription) document.getElementById('addSynopsisInput').value = item.longDescription || item.shortDescription;
+        if (item.artworkUrl100) document.getElementById('addPosterInput').value = item.artworkUrl100.replace('100x100bb.jpg', '600x600bb.jpg');
+
+        const omdbKey = localStorage.getItem('omni_omdb_key');
+        if (omdbKey) {
+            try {
+                const omdbRes = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(name)}&y=${year}&apikey=${omdbKey}`);
+                const omdbData = await omdbRes.json();
+                if (omdbData.Response === "True") {
+                    if (omdbData.imdbRating && omdbData.imdbRating !== 'N/A') document.getElementById('addImdbInput').value = omdbData.imdbRating;
+                    const rt = omdbData.Ratings?.find(r => r.Source === 'Rotten Tomatoes');
+                    if (rt) document.getElementById('addRtInput').value = rt.Value;
+                    if (omdbData.Director && omdbData.Director !== 'N/A') document.getElementById('addDirectorInput').value = omdbData.Director;
+                    if (omdbData.Actors && omdbData.Actors !== 'N/A') document.getElementById('addCastInput').value = omdbData.Actors;
+                    if (omdbData.Genre && omdbData.Genre !== 'N/A') document.getElementById('addGenreInput').value = omdbData.Genre;
+                    if (omdbData.Plot && omdbData.Plot !== 'N/A') document.getElementById('addSynopsisInput').value = omdbData.Plot;
+                }
+            } catch (e) { console.log('OMDB fetch failed'); }
+        }
+
+        const g = (item.primaryGenreName || '').toLowerCase();
+        if (g.includes('action') || g.includes('horror') || g.includes('sci-fi')) {
+          document.getElementById('addSoundMixSelect').value = 'Wide Dynamic Range';
+          document.getElementById('addPetSafeSelect').value = 'alert';
+        } else {
+          document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
+          document.getElementById('addPetSafeSelect').value = 'safe';
+        }
+        
+        let statusMsg = `✅ Loaded metadata for "${name}".`;
+        if (!omdbKey) statusMsg += ' (Add OMDb API Key in Sync Hub for IMDb/RT & Cast!)';
+        document.getElementById('fetchStatus').textContent = statusMsg;
+    }
+
+    function applyBookMetadata(doc) {
+        document.getElementById('disambiguationList').style.display = 'none';
+        document.getElementById('addTitleInput').value = doc.title;
+        if (doc.first_publish_year) document.getElementById('addYearInput').value = doc.first_publish_year;
+        if (doc.number_of_pages_median) document.getElementById('addRuntimeInput').value = doc.number_of_pages_median;
+        if (doc.author_name && doc.author_name.length > 0) document.getElementById('addGenreInput').value = doc.author_name[0];
+        document.getElementById('addDirectorInput').value = doc.author_name ? doc.author_name[0] : '';
+        if (doc.cover_i) document.getElementById('addPosterInput').value = `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
+        document.getElementById('addPetSafeSelect').value = 'safe';
+        document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
+        document.getElementById('fetchStatus').textContent = `✅ Successfully loaded metadata for "${doc.title}".`;
+    }
+
+    function openAddModal() {
+      document.getElementById('fetchStatus').textContent = '';
+      document.getElementById('disambiguationList').style.display = 'none';
+      document.getElementById('addTitleInput').value = '';
+      document.getElementById('addPosterInput').value = '';
+      document.getElementById('addSynopsisInput').value = '';
+      document.getElementById('addDirectorInput').value = '';
+      document.getElementById('addCastInput').value = '';
+      document.getElementById('addImdbInput').value = '';
+      document.getElementById('addRtInput').value = '';
+      document.getElementById('addModal').style.display = 'flex';
+      adjustAddFormFields();
+    }
+
+    function closeAddModal(e) { if (e.target.id === 'addModal') document.getElementById('addModal').style.display = 'none'; }
+        function saveNewTitle() {
+      const title = document.getElementById('addTitleInput').value.trim();
+      if (!title) { alert('Please provide a title.'); return; }
+      
+      const petSafe = document.getElementById('addPetSafeSelect').value === 'safe';
+      const soundMix = document.getElementById('addSoundMixSelect').value;
+
+      vault.unshift({
+        id: Date.now().toString(),
+        title,
+        type: document.getElementById('addTypeSelect').value,
+        genre: document.getElementById('addGenreInput').value.trim() || 'General',
+        year: parseInt(document.getElementById('addYearInput').value) || new Date().getFullYear(),
+        runtime: parseInt(document.getElementById('addRuntimeInput').value) || 100,
+        director: document.getElementById('addDirectorInput').value.trim(),
+        cast: document.getElementById('addCastInput').value.trim(),
+        imdbRating: document.getElementById('addImdbInput').value.trim(),
+        rtRating: document.getElementById('addRtInput').value.trim(),
+        p1Rating: 0, p2Rating: 0,
+        petSafe,
+        petNotes: petSafe ? '🐾 Pet-Safe: Verified minimal abrupt noise triggers.' : '⚠️ Warning: Contains sudden loud bursts or intense sequences.',
+        soundMix,
+        soundNotes: soundMix === 'Balanced Mix' ? 'Acoustically compressed center channel.' : 'Wide dynamic peaks; subwoofer dynamic spikes.',
+        synopsis: document.getElementById('addSynopsisInput').value.trim() || 'Added by user.',
+        poster: document.getElementById('addPosterInput').value.trim() || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80',
+        p1: false, p2: false, completed: false, shelf: 'Digital'
+      });
+
+      saveVault(); renderVault(); document.getElementById('addModal').style.display = 'none';
+    }
+
     function renderVault() {
       const grid = document.getElementById('itemsGrid');
       const query = (document.getElementById('searchBox').value || '').toLowerCase();
       const sortMode = document.getElementById('sortSelect').value;
       grid.innerHTML = '';
 
-      const backlogList = vault.filter(i => !i.completed);
-      const completedList = vault.filter(i => i.completed);
-      document.getElementById('backlogCount').textContent = backlogList.length;
-      document.getElementById('completedCount').textContent = completedList.length;
+      document.getElementById('backlogCount').textContent = vault.filter(i => !i.completed).length;
+      document.getElementById('completedCount').textContent = vault.filter(i => i.completed).length;
 
       let filtered = vault.filter(item => {
         if (currentStatus === 'backlog' && item.completed) return false;
         if (currentStatus === 'completed' && !item.completed) return false;
         if (currentMediaType !== 'all' && item.type !== currentMediaType) return false;
-        if (currentGenre !== 'all' && (item.genre || '').toLowerCase() !== currentGenre.toLowerCase()) return false;
-
-        if (currentPartnerFilter === 'p1' && !item.p1) return false;
-        if (currentPartnerFilter === 'p2' && !item.p2) return false;
-        if (currentPartnerFilter === 'date' && (!item.p1 || !item.p2)) return false;
-
+        if (currentGenre !== 'all' && !(item.genre || '').toLowerCase().includes(currentGenre.toLowerCase())) return false;
+        
         if (filterPetOnly && !item.petSafe) return false;
         if (filterSoundOnly && item.soundMix !== 'Balanced Mix') return false;
-
+        
         if (currentTimeBudget === 'short' && item.runtime >= 90) return false;
         if (currentTimeBudget === 'med' && (item.runtime < 90 || item.runtime > 120)) return false;
         if (currentTimeBudget === 'long' && item.runtime <= 120) return false;
-
+        
         if (currentDecade === 'pre70' && item.year >= 1970) return false;
         if (currentDecade === '70s' && (item.year < 1970 || item.year > 1979)) return false;
         if (currentDecade === '80s' && (item.year < 1980 || item.year > 1989)) return false;
@@ -923,53 +844,55 @@
         if (currentDecade === '2010s' && (item.year < 2010 || item.year > 2019)) return false;
         if (currentDecade === '2020s' && item.year < 2020) return false;
 
-        if (query && !item.title.toLowerCase().includes(query) && !(item.shelf || '').toLowerCase().includes(query) && !(item.genre || '').toLowerCase().includes(query)) return false;
-
+        if (currentPartnerFilter === 'p1' && !item.p1) return false;
+        if (currentPartnerFilter === 'p2' && !item.p2) return false;
+        if (currentPartnerFilter === 'date' && (!item.p1 || !item.p2)) return false;
+        if (query && !item.title.toLowerCase().includes(query) && !(item.director || '').toLowerCase().includes(query) && !(item.genre || '').toLowerCase().includes(query)) return false;
         return true;
       });
 
-      // Sorting Logic
       filtered.sort((a, b) => {
         if (sortMode === 'title-asc') return a.title.localeCompare(b.title);
-        if (sortMode === 'title-desc') return b.title.localeCompare(a.title);
         if (sortMode === 'year-desc') return b.year - a.year;
         if (sortMode === 'year-asc') return a.year - b.year;
         if (sortMode === 'runtime-asc') return a.runtime - b.runtime;
         if (sortMode === 'runtime-desc') return b.runtime - a.runtime;
-        if (sortMode === 'rating-desc') return parseInt(b.rating || 0) - parseInt(a.rating || 0);
+        if (sortMode === 'imdb-desc') return parseFloat(b.imdbRating || 0) - parseFloat(a.imdbRating || 0);
+        if (sortMode === 'rt-desc') return parseInt((b.rtRating || '0').replace('%','')) - parseInt((a.rtRating || '0').replace('%',''));
         return 0;
       });
 
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">No entries match your filters.</div>`;
-        return;
-      }
+      if (filtered.length === 0) { grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">No entries match your filters.</div>`; return; }
 
       filtered.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
         card.onclick = () => openDetailModal(item.id);
         
-        const fallbackSrc = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
-        const posterUrl = item.poster && item.poster.trim() !== '' ? item.poster : fallbackSrc;
+        const imdbBadge = item.imdbRating ? `<span style="color:#f5c518;">⭐ ${item.imdbRating}</span>` : '';
+        const rtBadge = item.rtRating ? `<span style="color:#fa320a;">🍅 ${item.rtRating}</span>` : '';
+        const spacer = (imdbBadge && rtBadge) ? ' | ' : '';
+        const topBadge = (imdbBadge || rtBadge) ? `${imdbBadge}${spacer}${rtBadge}` : 'Unrated';
+        
+        const p1VoteText = item.p1Rating > 0 ? `⭐ ${item.p1Rating}/10` : (p1 + (item.p1 ? ' ✓' : ''));
+        const p2VoteText = item.p2Rating > 0 ? `⭐ ${item.p2Rating}/10` : (p2 + (item.p2 ? ' ✓' : ''));
 
         card.innerHTML = `
           <div class="poster-box">
-            <img class="poster-img" src="${posterUrl}" alt="${item.title}" onerror="this.src='${fallbackSrc}'">
+            <img class="poster-img" src="${item.poster || ''}">
             <span class="media-type-tag">${item.type}</span>
-            <span class="poster-badge-top">${item.rating || '100%'}</span>
+            <span class="poster-badge-top">${topBadge}</span>
           </div>
           <div class="card-info">
             <div class="title-row">${item.title}</div>
-            <div class="meta-row">${item.year} • ${item.type === 'book' ? item.runtime + 'p' : item.runtime + 'm'} ${item.shelf ? '• ['+item.shelf+']' : ''}</div>
+            <div class="meta-row">${item.year} • ${item.type === 'book' ? item.runtime + 'p' : item.runtime + 'm'}</div>
             <div class="badges-row">
               <span class="tag-pill ${item.petSafe ? 'safe' : ''}">${item.petSafe ? '🐾 Pet Safe' : '⚠️ Pet Alert'}</span>
-              <span class="tag-pill sound">${item.soundMix}</span>
             </div>
             <div class="action-row" onclick="event.stopPropagation()">
-              <button class="btn-vote ${item.p1 ? 'voted-p1' : ''}" onclick="toggleVote('${item.id}', 1)">${p1} ${item.p1 ? '✓' : ''}</button>
-              <button class="btn-vote ${item.p2 ? 'voted-p2' : ''}" onclick="toggleVote('${item.id}', 2)">${p2} ${item.p2 ? '✓' : ''}</button>
-              <button class="btn-trash" onclick="deleteItem('${item.id}')" title="Delete">🗑️</button>
+              <button class="btn-vote ${item.p1 ? 'voted-p1' : ''}" onclick="toggleVote('${item.id}', 1)">${p1VoteText}</button>
+              <button class="btn-vote ${item.p2 ? 'voted-p2' : ''}" onclick="toggleVote('${item.id}', 2)">${p2VoteText}</button>
+              <button class="btn-trash" onclick="deleteItem('${item.id}')">🗑️</button>
             </div>
           </div>
         `;
@@ -977,326 +900,29 @@
       });
     }
 
-    function toggleVote(id, partnerNum) {
-      const match = vault.find(i => i.id === id);
-      if (!match) return;
-      if (partnerNum === 1) match.p1 = !match.p1;
-      if (partnerNum === 2) match.p2 = !match.p2;
-      saveVault();
-      renderVault();
-    }
+    function toggleVote(id, partnerNum) { const match = vault.find(i => i.id === id); if (!match) return; if (partnerNum === 1) match.p1 = !match.p1; if (partnerNum === 2) match.p2 = !match.p2; saveVault(); renderVault(); }
+    function deleteItem(id) { if (confirm(`Remove this title?`)) { vault = vault.filter(i => i.id !== id); saveVault(); renderVault(); } }
 
-    function deleteItem(id) {
-      const match = vault.find(i => i.id === id);
-      if (!match) return;
-      if (confirm(`Permanently remove "${match.title}" from OmniVault?`)) {
-        vault = vault.filter(i => i.id !== id);
-        saveVault();
-        renderVault();
-      }
-    }
-
-    /* Filter Chips Handlers */
-    function setMediaType(type, el) {
-      currentMediaType = type;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => {
-        if (!['🐾 Pet Safe Only', '🔊 Balanced Mix'].includes(c.textContent.trim())) c.classList.remove('active');
-      });
-      el.classList.add('active');
-      renderVault();
-    }
-
-    function setGenre(genre, el) {
-      currentGenre = genre;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      renderVault();
-    }
-
-    function togglePetFilter(el) {
-      filterPetOnly = !filterPetOnly;
-      el.classList.toggle('active', filterPetOnly);
-      renderVault();
-    }
-
-    function toggleSoundFilter(el) {
-      filterSoundOnly = !filterSoundOnly;
-      el.classList.toggle('active', filterSoundOnly);
-      renderVault();
-    }
-
-    function setTimeBudget(val, el) {
-      currentTimeBudget = val;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      renderVault();
-    }
-
-    function setDecade(val, el) {
-      currentDecade = val;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      renderVault();
-    }
-
-    function setStatusTab(status) {
-      currentStatus = status;
-      document.getElementById('btnBacklog').className = 'btn-status' + (status === 'backlog' ? ' active' : '');
-      document.getElementById('btnCompleted').className = 'btn-status' + (status === 'completed' ? ' active' : '');
-      renderVault();
-    }
-
-    function resetFilters() {
-      currentPartnerFilter = 'all';
-      currentMediaType = 'all';
-      currentGenre = 'all';
-      currentTimeBudget = 'any';
-      currentDecade = 'all';
-      filterPetOnly = false;
-      filterSoundOnly = false;
-      document.getElementById('searchBox').value = '';
-      document.getElementById('sortSelect').value = 'default';
-      updatePartnerUI();
-      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      document.querySelector('.chip-accent').classList.add('active');
-      renderVault();
-    }
+    function setMediaType(type, el) { currentMediaType = type; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
+    function setGenre(genre, el) { currentGenre = genre; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
+        function togglePetFilter(el) { filterPetOnly = !filterPetOnly; el.classList.toggle('active', filterPetOnly); renderVault(); }
+    function toggleSoundFilter(el) { filterSoundOnly = !filterSoundOnly; el.classList.toggle('active', filterSoundOnly); renderVault(); }
+    function setTimeBudget(val, el) { currentTimeBudget = val; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
+    function setDecade(val, el) { currentDecade = val; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
+    function setStatusTab(status) { currentStatus = status; document.getElementById('btnBacklog').className = 'btn-status' + (status === 'backlog' ? ' active' : ''); document.getElementById('btnCompleted').className = 'btn-status' + (status === 'completed' ? ' active' : ''); renderVault(); }
+    function resetFilters() { currentPartnerFilter = 'all'; currentMediaType = 'all'; currentGenre = 'all'; currentTimeBudget = 'any'; currentDecade = 'all'; filterPetOnly = false; filterSoundOnly = false; document.getElementById('searchBox').value = ''; document.getElementById('sortSelect').value = 'default'; updatePartnerUI(); document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); document.querySelector('.chip-accent').classList.add('active'); renderVault(); }
 
     /* ========================================================
-       4. MOVIE DETAIL PREVIEW MODAL
-       ======================================================== */
-    function openDetailModal(id) {
-      const item = vault.find(i => i.id === id);
-      if (!item) return;
-
-      activeDetailMovieId = id;
-      document.getElementById('modalTitle').textContent = item.title;
-      document.getElementById('modalMeta').textContent = `${item.year} • ${item.type === 'book' ? item.runtime + ' pages' : item.runtime + 'm'} • ${item.type.toUpperCase()} • ${item.genre || 'General'}`;
-      document.getElementById('modalPoster').src = item.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
-      document.getElementById('modalSynopsis').textContent = item.synopsis || 'No synopsis added yet.';
-      document.getElementById('modalPetAlert').textContent = item.petNotes || (item.petSafe ? '🐾 Pet Safe: No registered bark, doorbell, or animal trauma triggers.' : '⚠️ Warning: May contain loud sudden noises or creature distress.');
-      document.getElementById('modalSoundMix').textContent = `${item.soundMix} — ${item.soundNotes || 'Standard mix profile.'}`;
-      document.getElementById('modalShelf').textContent = item.shelf ? `Physical Location: [${item.shelf}]` : 'Digital library copy.';
-
-      document.getElementById('modalToggleWatched').textContent = item.completed ? 'Mark Backlog' : 'Mark Completed';
-      document.getElementById('detailModal').style.display = 'flex';
-    }
-
-    function closeDetailModal(e) {
-      if (e.target.id === 'detailModal') {
-        document.getElementById('detailModal').style.display = 'none';
-      }
-    }
-
-    function toggleWatchedFromModal() {
-      if (!activeDetailMovieId) return;
-      const item = vault.find(i => i.id === activeDetailMovieId);
-      if (!item) return;
-      item.completed = !item.completed;
-      saveVault();
-      renderVault();
-      document.getElementById('detailModal').style.display = 'none';
-    }
-
-    function deleteFromModal() {
-      if (!activeDetailMovieId) return;
-      deleteItem(activeDetailMovieId);
-      document.getElementById('detailModal').style.display = 'none';
-    }
-
-    /* ========================================================
-       5. AUTO-POPULATE METADATA ENGINE (FREE & KEYLESS)
-       ======================================================== */
-    function adjustAddFormFields() {
-      const type = document.getElementById('addTypeSelect').value;
-      const runtimeLabel = document.getElementById('addRuntimeOrPagesLabel');
-      const genreLabel = document.getElementById('addAuthorOrGenreLabel');
-
-      if (type === 'book') {
-        runtimeLabel.textContent = 'Page Count';
-        genreLabel.textContent = 'Author';
-      } else {
-        runtimeLabel.textContent = 'Runtime (Mins)';
-        genreLabel.textContent = 'Primary Genre';
-      }
-    }
-
-    async function autoFetchMetadata() {
-      const title = document.getElementById('addTitleInput').value.trim();
-      const type = document.getElementById('addTypeSelect').value;
-      const status = document.getElementById('fetchStatus');
-
-      if (!title) {
-        status.textContent = '⚠️ Please enter a title first.';
-        return;
-      }
-
-      status.textContent = '🔍 Fetching details & poster artwork...';
-
-      try {
-        if (type === 'movie' || type === 'tv') {
-          const entity = type === 'tv' ? 'tvSeason' : 'movie';
-          const resp = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(title)}&entity=${entity}&limit=1`);
-          const data = await resp.json();
-
-          if (data.results && data.results.length > 0) {
-            const item = data.results[0];
-            const name = item.trackName || item.collectionName || title;
-            document.getElementById('addTitleInput').value = name;
-            document.getElementById('addYearInput').value = item.releaseDate ? new Date(item.releaseDate).getFullYear() : 2024;
-            
-            if (item.trackTimeMillis) {
-              document.getElementById('addRuntimeInput').value = Math.round(item.trackTimeMillis / 60000);
-            }
-            if (item.primaryGenreName) {
-              document.getElementById('addGenreInput').value = item.primaryGenreName;
-            }
-            if (item.longDescription || item.shortDescription) {
-              document.getElementById('addSynopsisInput').value = item.longDescription || item.shortDescription;
-            }
-            if (item.artworkUrl100) {
-              // Get higher-res artwork by replacing size
-              const hiRes = item.artworkUrl100.replace('100x100bb.jpg', '600x600bb.jpg');
-              document.getElementById('addPosterInput').value = hiRes;
-            }
-
-            // Estimate acoustic mix based on genre
-            const g = (item.primaryGenreName || '').toLowerCase();
-            if (g.includes('action') || g.includes('horror') || g.includes('sci-fi')) {
-              document.getElementById('addSoundMixSelect').value = 'Wide Dynamic Range';
-              document.getElementById('addPetSafeSelect').value = 'alert';
-            } else {
-              document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
-              document.getElementById('addPetSafeSelect').value = 'safe';
-            }
-
-            status.textContent = `✅ Found: "${name}" (${document.getElementById('addYearInput').value})`;
-          } else {
-            status.textContent = '❌ No direct match found. You can enter details manually.';
-          }
-        } else if (type === 'book') {
-          const resp = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=1`);
-          const data = await resp.json();
-
-          if (data.docs && data.docs.length > 0) {
-            const doc = data.docs[0];
-            document.getElementById('addTitleInput').value = doc.title;
-            if (doc.first_publish_year) document.getElementById('addYearInput').value = doc.first_publish_year;
-            if (doc.number_of_pages_median) document.getElementById('addRuntimeInput').value = doc.number_of_pages_median;
-            if (doc.author_name && doc.author_name.length > 0) document.getElementById('addGenreInput').value = doc.author_name[0];
-            if (doc.cover_i) {
-              document.getElementById('addPosterInput').value = `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
-            }
-            document.getElementById('addPetSafeSelect').value = 'safe';
-            document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
-            status.textContent = `✅ Found book: "${doc.title}"`;
-          } else {
-            status.textContent = '❌ Book not found on OpenLibrary. Fill manually.';
-          }
-        } else {
-          status.textContent = '🎮 Video game: set details & artwork.';
-        }
-      } catch (err) {
-        status.textContent = '⚠️ Network error while fetching. Enter manually.';
-      }
-    }
-
-    function openAddModal() {
-      document.getElementById('fetchStatus').textContent = '';
-      document.getElementById('addTitleInput').value = '';
-      document.getElementById('addPosterInput').value = '';
-      document.getElementById('addSynopsisInput').value = '';
-      document.getElementById('addShelfInput').value = '';
-      document.getElementById('addModal').style.display = 'flex';
-      adjustAddFormFields();
-    }
-
-    function closeAddModal(e) {
-      if (e.target.id === 'addModal') {
-        document.getElementById('addModal').style.display = 'none';
-      }
-    }
-
-    function saveNewTitle() {
-      const title = document.getElementById('addTitleInput').value.trim();
-      if (!title) {
-        alert('Please provide a title.');
-        return;
-      }
-
-      const type = document.getElementById('addTypeSelect').value;
-      const genre = document.getElementById('addGenreInput').value.trim() || 'General';
-      const year = parseInt(document.getElementById('addYearInput').value) || new Date().getFullYear();
-      const runtime = parseInt(document.getElementById('addRuntimeInput').value) || 100;
-      const petSafe = document.getElementById('addPetSafeSelect').value === 'safe';
-      const soundMix = document.getElementById('addSoundMixSelect').value;
-      const poster = document.getElementById('addPosterInput').value.trim();
-      const shelf = document.getElementById('addShelfInput').value.trim() || 'Digital';
-      const synopsis = document.getElementById('addSynopsisInput').value.trim();
-
-      vault.unshift({
-        id: Date.now().toString(),
-        title,
-        type,
-        genre,
-        year,
-        runtime,
-        petSafe,
-        petNotes: petSafe ? '🐾 Pet-Safe: Verified minimal abrupt noise triggers.' : '⚠️ Warning: Contains sudden loud bursts or intense creatures.',
-        soundMix,
-        soundNotes: soundMix === 'Balanced Mix' ? 'Acoustically compressed center channel.' : 'Wide dynamic peaks; subwoofer dynamic spikes.',
-        synopsis: synopsis || 'Added by user.',
-        poster: poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80',
-        p1: false,
-        p2: false,
-        completed: false,
-        rating: '100%',
-        shelf
-      });
-
-      saveVault();
-      renderVault();
-      document.getElementById('addModal').style.display = 'none';
-    }
-
-    /* ========================================================
-       6. NAVIGATION VIEW SWITCHER
-       ======================================================== */
-    function switchTab(tab, btn) {
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      ['vault', 'marathons', 'wheel', 'showdown', 'scratch', 'shelf', 'sync'].forEach(t => {
-        const el = document.getElementById(`view-${t}`);
-        if (el) el.style.display = t === tab ? 'block' : 'none';
-      });
-
-      if (tab === 'marathons') renderMarathons();
-      if (tab === 'wheel') { initWheelState(); drawWheel(); }
-      if (tab === 'showdown') setupShowdown();
-      if (tab === 'scratch') initScratchCard();
-    }
-
-    /* ========================================================
-       7. SPIN WHEEL ENGINE (SLICES & DEDICATED FILTERS)
+       7. SPIN WHEEL ENGINE
        ======================================================== */
     let wheelSliceCount = 6;
     let wheelPoolFilter = 'all';
+    let wheelCategoryFilter = 'all';
     let currentWheelCandidates = [];
 
-    function setWheelSlices(count, el) {
-      wheelSliceCount = count;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      reshuffleWheel();
-    }
-
-    function setWheelPool(pool, el) {
-      wheelPoolFilter = pool;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      reshuffleWheel();
-    }
+    function setWheelSlices(count, el) { wheelSliceCount = count; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); reshuffleWheel(); }
+    function setWheelPool(pool, el) { wheelPoolFilter = pool; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); reshuffleWheel(); }
+    function setWheelCategory(cat, el) { wheelCategoryFilter = cat; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); reshuffleWheel(); }
 
     function initWheelState() {
       const eligible = vault.filter(i => {
@@ -1304,6 +930,7 @@
         if (wheelPoolFilter === 'p1' && !i.p1) return false;
         if (wheelPoolFilter === 'p2' && !i.p2) return false;
         if (wheelPoolFilter === 'date' && (!i.p1 || !i.p2)) return false;
+        if (wheelCategoryFilter !== 'all' && i.type !== wheelCategoryFilter) return false;
         return true;
       });
 
@@ -1312,70 +939,32 @@
       currentWheelCandidates = shuffled.slice(0, wheelSliceCount);
     }
 
-    function reshuffleWheel() {
-      initWheelState();
-      drawWheel();
-      document.getElementById('wheelResult').textContent = '';
-    }
+    function reshuffleWheel() { initWheelState(); drawWheel(); document.getElementById('wheelResult').textContent = ''; }
 
     function drawWheel() {
       const canvas = document.getElementById('wheelCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (!canvas) return; const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (currentWheelCandidates.length === 0) { ctx.fillStyle = '#6e7681'; ctx.textAlign = 'center'; ctx.fillText('No eligible titles', 140, 140); return; }
 
-      if (currentWheelCandidates.length === 0) {
-        ctx.fillStyle = '#6e7681';
-        ctx.font = '12px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('No eligible titles for this filter', 140, 140);
-        return;
-      }
-
-      const numSlices = currentWheelCandidates.length;
-      const sliceAngle = (2 * Math.PI) / numSlices;
+      const numSlices = currentWheelCandidates.length; const sliceAngle = (2 * Math.PI) / numSlices;
       const colors = ['#e36209', '#58a6ff', '#bc8cff', '#3fb950', '#d29922', '#f778ba', '#388bfd', '#2ea043'];
 
       currentWheelCandidates.forEach((c, idx) => {
-        ctx.beginPath();
-        ctx.fillStyle = colors[idx % colors.length];
-        ctx.moveTo(140, 140);
-        ctx.arc(140, 140, 130, idx * sliceAngle, (idx + 1) * sliceAngle);
-        ctx.fill();
-
-        ctx.save();
-        ctx.translate(140, 140);
-        ctx.rotate(idx * sliceAngle + sliceAngle / 2);
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 11px sans-serif';
-        ctx.textAlign = 'right';
-        ctx.fillText(c.title.length > 13 ? c.title.slice(0, 11) + '..' : c.title, 120, 4);
-        ctx.restore();
+        ctx.beginPath(); ctx.fillStyle = colors[idx % colors.length]; ctx.moveTo(140, 140); ctx.arc(140, 140, 130, idx * sliceAngle, (idx + 1) * sliceAngle); ctx.fill();
+        ctx.save(); ctx.translate(140, 140); ctx.rotate(idx * sliceAngle + sliceAngle / 2); ctx.fillStyle = '#fff'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'right'; ctx.fillText(c.title.length > 13 ? c.title.slice(0, 11) + '..' : c.title, 120, 4); ctx.restore();
       });
     }
 
     function spinTheWheel() {
-      if (currentWheelCandidates.length === 0) return;
-      const resultBox = document.getElementById('wheelResult');
-      resultBox.textContent = 'Spinning... 🌀';
-      setTimeout(() => {
-        const pick = currentWheelCandidates[Math.floor(Math.random() * currentWheelCandidates.length)];
-        resultBox.textContent = `🎉 Tonight's Pick: ${pick.title}`;
-      }, 1100);
+      if (currentWheelCandidates.length === 0) return; document.getElementById('wheelResult').textContent = 'Spinning... 🌀';
+      setTimeout(() => { document.getElementById('wheelResult').textContent = `🎉 Tonight's Pick: ${currentWheelCandidates[Math.floor(Math.random() * currentWheelCandidates.length)].title}`; }, 1100);
     }
 
     /* ========================================================
-       8. SCRATCH-OFF CARD WITH CATEGORY FILTERS & REAL ARTWORK
+       8. SCRATCH-OFF TICKET
        ======================================================== */
     let currentScratchPool = 'all';
-    let scratchItem = null;
-
-    function setScratchPool(pool, el) {
-      currentScratchPool = pool;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      initScratchCard();
-    }
+    function setScratchPool(pool, el) { currentScratchPool = pool; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); initScratchCard(); }
 
     function initScratchCard() {
       const candidates = vault.filter(i => {
@@ -1386,8 +975,7 @@
         if (currentScratchPool === 'date' && (!i.p1 || !i.p2)) return false;
         return true;
       });
-
-      scratchItem = candidates[Math.floor(Math.random() * candidates.length)] || vault[0];
+      const scratchItem = candidates[Math.floor(Math.random() * candidates.length)] || vault[0];
 
       document.getElementById('scratchTitle').textContent = scratchItem.title;
       document.getElementById('scratchMeta').textContent = `${scratchItem.year} • ${scratchItem.type === 'book' ? scratchItem.runtime + ' pages' : scratchItem.runtime + 'm'}`;
@@ -1395,53 +983,23 @@
       document.getElementById('scratchSynopsis').textContent = scratchItem.synopsis || 'Tap to inspect full details in the vault!';
       document.getElementById('scratchImg').src = scratchItem.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
 
-      const canvas = document.getElementById('scratchCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      ctx.globalCompositeOperation = 'source-over';
+      const canvas = document.getElementById('scratchCanvas'); if (!canvas) return; const ctx = canvas.getContext('2d');
+      ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = '#8b949e'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#161b22'; ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('🪙 SCRATCH HERE TO REVEAL', 145, 95);
 
-      // Draw metallic silver layer
-      ctx.fillStyle = '#8b949e';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = '#161b22';
-      ctx.font = 'bold 13px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('🪙 SCRATCH HERE TO REVEAL', 145, 95);
-
-      let isDrawing = false;
-      let scratchedPixels = 0;
-
-      function scratch(e) {
-        if (!isDrawing) return;
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.beginPath();
-        ctx.arc(x, y, 22, 0, Math.PI * 2);
-        ctx.fill();
-
-        scratchedPixels++;
-        if (scratchedPixels > 30) {
-          revealScratchCard();
-        }
-      }
-
+      let isDrawing = false, scratchedPixels = 0;
       canvas.onmousedown = canvas.ontouchstart = () => { isDrawing = true; };
       canvas.onmouseup = canvas.ontouchend = () => { isDrawing = false; };
-      canvas.onmousemove = canvas.ontouchmove = scratch;
+      canvas.onmousemove = canvas.ontouchmove = (e) => {
+        if (!isDrawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+        ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(x, y, 22, 0, Math.PI * 2); ctx.fill();
+        if (++scratchedPixels > 30) ctx.clearRect(0, 0, canvas.width, canvas.height);
+      };
     }
-
-    function revealScratchCard() {
-      const canvas = document.getElementById('scratchCanvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    function revealScratchCard() { document.getElementById('scratchCanvas').getContext('2d').clearRect(0, 0, 290, 180); }
 
     /* ========================================================
        9. SHOWDOWN, MARATHONS, SHELF & BACKUP
@@ -1504,13 +1062,21 @@
       }
     }
 
+    /* ========================================================
+       10. TAB NAVIGATION & SYNC
+       ======================================================== */
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
+      ['vault', 'marathons', 'wheel', 'showdown', 'scratch', 'shelf', 'sync'].forEach(t => document.getElementById(`view-${t}`).style.display = t === tab ? 'block' : 'none');
+      if (tab === 'marathons') renderMarathons();
+      if (tab === 'wheel') { initWheelState(); drawWheel(); }
+      if (tab === 'showdown') setupShowdown();
+      if (tab === 'scratch') initScratchCard();
+    }
+    
     function exportData() {
-      const dump = { p1, p2, vault };
-      const blob = new Blob([JSON.stringify(dump, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `omnivault_backup_${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify({ p1, p2, vault }, null, 2)], { type: 'application/json' }));
+      a.download = `omnivault_backup_${new Date().toISOString().slice(0,10)}.json`; a.click();
     }
 
     function importData(e) {
@@ -1523,26 +1089,19 @@
           if (parsed.vault) vault = parsed.vault;
           if (parsed.p1) p1 = parsed.p1;
           if (parsed.p2) p2 = parsed.p2;
-          saveVault();
-          localStorage.setItem('omni_p1', p1);
-          localStorage.setItem('omni_p2', p2);
-          initPartners();
-          renderVault();
-          alert('Vault data imported successfully!');
-        } catch(err) {
-          alert('Invalid backup file.');
-        }
+          saveVault(); localStorage.setItem('omni_p1', p1); localStorage.setItem('omni_p2', p2);
+          initPartners(); renderVault(); alert('Vault data imported successfully!');
+        } catch(err) { alert('Invalid backup file.'); }
       };
       reader.readAsText(file);
     }
 
-    /* Startup */
-    initPartners();
-    renderVault();
+    function saveOmdbKey() { localStorage.setItem('omni_omdb_key', document.getElementById('omdbKeyInput').value.trim()); alert('OMDb Key saved!'); }
+    document.getElementById('omdbKeyInput').value = localStorage.getItem('omni_omdb_key') || '';
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
-    }
+    /* Startup */
+    initPartners(); renderVault();
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
   </script>
 </body>
 </html>

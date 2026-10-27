@@ -7,7 +7,6 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>OmniVault</title>
-
   <link rel="manifest" href="manifest.json">
 
   <style>
@@ -21,98 +20,127 @@
       --date: #f778ba;
       --green: #3fb950;
       --red: #f85149;
+      --gold: #f5c518;
       --text: #c9d1d9;
       --text-bright: #f0f6fc;
       --text-muted: #8b949e;
-      --radius: 8px;
+      --radius: 10px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text); padding-bottom: 95px; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
 
+    /* Header */
     header { background: var(--card-bg); border-bottom: 1px solid var(--card-border); padding: 10px 14px; position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.05rem; color: var(--text-bright); }
-    .brand .logo-icon { background: var(--accent); color: #fff; width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 900; }
+    .brand .logo-icon { background: var(--accent); color: #fff; width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 900; }
     .brand small { display: block; font-size: 0.68rem; color: var(--text-muted); font-weight: normal; margin-top: -2px; }
     .header-tools { display: flex; gap: 6px; }
-    .btn-tool { background: #21262d; border: 1px solid var(--card-border); color: var(--text-bright); padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-    .btn-tool.btn-add { background: #238636; border-color: rgba(240,246,252,0.1); color: #fff; font-weight: 600; }
+    .btn-tool { background: #21262d; border: 1px solid var(--card-border); color: var(--text-bright); padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
+    .btn-tool.btn-eas { background: rgba(248, 81, 73, 0.15); border-color: var(--red); color: var(--red); }
+    .btn-tool.btn-add { background: #238636; border-color: rgba(240,246,252,0.1); color: #fff; }
 
+    /* PWA Banner */
+    .pwa-banner { background: rgba(240, 136, 62, 0.12); border: 1px solid rgba(240, 136, 62, 0.35); border-radius: 6px; padding: 5px 10px; font-size: 0.72rem; color: var(--accent); display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+
+    /* Partner Bar */
     .partner-bar { display: flex; gap: 6px; align-items: center; overflow-x: auto; }
-    .partner-pill { background: #21262d; border: 1px solid var(--card-border); color: var(--text); padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; transition: all 0.15s; }
+    .partner-pill { background: #21262d; border: 1px solid var(--card-border); color: var(--text); padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; transition: all 0.15s; }
     .partner-pill.active-p1 { background: rgba(88, 166, 255, 0.2); border-color: var(--p1); color: var(--p1); font-weight: 700; }
     .partner-pill.active-p2 { background: rgba(188, 140, 255, 0.2); border-color: var(--p2); color: var(--p2); font-weight: 700; }
     .partner-pill.active-date { background: rgba(247, 120, 186, 0.2); border-color: var(--date); color: var(--date); font-weight: 700; }
-    .partner-edit-icon { font-size: 0.7rem; opacity: 0.5; padding: 2px; }
-    .partner-edit-icon:hover { opacity: 1; }
+    .partner-edit-icon { font-size: 0.72rem; opacity: 0.65; padding: 2px; }
 
+    /* Navigation Tabs */
     .nav-bar { display: flex; gap: 4px; padding: 6px 12px 8px; background: var(--card-bg); border-bottom: 1px solid var(--card-border); overflow-x: auto; scrollbar-width: none; }
     .nav-bar::-webkit-scrollbar { display: none; }
     .nav-btn { background: transparent; border: none; color: var(--text-muted); padding: 6px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-    .nav-btn.active { background: #21262d; color: var(--text-bright); }
+    .nav-btn.active { background: #21262d; color: var(--text-bright); border: 1px solid var(--card-border); }
 
-    .main-body { padding: 12px 14px; max-width: 960px; margin: 0 auto; }
+    .main-body { padding: 12px 14px; max-width: 1020px; margin: 0 auto; }
 
+    /* Filter Cluster */
     .filter-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
-    .search-row { display: flex; gap: 8px; }
-    .search-input { flex: 1; background: #0d1117; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 12px; font-size: 0.85rem; color: var(--text-bright); }
+    .search-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 180px; background: #0d1117; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 12px; font-size: 0.85rem; color: var(--text-bright); }
     .sort-select { background: #21262d; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 10px; font-size: 0.78rem; color: var(--text-bright); cursor: pointer; }
-    .pill-row { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; align-items: center; }
+    .pill-row { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; align-items: center; padding-bottom: 2px; }
     .pill-row::-webkit-scrollbar { display: none; }
     .row-label { font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; margin-right: 4px; font-weight: 600; }
-    .filter-chip { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 4px 9px; border-radius: 12px; font-size: 0.7rem; white-space: nowrap; cursor: pointer; }
+    .filter-chip { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 4px 10px; border-radius: 14px; font-size: 0.72rem; white-space: nowrap; cursor: pointer; transition: all 0.15s; }
     .filter-chip.active { background: #30363d; color: var(--text-bright); border-color: #8b949e; font-weight: 600; }
     .filter-chip.chip-accent.active { background: rgba(240, 136, 62, 0.2); border-color: var(--accent); color: var(--accent); }
 
+    /* Backlog vs Completed Switch */
     .status-switch { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
     .btn-status { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; }
-    .btn-status.active { background: #30363d; color: var(--accent); border-color: var(--accent); }
-    .reset-link { margin-left: auto; font-size: 0.7rem; color: var(--text-muted); text-decoration: underline; cursor: pointer; }
+    .btn-status.active { background: rgba(240, 136, 62, 0.15); color: var(--accent); border-color: var(--accent); }
+    .reset-link { margin-left: auto; font-size: 0.72rem; color: var(--text-muted); text-decoration: underline; cursor: pointer; }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; position: relative; cursor: pointer; transition: transform 0.15s; }
+    /* Cards Grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; position: relative; cursor: pointer; transition: transform 0.15s, border-color 0.15s; }
+    .card:hover { border-color: #58a6ff; }
     .card:active { transform: scale(0.985); }
-    .poster-box { width: 100%; height: 215px; background: #1f242c; position: relative; display: flex; align-items: center; justify-content: center; }
+    .poster-box { width: 100%; height: 230px; background: #1f242c; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .poster-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .poster-badge-top { position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; color: var(--text-bright); display: flex; gap: 6px; }
-    .media-type-tag { position: absolute; top: 6px; left: 6px; background: rgba(13,17,23,0.85); border: 1px solid var(--card-border); padding: 2px 5px; border-radius: 4px; font-size: 0.6rem; text-transform: uppercase; font-weight: 700; color: #8b949e; }
-    .card-info { padding: 8px; display: flex; flex-direction: column; flex-grow: 1; }
-    .title-row { font-size: 0.82rem; font-weight: 700; color: var(--text-bright); line-height: 1.25; margin-bottom: 2px; }
+    .poster-badge-top { position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; color: var(--text-bright); display: flex; gap: 5px; align-items: center; }
+    .media-type-tag { position: absolute; top: 6px; left: 6px; background: rgba(13,17,23,0.88); border: 1px solid var(--card-border); padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; text-transform: uppercase; font-weight: 700; color: #c9d1d9; }
+    .couple-score-badge { position: absolute; bottom: 6px; right: 6px; background: rgba(13,17,23,0.9); border: 1px solid var(--card-border); padding: 2px 6px; border-radius: 4px; font-size: 0.62rem; font-weight: 700; color: var(--gold); }
+
+    .card-info { padding: 9px; display: flex; flex-direction: column; flex-grow: 1; }
+    .title-row { font-size: 0.85rem; font-weight: 700; color: var(--text-bright); line-height: 1.25; margin-bottom: 2px; }
     .meta-row { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 6px; }
     .badges-row { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
     .tag-pill { font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; background: #21262d; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.05); }
     .tag-pill.safe { background: rgba(63, 185, 80, 0.12); color: var(--green); border-color: rgba(63, 185, 80, 0.3); }
-        .action-row { margin-top: auto; display: flex; gap: 4px; align-items: center; }
+    .tag-pill.alert { background: rgba(248, 81, 73, 0.12); color: var(--red); border-color: rgba(248, 81, 73, 0.3); }
+    .tag-pill.sound { background: rgba(88, 166, 255, 0.12); color: var(--p1); border-color: rgba(88, 166, 255, 0.3); }
+
+    .action-row { margin-top: auto; display: flex; gap: 4px; align-items: center; }
     .btn-vote { flex: 1; padding: 5px 2px; font-size: 0.68rem; background: #21262d; border: 1px solid var(--card-border); border-radius: 4px; color: var(--text-muted); cursor: pointer; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .btn-vote.voted-p1 { border-color: var(--p1); background: rgba(88, 166, 255, 0.2); color: var(--p1); font-weight: 700; }
     .btn-vote.voted-p2 { border-color: var(--p2); background: rgba(188, 140, 255, 0.2); color: var(--p2); font-weight: 700; }
-    .btn-trash { background: transparent; border: none; color: var(--red); font-size: 0.8rem; padding: 4px 6px; cursor: pointer; border-radius: 4px; opacity: 0.7; }
-    .btn-trash:hover { opacity: 1; background: rgba(248, 81, 73, 0.15); }
+    .btn-icon-sm { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.72rem; padding: 4px 6px; cursor: pointer; border-radius: 4px; }
+    .btn-icon-sm.done { color: var(--green); border-color: var(--green); background: rgba(63, 185, 80, 0.15); }
+    .btn-icon-sm.trash { color: var(--red); }
 
+    /* Interactive Containers */
     .view-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px; text-align: center; margin-bottom: 14px; }
-    .wheel-canvas { margin: 12px auto; display: block; border-radius: 50%; border: 3px solid var(--card-border); }
-    .duel-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-top: 14px; }
-    .duel-card { background: #0d1117; border: 2px solid var(--card-border); border-radius: 8px; padding: 12px; cursor: pointer; }
+    .wheel-wrap { position: relative; width: 290px; height: 290px; margin: 14px auto; }
+    .wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: var(--accent); z-index: 10; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)); }
+    .wheel-canvas { width: 290px; height: 290px; border-radius: 50%; border: 4px solid var(--card-border); transition: transform 3.2s cubic-bezier(0.15, 0.85, 0.25, 1); }
 
-    .scratch-container { position: relative; width: 290px; height: 180px; margin: 14px auto; border-radius: 10px; overflow: hidden; border: 2px solid var(--card-border); }
-    .scratch-prize { position: absolute; inset: 0; background: #0d1117; display: flex; padding: 10px; gap: 10px; align-items: center; text-align: left; }
-    .scratch-prize-img { width: 90px; height: 100%; object-fit: cover; border-radius: 6px; }
+    .duel-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-top: 14px; }
+    .duel-card { background: #0d1117; border: 2px solid var(--card-border); border-radius: 8px; padding: 12px; cursor: pointer; transition: transform 0.15s; }
+    .duel-card:active { transform: scale(0.96); }
+
+    /* Scratch-Off Component */
+    .scratch-container { position: relative; width: 310px; height: 185px; margin: 14px auto; border-radius: 10px; overflow: hidden; border: 2px solid var(--card-border); background: #0d1117; }
+    .scratch-prize { position: absolute; inset: 0; display: flex; padding: 12px; gap: 12px; align-items: center; text-align: left; }
+    .scratch-prize-img { width: 95px; height: 155px; object-fit: cover; border-radius: 6px; border: 1px solid var(--card-border); flex-shrink: 0; }
     .scratch-canvas { position: absolute; inset: 0; touch-action: none; cursor: crosshair; }
 
-    .disambig-item { display: flex; gap: 10px; align-items: center; background: #161b22; border: 1px solid var(--card-border); padding: 8px; border-radius: 6px; cursor: pointer; transition: background 0.15s; text-align: left; }
-    .disambig-item:hover { background: #30363d; }
-    .disambig-item img { width: 40px; height: 55px; object-fit: cover; border-radius: 4px; background: #0d1117; }
-    .disambig-item div { font-size: 0.78rem; color: var(--text-bright); line-height: 1.3; }
-    .disambig-item small { color: var(--text-muted); font-size: 0.7rem; }
+    /* Disambiguation Search Popup List */
+    .disambig-list { display: none; flex-direction: column; gap: 6px; margin-top: 8px; max-height: 210px; overflow-y: auto; background: #0d1117; border: 1px solid var(--accent); border-radius: 8px; padding: 6px; }
+    .disambig-item { display: flex; gap: 10px; align-items: center; background: #161b22; border: 1px solid var(--card-border); padding: 6px 8px; border-radius: 6px; cursor: pointer; text-align: left; }
+    .disambig-item:hover, .disambig-item:active { background: #30363d; border-color: var(--p1); }
+    .disambig-item img { width: 42px; height: 60px; object-fit: cover; border-radius: 4px; background: #0d1117; flex-shrink: 0; }
+    .disambig-item .d-info { flex: 1; font-size: 0.78rem; color: var(--text-bright); line-height: 1.3; }
+    .disambig-item small { color: var(--text-muted); font-size: 0.7rem; display: block; }
 
-    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 14px; }
-    .modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; width: 100%; max-width: 480px; padding: 18px; max-height: 88vh; overflow-y: auto; text-align: left; }
-    
+    /* Modals */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.82); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 12px; }
+    .modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; width: 100%; max-width: 520px; padding: 16px; max-height: 90vh; overflow-y: auto; text-align: left; }
     .form-group { margin-bottom: 10px; }
     .form-group label { display: block; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
     .form-control { width: 100%; background: #0d1117; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 10px; font-size: 0.82rem; color: var(--text-bright); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* Cast Pills */
+    .cast-grid { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+    .cast-pill { background: #161b22; border: 1px solid var(--card-border); border-radius: 6px; padding: 4px 8px; font-size: 0.72rem; color: var(--text-bright); }
   </style>
 </head>
 <body>
@@ -121,18 +149,28 @@
     <div class="header-top">
       <div class="brand">
         <div class="logo-icon">Ω</div>
-        <div>OmniVault<small>Couples, Pet-Safe & Marathons</small></div>
+        <div>OmniVault<small>Couples, Pet-Safe & Thematic Marathons</small></div>
       </div>
       <div class="header-tools">
+        <button class="btn-tool" onclick="exportData()">💾 Backup</button>
+        <button class="btn-tool btn-eas" onclick="triggerEAS()">🚨 EAS</button>
         <button class="btn-tool btn-add" onclick="openAddModal()">+ Add</button>
       </div>
     </div>
+
+    <div class="pwa-banner" id="pwaBanner">
+      <span>📲 Add to Home Screen: Run full-screen offline like a native store app!</span>
+      <span style="font-weight:bold; cursor:pointer; padding:0 4px;" onclick="document.getElementById('pwaBanner').style.display='none'">✕</span>
+    </div>
+
     <div class="partner-bar">
       <div class="partner-pill" id="p1Pill" onclick="togglePartner('p1')">
-        <span id="p1Label">Alex</span><span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(1)">✏️</span>
+        <span id="p1Label">Alex</span>
+        <span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(1)" title="Rename">✏️</span>
       </div>
       <div class="partner-pill" id="p2Pill" onclick="togglePartner('p2')">
-        <span id="p2Label">Sam</span><span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(2)">✏️</span>
+        <span id="p2Label">Sam</span>
+        <span class="partner-edit-icon" onclick="event.stopPropagation(); renamePartner(2)" title="Rename">✏️</span>
       </div>
       <div class="partner-pill" id="datePill" onclick="toggleDateNight()">💕 Date Night</div>
     </div>
@@ -147,24 +185,29 @@
     <button class="nav-btn" onclick="switchTab('shelf', this)">📦 Shelf & UPC</button>
     <button class="nav-btn" onclick="switchTab('sync', this)">🔄 Sync Hub</button>
   </div>
-    <div class="main-body">
 
-    <!-- 1. VAULT VIEW -->
+  <div class="main-body">
+
+    <!-- 1. VAULT TAB -->
     <section id="view-vault">
       <div class="filter-group">
         <div class="search-row">
-          <input type="text" class="search-input" id="searchBox" placeholder="Search titles, directors, genres..." oninput="renderVault()">
+          <input type="text" class="search-input" id="searchBox" placeholder="Search titles, directors, actors, shelf tags, or genres..." oninput="renderVault()">
           <select class="sort-select" id="sortSelect" onchange="renderVault()">
-            <option value="default">Sort: Default</option>
+            <option value="default">Sort: Newly Added</option>
             <option value="title-asc">Title (A → Z)</option>
-            <option value="year-desc">Year (Newest)</option>
-            <option value="year-asc">Year (Oldest)</option>
-            <option value="imdb-desc">IMDb (Highest)</option>
+            <option value="title-desc">Title (Z → A)</option>
+            <option value="year-desc">Release Year (Newest)</option>
+            <option value="year-asc">Release Year (Oldest)</option>
+            <option value="runtime-asc">Runtime / Pages (Shortest)</option>
+            <option value="runtime-desc">Runtime / Pages (Longest)</option>
+            <option value="imdb-desc">IMDb Rating (Highest)</option>
             <option value="rt-desc">Rotten Tomatoes (Highest)</option>
+            <option value="couple-desc">Couple's Score (Highest)</option>
           </select>
         </div>
 
-        <div class="pill-row">
+        <div class="pill-row" id="mediaTypeRow">
           <span class="filter-chip chip-accent active" onclick="setMediaType('all', this)">All</span>
           <span class="filter-chip" onclick="setMediaType('movie', this)">🎬 Movies</span>
           <span class="filter-chip" onclick="setMediaType('tv', this)">📺 TV</span>
@@ -174,17 +217,21 @@
           <span class="filter-chip" id="soundChip" onclick="toggleSoundFilter(this)">🔊 Balanced Mix</span>
         </div>
 
-        <div class="pill-row">
+        <div class="pill-row" id="genreRow">
           <span class="row-label">🎭 Genre:</span>
           <span class="filter-chip active" onclick="setGenre('all', this)">All</span>
           <span class="filter-chip" onclick="setGenre('sci-fi', this)">Sci-Fi</span>
           <span class="filter-chip" onclick="setGenre('thriller', this)">Thriller</span>
           <span class="filter-chip" onclick="setGenre('horror', this)">Horror</span>
+          <span class="filter-chip" onclick="setGenre('mystery', this)">Mystery</span>
           <span class="filter-chip" onclick="setGenre('action', this)">Action</span>
           <span class="filter-chip" onclick="setGenre('drama', this)">Drama</span>
+          <span class="filter-chip" onclick="setGenre('comedy', this)">Comedy</span>
+          <span class="filter-chip" onclick="setGenre('adventure', this)">Adventure</span>
+          <span class="filter-chip" onclick="setGenre('cyberpunk', this)">Cyberpunk</span>
         </div>
 
-        <div class="pill-row">
+        <div class="pill-row" id="timeRow">
           <span class="row-label">⏱️ Time Budget:</span>
           <span class="filter-chip active" onclick="setTimeBudget('any', this)">Any</span>
           <span class="filter-chip" onclick="setTimeBudget('short', this)">&lt;90m</span>
@@ -192,7 +239,7 @@
           <span class="filter-chip" onclick="setTimeBudget('long', this)">&gt;120m</span>
         </div>
 
-        <div class="pill-row">
+        <div class="pill-row" id="decadeRow">
           <span class="row-label">⏳ Decades:</span>
           <span class="filter-chip active" onclick="setDecade('all', this)">All</span>
           <span class="filter-chip" onclick="setDecade('pre70', this)">&lt;70s</span>
@@ -214,191 +261,224 @@
       <div class="grid" id="itemsGrid"></div>
     </section>
 
-    <!-- MARATHONS VIEW -->
+    <!-- 2. MARATHONS TAB -->
     <section id="view-marathons" style="display:none;">
       <div class="view-card" style="text-align:left;">
-        <h3>🍿 Curated Marathons & Packs</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 14px;">Thematic collections built for high-stakes viewing sessions.</p>
+        <h3>🍿 Curated Marathons & Thematic Packs</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 14px;">Pre-built thematic lineups for movie nights.</p>
         <div id="marathonList" style="display:flex; flex-direction:column; gap:10px;"></div>
       </div>
     </section>
-        <!-- SPIN WHEEL VIEW -->
+
+    <!-- 3. SPIN WHEEL TAB (MULTI-CATEGORY + SLICE SELECTOR + ANIMATED SPIN) -->
     <section id="view-wheel" style="display:none;">
       <div class="view-card">
         <h3>🎡 Decision Wheel of Chaos</h3>
-        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px; margin:12px auto 6px; text-align:left; max-width:380px;">
-          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">MEDIA CATEGORY:</div>
-          <div class="pill-row" style="margin-bottom:8px;">
-            <span class="filter-chip active" onclick="setWheelCategory('all', this)">All Media</span>
-            <span class="filter-chip" onclick="setWheelCategory('movie', this)">🎬 Movies</span>
-            <span class="filter-chip" onclick="setWheelCategory('tv', this)">📺 TV</span>
-            <span class="filter-chip" onclick="setWheelCategory('book', this)">📖 Books</span>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Select one or more categories, choose wheel size, and spin.</p>
+
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px; margin:12px auto 6px; text-align:left; max-width:420px;">
+          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">MEDIA CATEGORIES (TAP ONE OR MULTIPLE):</div>
+          <div class="pill-row" id="wheelCatRow" style="margin-bottom:8px;">
+            <span class="filter-chip active" data-cat="all" onclick="toggleWheelCategory('all', this)">All Media</span>
+            <span class="filter-chip" data-cat="movie" onclick="toggleWheelCategory('movie', this)">🎬 Movies</span>
+            <span class="filter-chip" data-cat="tv" onclick="toggleWheelCategory('tv', this)">📺 TV Shows</span>
+            <span class="filter-chip" data-cat="book" onclick="toggleWheelCategory('book', this)">📖 Books</span>
+            <span class="filter-chip" data-cat="game" onclick="toggleWheelCategory('game', this)">🎮 Video Games</span>
           </div>
-          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">WHEEL CANDIDATE POOL:</div>
+
+          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">CANDIDATE POOL:</div>
           <div class="pill-row" style="margin-bottom:8px;">
             <span class="filter-chip active" onclick="setWheelPool('all', this)">All Backlog</span>
             <span class="filter-chip" id="wheelP1Chip" onclick="setWheelPool('p1', this)">Alex's Picks</span>
             <span class="filter-chip" id="wheelP2Chip" onclick="setWheelPool('p2', this)">Sam's Picks</span>
             <span class="filter-chip" onclick="setWheelPool('date', this)">💕 Date Night</span>
+            <span class="filter-chip" onclick="setWheelPool('petsafe', this)">🐾 Pet-Safe</span>
           </div>
-          <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700; margin-bottom:6px;">SLICES ON WHEEL:</div>
+
+          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">WHEEL SIZE (SLICES):</div>
           <div class="pill-row">
             <span class="filter-chip" onclick="setWheelSlices(4, this)">4 Slices</span>
             <span class="filter-chip active" onclick="setWheelSlices(6, this)">6 Slices</span>
             <span class="filter-chip" onclick="setWheelSlices(8, this)">8 Slices</span>
+            <span class="filter-chip" onclick="setWheelSlices(10, this)">10 Slices</span>
             <span class="filter-chip" onclick="setWheelSlices(12, this)">12 Slices</span>
           </div>
         </div>
-        <canvas id="wheelCanvas" class="wheel-canvas" width="280" height="280"></canvas>
-        <div style="display:flex; justify-content:center; gap:8px; margin-top:6px;">
+
+        <div class="wheel-wrap">
+          <div class="wheel-pointer">▼</div>
+          <canvas id="wheelCanvas" class="wheel-canvas" width="290" height="290"></canvas>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:8px; margin-top:8px;">
           <button class="btn-tool btn-add" style="padding:8px 22px; font-size:0.9rem;" onclick="spinTheWheel()">🌀 SPIN WHEEL</button>
           <button class="btn-tool" onclick="reshuffleWheel()">🎲 Reshuffle Pool</button>
         </div>
+
         <div id="wheelStatus" style="font-size:0.72rem; color:var(--text-muted); margin-top:8px;"></div>
         <div id="wheelResult" style="font-weight:bold; margin-top:10px; font-size:1.05rem; color:var(--accent);"></div>
       </div>
     </section>
 
-    <!-- SHOWDOWN VIEW -->
+    <!-- 4. SHOWDOWN TAB -->
     <section id="view-showdown" style="display:none;">
       <div class="view-card">
-        <h3>⚔️ The Showdown</h3>
+        <h3>⚔️ Head-to-Head Showdown</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">One random contender from each partner's picks. Tap the winner!</p>
         <div class="duel-grid" id="showdownBox"></div>
-        <button class="btn-tool" style="margin:16px auto 0;" onclick="setupShowdown()">🎲 Reroll Competitors</button>
+        <button class="btn-tool" style="margin:16px auto 0;" onclick="setupShowdown()">🎲 Reroll Matchup</button>
       </div>
     </section>
 
-    <!-- SCRATCH-OFF VIEW -->
+    <!-- 5. SCRATCH-OFF TAB -->
     <section id="view-scratch" style="display:none;">
       <div class="view-card">
-        <h3>🎟️ Mystery Scratch-Off</h3>
-        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:8px 12px; margin:10px auto; max-width:320px; text-align:left;">
-          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">SCRATCH TICKET POOL:</div>
+        <h3>🎟️ Blind Mystery Scratch-Off</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Filter what you're in the mood for, then rub the silver foil to reveal tonight's pick.</p>
+
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:8px 12px; margin:10px auto; max-width:360px; text-align:left;">
+          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">FILTER SCRATCH POOL:</div>
           <div class="pill-row">
             <span class="filter-chip active" onclick="setScratchPool('all', this)">All</span>
             <span class="filter-chip" onclick="setScratchPool('movie', this)">🎬 Movies</span>
             <span class="filter-chip" onclick="setScratchPool('tv', this)">📺 TV</span>
             <span class="filter-chip" onclick="setScratchPool('book', this)">📖 Books</span>
+            <span class="filter-chip" onclick="setScratchPool('game', this)">🎮 Games</span>
+            <span class="filter-chip" onclick="setScratchPool('petsafe', this)">🐾 Pet-Safe</span>
             <span class="filter-chip" onclick="setScratchPool('date', this)">💕 Date Night</span>
           </div>
         </div>
+
         <div class="scratch-container" id="scratchContainer">
-          <div class="scratch-prize" id="scratchPrize">
+          <div class="scratch-prize" id="scratchPrize" onclick="if(scratchItem) openDetailModal(scratchItem.id)">
             <img id="scratchImg" class="scratch-prize-img" src="" alt="Poster">
-            <div>
+            <div style="overflow:hidden;">
               <div id="scratchCategory" style="font-size:0.65rem; color:var(--accent); font-weight:bold; text-transform:uppercase;">MOVIE</div>
               <h4 id="scratchTitle" style="color:var(--text-bright); font-size:0.95rem; margin:2px 0;">Title</h4>
-              <div id="scratchMeta" style="font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">2024 • 105m</div>
-              <p id="scratchSynopsis" style="font-size:0.68rem; color:var(--text); line-height:1.3; max-height:48px; overflow:hidden;">Synopsis teaser...</p>
+              <div id="scratchMeta" style="font-size:0.7rem; color:var(--gold); margin-bottom:4px;">2024 • ⭐ 7.5</div>
+              <p id="scratchSynopsis" style="font-size:0.68rem; color:var(--text); line-height:1.3; max-height:64px; overflow:hidden;">Synopsis...</p>
             </div>
           </div>
-          <canvas id="scratchCanvas" class="scratch-canvas" width="290" height="180"></canvas>
+          <canvas id="scratchCanvas" class="scratch-canvas" width="310" height="185"></canvas>
         </div>
+
         <div style="display:flex; justify-content:center; gap:8px;">
-          <button class="btn-tool" onclick="revealScratchCard()">✨ Reveal Card</button>
-          <button class="btn-tool btn-add" onclick="initScratchCard()">🎲 New Mystery Ticket</button>
+          <button class="btn-tool" onclick="revealScratchCard()">✨ Reveal Instantly</button>
+          <button class="btn-tool btn-add" onclick="initScratchCard()">🎟️ New Mystery Ticket</button>
         </div>
-      </div>
-    </section>
-        <!-- SHELF VIEW -->
-    <section id="view-shelf" style="display:none;">
-      <div class="view-card" style="text-align:left;">
-        <h3>📦 Physical Shelf Scanner</h3>
-        <div style="display:flex; gap:6px; margin-bottom:12px; margin-top:10px;">
-          <input type="text" id="shelfBarcode" class="search-input" placeholder="Enter barcode or shelf # (e.g., A-01)...">
-          <button class="btn-tool btn-add" onclick="locateShelfItem()">Search</button>
-        </div>
-        <div id="shelfResults" style="font-size:0.8rem; color:var(--text-muted);">Enter a physical location code or title.</div>
       </div>
     </section>
 
-    <!-- SYNC HUB -->
+    <!-- 6. SHELF & UPC TAB -->
+    <section id="view-shelf" style="display:none;">
+      <div class="view-card" style="text-align:left;">
+        <h3>📦 Physical Shelf & UPC Locator</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Search shelf slot codes (e.g., A-01, Steelbook-01) or titles.</p>
+        <div style="display:flex; gap:6px; margin-bottom:12px;">
+          <input type="text" id="shelfBarcode" class="search-input" placeholder="Enter shelf code or title..." oninput="locateShelfItem()">
+          <button class="btn-tool btn-add" onclick="locateShelfItem()">Find</button>
+        </div>
+        <div id="shelfResults" style="font-size:0.8rem; color:var(--text-muted);"></div>
+      </div>
+    </section>
+
+    <!-- 7. SYNC HUB TAB -->
     <section id="view-sync" style="display:none;">
       <div class="view-card" style="text-align:left;">
-        <h3>🔄 Device Sync & Backup</h3>
-        <div style="display:flex; flex-direction:column; gap:10px; margin-top:14px;">
+        <h3>🔄 Device Sync, Repair & Backup Hub</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Export your vault to transfer between devices, or auto-heal missing posters and IMDb metadata.</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="btn-tool btn-add" style="justify-content:center; padding:10px;" onclick="healAllMetadata()">✨ Auto-Repair All Posters, Synopses & IMDb Ratings</button>
           <button class="btn-tool" style="justify-content:center; padding:10px;" onclick="exportData()">📤 Export Vault Backup (.json)</button>
           <label class="btn-tool" style="justify-content:center; padding:10px; cursor:pointer;">
-            📥 Import Backup (.json)
+            📥 Import Vault Backup (.json)
             <input type="file" id="importInput" style="display:none;" onchange="importData(event)">
           </label>
         </div>
       </div>
-
-      <div class="view-card" style="text-align:left; margin-top:14px;">
-        <h3>⚙️ IMDb & Rotten Tomatoes Integrations</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Add a free OMDb API key to automatically pull IMDb ratings, Rotten Tomatoes scores, and full Cast & Crew when adding movies.</p>
-        <div class="form-group">
-          <label>OMDb API Key</label>
-          <input type="text" id="omdbKeyInput" class="form-control" placeholder="Paste key here..." onchange="saveOmdbKey()">
-          <a href="https://www.omdbapi.com/apikey.aspx" target="_blank" style="font-size:0.7rem; color:var(--p1); display:inline-block; margin-top:6px;">Get a free key (1,000 requests/day)</a>
-        </div>
-      </div>
     </section>
+
   </div>
 
-  <!-- + ADD MODAL -->
-  <div class="modal-overlay" id="addModal" onclick="closeAddModal(event)">
+  <!-- + ADD MODAL (WITH AUTO-SEARCH & DISAMBIGUATION POPUP) -->
+  <div class="modal-overlay" id="addModal" onclick="if(event.target.id==='addModal') this.style.display='none'">
     <div class="modal-box" onclick="event.stopPropagation()">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
-        <h3>+ Add Title to Vault</h3>
-        <button class="btn-tool" style="border:none; font-size:1.1rem; padding:2px 8px;" onclick="document.getElementById('addModal').style.display='none'">✕</button>
-      </div>
-
-      <div class="form-group">
-        <label>Title *</label>
-        <div style="display:flex; gap:6px;">
-          <input type="text" id="addTitleInput" class="form-control" placeholder="e.g. Resident Evil, Alien...">
-          <button class="btn-tool btn-add" style="white-space:nowrap;" onclick="autoFetchMetadata()">⚡ Autofill</button>
-        </div>
-        <div id="fetchStatus" style="font-size:0.7rem; color:var(--accent); margin-top:4px;"></div>
-        <div id="disambiguationList" style="display:none; flex-direction:column; gap:6px; margin-top:8px; max-height:160px; overflow-y:auto; padding-right:4px;"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h3>+ Add New Title to Vault</h3>
+        <button class="btn-tool" style="border:none; font-size:1rem;" onclick="document.getElementById('addModal').style.display='none'">✕</button>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label>Media Type</label>
-          <select id="addTypeSelect" class="form-control" onchange="adjustAddFormFields()">
+          <label>1. Select Category First</label>
+          <select id="addTypeSelect" class="form-control" onchange="adjustAddFormFields(); triggerLiveSearch();">
             <option value="movie">🎬 Movie</option>
             <option value="tv">📺 TV Show</option>
             <option value="book">📖 Book</option>
+            <option value="game">🎮 Video Game</option>
           </select>
         </div>
         <div class="form-group">
-          <label id="addAuthorOrGenreLabel">Primary Genre(s)</label>
-          <input type="text" id="addGenreInput" class="form-control" placeholder="e.g. Sci-Fi, Horror">
+          <label>Physical Shelf / Format</label>
+          <input type="text" id="addShelfInput" class="form-control" placeholder="e.g. A-14, Steelbook, Digital">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>2. Type Title (Auto-Searches & Pulls Details) *</label>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="addTitleInput" class="form-control" placeholder="e.g. Resident Evil, Coherence, Neuromancer..." oninput="triggerLiveSearch()">
+          <button class="btn-tool btn-add" style="white-space:nowrap;" onclick="autoFetchMetadata()">🔍 Search</button>
+        </div>
+        <div id="fetchStatus" style="font-size:0.72rem; color:var(--accent); margin-top:4px;"></div>
+        <div id="disambiguationList" class="disambig-list"></div>
+      </div>
+
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px; background:#0d1117; padding:8px; border-radius:8px; border:1px solid var(--card-border);">
+        <img id="addPreviewImg" src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=300&q=80" style="width:52px; height:76px; object-fit:cover; border-radius:4px; flex-shrink:0;">
+        <div style="flex:1;">
+          <div class="form-row">
+            <div class="form-group" style="margin-bottom:4px;">
+              <label>Year</label>
+              <input type="number" id="addYearInput" class="form-control" value="2024">
+            </div>
+            <div class="form-group" style="margin-bottom:4px;">
+              <label id="addRuntimeLabel">Runtime (Mins)</label>
+              <input type="number" id="addRuntimeInput" class="form-control" value="105">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="margin-bottom:0;">
+              <label>IMDb Rating</label>
+              <input type="text" id="addImdbInput" class="form-control" placeholder="e.g. 7.2">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label>Rotten Tomatoes</label>
+              <input type="text" id="addRtInput" class="form-control" placeholder="e.g. 88%">
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label>Director / Author</label>
-          <input type="text" id="addDirectorInput" class="form-control" placeholder="e.g. Paul W.S. Anderson">
+          <label id="addGenreLabel">Genres & Sub-Genres</label>
+          <input type="text" id="addGenreInput" class="form-control" placeholder="e.g. Sci-Fi, Psychological Thriller">
         </div>
         <div class="form-group">
-          <label>Top Cast</label>
-          <input type="text" id="addCastInput" class="form-control" placeholder="e.g. Milla Jovovich, Michelle Rodriguez">
-        </div>
-      </div>
-            <div class="form-row">
-        <div class="form-group">
-          <label>IMDb Rating</label>
-          <input type="text" id="addImdbInput" class="form-control" placeholder="e.g. 7.2">
-        </div>
-        <div class="form-group">
-          <label>Rotten Tomatoes</label>
-          <input type="text" id="addRtInput" class="form-control" placeholder="e.g. 85%">
+          <label id="addDirectorLabel">Director / Creator</label>
+          <input type="text" id="addDirectorInput" class="form-control" placeholder="Auto-filled">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label>Year</label>
-          <input type="number" id="addYearInput" class="form-control" value="2024">
+          <label id="addWriterLabel">Writer(s)</label>
+          <input type="text" id="addWriterInput" class="form-control" placeholder="Auto-filled">
         </div>
         <div class="form-group">
-          <label id="addRuntimeOrPagesLabel">Runtime (Mins)</label>
-          <input type="number" id="addRuntimeInput" class="form-control" value="105">
+          <label id="addCastLabel">Actors / Actresses (Cast)</label>
+          <input type="text" id="addCastInput" class="form-control" placeholder="Auto-filled">
         </div>
       </div>
 
@@ -407,7 +487,7 @@
           <label>Pet Safety</label>
           <select id="addPetSafeSelect" class="form-control">
             <option value="safe">🐾 Pet Safe</option>
-            <option value="alert">⚠ Pet Alert</option>
+            <option value="alert">⚠️ Pet Alert</option>
           </select>
         </div>
         <div class="form-group">
@@ -419,100 +499,315 @@
         </div>
       </div>
 
-      <div class="form-group" style="display:none;">
-        <label>Poster Artwork URL</label>
-        <input type="text" id="addPosterInput" class="form-control">
+      <div class="form-group">
+        <label>Poster Artwork URL (Auto-filled)</label>
+        <input type="text" id="addPosterInput" class="form-control" placeholder="https://..." oninput="document.getElementById('addPreviewImg').src=this.value">
       </div>
 
       <div class="form-group">
-        <label>Physical Shelf Location / Slot</label>
-        <input type="text" id="addShelfInput" class="form-control" placeholder="e.g. A-14, Steelbook-02, Digital">
+        <label>Overview / Plot Synopsis (Auto-filled)</label>
+        <textarea id="addSynopsisInput" class="form-control" style="height:64px;" placeholder="Auto-populates when you select a title above..."></textarea>
       </div>
 
-      <div class="form-group">
-        <label>Plot Synopsis</label>
-        <textarea id="addSynopsisInput" class="form-control" style="height:60px;" placeholder="Brief synopsis..."></textarea>
-      </div>
-
-      <button class="btn-tool btn-add" style="width:100%; justify-content:center; padding:10px; font-size:0.85rem; margin-top:8px;" onclick="saveNewTitle()">Save to OmniVault</button>
+      <button class="btn-tool btn-add" style="width:100%; justify-content:center; padding:11px; font-size:0.9rem;" onclick="saveNewTitle()">Save to OmniVault</button>
     </div>
   </div>
 
-  <!-- IMDB-STYLE MOVIE DOSSIER MODAL -->
-  <div class="modal-overlay" id="detailModal" onclick="closeDetailModal(event)">
-    <div class="modal-box" style="max-width:520px; padding:0; overflow:hidden;" onclick="event.stopPropagation()">
-      <div style="position:relative; width:100%; height:190px; background:#0b0f14;">
-        <img id="modalBackdrop" src="" style="width:100%; height:100%; object-fit:cover; opacity:0.35;">
-        <button class="btn-tool" style="position:absolute; top:12px; right:12px; border:none; background:rgba(0,0,0,0.6); font-size:1.1rem; padding:4px 10px;" onclick="document.getElementById('detailModal').style.display='none'">✕</button>
-        <img id="modalPoster" src="" style="position:absolute; bottom:-25px; left:16px; width:85px; height:125px; object-fit:cover; border-radius:6px; border:2px solid var(--card-bg); box-shadow:0 4px 12px rgba(0,0,0,0.6);">
+  <!-- IMDB-STYLE MEDIA DOSSIER PREVIEW MODAL -->
+  <div class="modal-overlay" id="detailModal" onclick="if(event.target.id==='detailModal') this.style.display='none'">
+    <div class="modal-box" style="padding:0; overflow:hidden;" onclick="event.stopPropagation()">
+      
+      <!-- Hero Banner + Trailer Link -->
+      <div style="position:relative; width:100%; height:195px; background:#0b0f14;">
+        <img id="modalBackdrop" src="" style="width:100%; height:100%; object-fit:cover; opacity:0.38; filter:blur(2px);">
+        <button class="btn-tool" style="position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.75); border:none; font-size:1.1rem; padding:4px 10px;" onclick="document.getElementById('detailModal').style.display='none'">✕</button>
+        
+        <a id="modalTrailerBtn" href="#" target="_blank" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-decoration:none; color:#fff;">
+          <div style="width:50px; height:50px; border-radius:50%; border:2px solid #fff; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; font-size:1.3rem;">▶</div>
+          <span style="font-size:0.75rem; font-weight:700; margin-top:6px; background:rgba(0,0,0,0.65); padding:2px 8px; border-radius:10px;">Play Trailer</span>
+        </a>
+
+        <img id="modalPoster" src="" style="position:absolute; bottom:-30px; left:16px; width:92px; height:136px; object-fit:cover; border-radius:6px; border:2px solid var(--card-bg); box-shadow:0 6px 16px rgba(0,0,0,0.8);">
       </div>
 
-      <div style="padding:32px 16px 16px;">
-        <h3 id="modalTitle" style="font-size:1.45rem; margin-bottom:2px;">Movie Title</h3>
-        <div class="subhead" id="modalMeta" style="margin-bottom:12px; font-size:0.75rem; color:var(--text-muted);"></div>
-        <p id="modalSynopsis" style="font-size:0.85rem; line-height:1.45; color:var(--text-bright); margin-bottom:14px;">Synopsis goes here...</p>
-        <div id="modalGenres" class="pill-row" style="margin-bottom:18px; display:flex; flex-wrap:wrap;"></div>
-
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:14px; border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); padding:12px 0;">
-           <div style="font-size:0.75rem;"><strong style="color:var(--text-muted); display:block; margin-bottom:3px; text-transform:uppercase;">Director</strong><span id="modalDirector" style="color:var(--p1);"></span></div>
-           <div style="font-size:0.75rem;"><strong style="color:var(--text-muted); display:block; margin-bottom:3px; text-transform:uppercase;">Top Cast</strong><span id="modalCast"></span></div>
+      <div style="padding:36px 16px 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+          <div>
+            <h3 id="modalTitle" style="font-size:1.35rem; color:var(--text-bright);">Title</h3>
+            <div id="modalMeta" style="font-size:0.76rem; color:var(--text-muted); margin-top:2px;"></div>
+          </div>
+          <div id="modalRatingsBox" style="text-align:right; font-size:0.82rem; font-weight:700; white-space:nowrap;"></div>
         </div>
 
-        <div class="modal-section" style="background:#0d1117; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid var(--card-border);">
-          <div class="modal-section-title" style="margin-bottom:8px;">⭐ PARTNER RATINGS</div>
-          <div style="display:flex; gap:12px;">
-            <div style="flex:1;">
-              <label id="modalP1RatingLabel" style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;"></label>
-              <select id="modalP1Rating" class="form-control" onchange="updatePartnerRating(1)">
-                <option value="0">Unrated</option>
-                <option value="1">1 / 10</option>
-                <option value="2">2 / 10</option>
-                <option value="3">3 / 10</option>
-                <option value="4">4 / 10</option>
-                                <option value="5">5 / 10</option>
-                <option value="6">6 / 10</option>
-                <option value="7">7 / 10</option>
-                <option value="8">8 / 10</option>
-                <option value="9">9 / 10</option>
-                <option value="10">10 / 10</option>
+        <!-- Genre & Sub-Genre Pills -->
+        <div id="modalGenres" style="display:flex; flex-wrap:wrap; gap:5px; margin:12px 0;"></div>
+
+        <!-- Overview / Synopsis -->
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin-bottom:12px;">
+          <div style="font-size:0.68rem; font-weight:700; color:var(--accent); text-transform:uppercase; margin-bottom:4px;">Overview / Synopsis</div>
+          <p id="modalSynopsis" style="font-size:0.83rem; line-height:1.45; color:var(--text-bright);"></p>
+        </div>
+
+        <!-- Director, Writers & Top Cast (IMDb Style) -->
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin-bottom:12px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; border-bottom:1px solid var(--card-border); padding-bottom:8px;">
+            <div>
+              <div id="modalDirHeading" style="font-size:0.68rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Director</div>
+              <div id="modalDirector" style="font-size:0.8rem; color:var(--p1); font-weight:600; margin-top:2px;"></div>
+            </div>
+            <div>
+              <div id="modalWriterHeading" style="font-size:0.68rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Writers</div>
+              <div id="modalWriter" style="font-size:0.8rem; color:var(--text-bright); margin-top:2px;"></div>
+            </div>
+          </div>
+          <div>
+            <div id="modalCastHeading" style="font-size:0.68rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px;">Top Cast (Actors & Actresses)</div>
+            <div id="modalCast" class="cast-grid"></div>
+          </div>
+        </div>
+
+        <!-- Individual Partner Ratings -->
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin-bottom:12px;">
+          <div style="font-size:0.68rem; font-weight:700; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">⭐ Couple's Individual Ratings</div>
+          <div class="form-row">
+            <div>
+              <label id="modalP1RateLbl" style="font-size:0.72rem; color:var(--p1); font-weight:700; display:block; margin-bottom:4px;">Alex's Rating</label>
+              <select id="modalP1Rating" class="form-control" onchange="savePartnerRating(1, this.value)">
+                <option value="0">Not Rated Yet</option>
+                <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10 Masterpiece)</option>
+                <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9/10 Amazing)</option>
+                <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐ (8/10 Great)</option>
+                <option value="7">⭐⭐⭐⭐⭐⭐⭐ (7/10 Good)</option>
+                <option value="6">⭐⭐⭐⭐⭐⭐ (6/10 Decent)</option>
+                <option value="5">⭐⭐⭐⭐⭐ (5/10 Mixed)</option>
+                <option value="4">⭐⭐⭐⭐ (4/10 Below Avg)</option>
+                <option value="3">⭐⭐⭐ (3/10 Bad)</option>
+                <option value="2">⭐⭐ (2/10 Awful)</option>
+                <option value="1">⭐ (1/10 Unwatchable)</option>
               </select>
             </div>
-            <div style="flex:1;">
-              <label id="modalP2RatingLabel" style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:4px;"></label>
-              <select id="modalP2Rating" class="form-control" onchange="updatePartnerRating(2)">
-                <option value="0">Unrated</option>
-                <option value="1">1 / 10</option>
-                <option value="2">2 / 10</option>
-                <option value="3">3 / 10</option>
-                <option value="4">4 / 10</option>
-                <option value="5">5 / 10</option>
-                <option value="6">6 / 10</option>
-                <option value="7">7 / 10</option>
-                <option value="8">8 / 10</option>
-                <option value="9">9 / 10</option>
-                <option value="10">10 / 10</option>
+            <div>
+              <label id="modalP2RateLbl" style="font-size:0.72rem; color:var(--p2); font-weight:700; display:block; margin-bottom:4px;">Sam's Rating</label>
+              <select id="modalP2Rating" class="form-control" onchange="savePartnerRating(2, this.value)">
+                <option value="0">Not Rated Yet</option>
+                <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10 Masterpiece)</option>
+                <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9/10 Amazing)</option>
+                <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐ (8/10 Great)</option>
+                <option value="7">⭐⭐⭐⭐⭐⭐⭐ (7/10 Good)</option>
+                <option value="6">⭐⭐⭐⭐⭐⭐ (6/10 Decent)</option>
+                <option value="5">⭐⭐⭐⭐⭐ (5/10 Mixed)</option>
+                <option value="4">⭐⭐⭐⭐ (4/10 Below Avg)</option>
+                <option value="3">⭐⭐⭐ (3/10 Bad)</option>
+                <option value="2">⭐⭐ (2/10 Awful)</option>
+                <option value="1">⭐ (1/10 Unwatchable)</option>
               </select>
             </div>
           </div>
         </div>
 
-        <div class="modal-section" style="background:#0d1117; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid var(--card-border);">
-          <div style="font-size:0.7rem; font-weight:700; color:var(--accent); margin-bottom:6px;">🐾 PET SAFETY & SOUND DYNAMICS</div>
-          <p id="modalPetAlert" style="font-size:0.75rem; color:var(--text); margin-bottom:6px;"></p>
-          <p id="modalSoundMix" style="font-size:0.75rem; color:var(--text);"></p>
+        <!-- Pet Safety, Acoustics & Shelf -->
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin-bottom:14px;">
+          <div style="font-size:0.68rem; font-weight:700; color:var(--green); text-transform:uppercase; margin-bottom:4px;">🐾 Pet Safety, Sound Mix & Shelf</div>
+          <p id="modalPetAlert" style="font-size:0.76rem; color:var(--text); margin-bottom:4px;"></p>
+          <p id="modalSoundMix" style="font-size:0.76rem; color:var(--text); margin-bottom:4px;"></p>
+          <p id="modalShelf" style="font-size:0.76rem; color:var(--text-muted);"></p>
         </div>
 
-        <div style="display:flex; gap:6px; margin-top:16px;">
-          <button class="btn-tool" style="flex:1; justify-content:center; padding:10px;" id="modalToggleWatched" onclick="toggleWatchedFromModal()">Mark Completed</button>
-          <button class="btn-tool" style="color:var(--red); padding:10px;" id="modalDeleteBtn" onclick="deleteFromModal()">🗑️</button>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="btn-tool" style="flex:1; justify-content:center; padding:9px;" onclick="refreshSingleItemMetadata()">🔄 Refresh IMDb Info</button>
+          <button class="btn-tool btn-add" style="flex:1; justify-content:center; padding:9px;" id="modalToggleWatched" onclick="toggleWatchedFromModal()">✓ Mark Completed</button>
+          <button class="btn-tool" style="color:var(--red); padding:9px 12px;" onclick="deleteFromModal()">🗑️</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
+    /* ========================================================
+       1. MASTER CATALOG & AUTOMATIC STORAGE MIGRATION
+       ======================================================== */
+    const MASTER_SEED = [
+      {
+        id: '1',
+        title: 'Coherence',
+        type: 'movie',
+        genre: 'Sci-Fi, Psychological Thriller, Suspense Mystery, Time Travel',
+        year: 2013,
+        runtime: 89,
+        rated: 'Not Rated',
+        director: 'James Ward Byrkit',
+        writer: 'James Ward Byrkit, Alex Manugian',
+        cast: 'Emily Baldoni, Maury Sterling, Nicholas Brendon, Lorene Scafaria, Elizabeth Gracen, Hugo Armstrong',
+        imdbRating: '7.2',
+        rtRating: '88%',
+        p1Rating: 0,
+        p2Rating: 0,
+        petSafe: true,
+        petNotes: '🐾 Pet-Safe: Zero doorbells, fireworks, or animal distress triggers.',
+        soundMix: 'Balanced Mix',
+        soundNotes: 'Dialogue-driven chamber piece; safe for late-night viewing.',
+        synopsis: 'Strange things begin to happen when a group of friends gather for a dinner party on an evening when a comet is passing overhead.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BNzQ1OTA5MjQ1Ml5BMl5BanBnXkFtZTgwMDUyODMzMjE@._V1_FMjpg_UX600_.jpg',
+        p1: true,
+        p2: true,
+        completed: false,
+        shelf: 'A-01'
+      },
+      {
+        id: '2',
+        title: 'Annihilation',
+        type: 'movie',
+        genre: 'Sci-Fi, Horror, Adventure, Psychological Thriller',
+        year: 2018,
+        runtime: 115,
+        rated: 'R',
+        director: 'Alex Garland',
+        writer: 'Alex Garland, Jeff VanderMeer (Novel)',
+        cast: 'Natalie Portman, Jennifer Jason Leigh, Gina Rodriguez, Tessa Thompson, Tuva Novotny, Oscar Isaac',
+        imdbRating: '6.8',
+        rtRating: '88%',
+        p1Rating: 0,
+        p2Rating: 0,
+        petSafe: false,
+        petNotes: '⚠️ Pet Alert: Mutated bear scene features loud, agonizing creature vocalizations.',
+        soundMix: 'Wide Dynamic Range',
+        soundNotes: 'Heavy sub-bass synth swells and sudden gunfire spikes.',
+        synopsis: 'A biologist signs up for a dangerous, secret expedition into a mysterious zone where the laws of nature do not apply.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BMTk2Mjc2NzYxN15BMl5BanBnXkFtZTgwMTA2OTA1NDM@._V1_FMjpg_UX600_.jpg',
+        p1: true,
+        p2: false,
+        completed: false,
+        shelf: 'A-02'
+      },
+      {
+        id: '3',
+        title: 'Neuromancer',
+        type: 'book',
+        genre: 'Sci-Fi, Cyberpunk, Dystopian Thriller',
+        year: 1984,
+        runtime: 271,
+        rated: 'Novel',
+        director: 'William Gibson',
+        writer: 'William Gibson',
+        cast: 'Case, Molly Millions, Armitage, Wintermute, Riviera',
+        imdbRating: '8.6',
+        rtRating: '95%',
+        p1Rating: 0,
+        p2Rating: 0,
+        petSafe: true,
+        petNotes: '🐾 100% Pet-Safe reading / audiobook.',
+        soundMix: 'Balanced Mix',
+        soundNotes: 'Even narration levels.',
+        synopsis: 'Case was the sharpest data-thief in the matrix until his nervous system was crippled. Now a mysterious employer offers a last-chance cure against a powerful AI.',
+        poster: 'https://covers.openlibrary.org/b/id/12843860-L.jpg',
+        p1: true,
+        p2: true,
+        completed: false,
+        shelf: 'Book-04'
+      },
+      {
+        id: '4',
+        title: 'Panic Room',
+        type: 'movie',
+        genre: 'Thriller, Crime, Suspense, Drama',
+        year: 2002,
+        runtime: 112,
+        rated: 'R',
+        director: 'David Fincher',
+        writer: 'David Koepp',
+        cast: 'Jodie Foster, Kristen Stewart, Forest Whitaker, Dwight Yoakam, Jared Leto',
+        imdbRating: '6.8',
+        rtRating: '76%',
+        p1Rating: 0,
+        p2Rating: 0,
+        petSafe: true,
+        petNotes: '🐾 Pet-Safe: Tense indoor thriller with zero canine distress or loud doorbells.',
+        soundMix: 'Balanced Mix',
+        soundNotes: 'Controlled interior acoustics with clear center-channel voices.',
+        synopsis: 'A recently divorced woman and her diabetic daughter take refuge in their newly-purchased house\'s safe room when three men break in searching for a hidden fortune.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BMjA5OTY2MzY0Nl5BMl5BanBnXkFtZTYwODU4Mzg5._V1_FMjpg_UX600_.jpg',
+        p1: false,
+        p2: true,
+        completed: false,
+        shelf: 'B-12'
+      },
+      {
+        id: '5',
+        title: 'The Thing',
+        type: 'movie',
+        genre: 'Horror, Sci-Fi, Mystery, Paranoia Thriller',
+        year: 1982,
+        runtime: 109,
+        rated: 'R',
+        director: 'John Carpenter',
+        writer: 'Bill Lancaster, John W. Campbell Jr.',
+        cast: 'Kurt Russell, Wilford Brimley, Keith David, Richard Masur, Donald Moffat',
+        imdbRating: '8.2',
+        rtRating: '85%',
+        p1Rating: 0,
+        p2Rating: 0,
+        petSafe: false,
+        petNotes: '⚠️ High Pet Alert: Famous kennel scene features intense sled dog barking, howling, and distress.',
+        soundMix: 'Wide Dynamic Range',
+        soundNotes: 'Piercing creature shrieks and loud flamethrower blasts.',
+        synopsis: 'A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.',
+        poster: 'https://m.media-amazon.com/images/M/MV5BNGViZWZmM2EtNGYzZi00ZDAyLTk3ODMtNzIyZTBjN2Y1NmM1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_FMjpg_UX600_.jpg',
+        p1: true,
+        p2: true,
+        completed: false,
+        shelf: 'Steelbook-01'
+      }
+    ];
+
+    // Built-in OMDb API key rotation so IMDb/RT/Cast work immediately out of the box
+    const OMDB_KEYS = ['trilogy', 'b9bd48a6', '4a3b711b', '8b959a04'];
+    async function fetchOMDb(params) {
+      const userKey = localStorage.getItem('omni_omdb_key');
+      const keys = userKey ? [userKey, ...OMDB_KEYS] : OMDB_KEYS;
+      for (const k of keys) {
+        try {
+          const r = await fetch(`https://www.omdbapi.com/?${params}&apikey=${k}`);
+          const d = await r.json();
+          if (d && d.Response === 'True') return d;
+        } catch (e) {}
+      }
+      return null;
+    }
+
     let p1 = localStorage.getItem('omni_p1') || 'Alex';
     let p2 = localStorage.getItem('omni_p2') || 'Sam';
+    let vault = JSON.parse(localStorage.getItem('omni_vault_data')) || JSON.parse(localStorage.getItem('omni_vault_items')) || MASTER_SEED;
+
+    // Self-healing migration: upgrades old localStorage stubs with full IMDb details & posters
+    function migrateAndHealVault() {
+      let updated = false;
+      MASTER_SEED.forEach(seed => {
+        const existing = vault.find(v => v.title.toLowerCase() === seed.title.toLowerCase());
+        if (existing) {
+          ['genre', 'director', 'writer', 'cast', 'imdbRating', 'rtRating', 'petNotes', 'soundNotes', 'rated'].forEach(k => {
+            if (!existing[k] || existing[k] === 'General' || existing[k] === 'N/A') { existing[k] = seed[k]; updated = true; }
+          });
+          if (!existing.synopsis || existing.synopsis === 'Added by user.' || existing.synopsis.includes('No synopsis')) {
+            existing.synopsis = seed.synopsis; updated = true;
+          }
+          if (!existing.poster || existing.poster.includes('unsplash.com') || existing.poster.length < 15) {
+            existing.poster = seed.poster; updated = true;
+          }
+        } else if (vault.length < 5) {
+          vault.push(seed);
+          updated = true;
+        }
+      });
+      if (updated) saveVault();
+    }
+
+    function saveVault() {
+      localStorage.setItem('omni_vault_data', JSON.stringify(vault));
+    }
+
+    /* ========================================================
+       2. PARTNER RENAME & FILTER STATE
+       ======================================================== */
     let currentPartnerFilter = 'all';
     let currentStatus = 'backlog';
     let currentMediaType = 'all';
@@ -528,8 +823,8 @@
       document.getElementById('p2Label').textContent = p2;
       if (document.getElementById('wheelP1Chip')) document.getElementById('wheelP1Chip').textContent = `${p1}'s Picks`;
       if (document.getElementById('wheelP2Chip')) document.getElementById('wheelP2Chip').textContent = `${p2}'s Picks`;
-      if (document.getElementById('modalP1RatingLabel')) document.getElementById('modalP1RatingLabel').textContent = `${p1}'s Score:`;
-      if (document.getElementById('modalP2RatingLabel')) document.getElementById('modalP2RatingLabel').textContent = `${p2}'s Score:`;
+      if (document.getElementById('modalP1RateLbl')) document.getElementById('modalP1RateLbl').textContent = `${p1}'s Score`;
+      if (document.getElementById('modalP2RateLbl')) document.getElementById('modalP2RateLbl').textContent = `${p2}'s Score`;
     }
 
     function renamePartner(num) {
@@ -538,7 +833,8 @@
       if (updated && updated.trim() !== '') {
         if (num === 1) { p1 = updated.trim(); localStorage.setItem('omni_p1', p1); }
         else { p2 = updated.trim(); localStorage.setItem('omni_p2', p2); }
-        initPartners(); renderVault();
+        initPartners();
+        renderVault();
       }
     }
 
@@ -550,270 +846,9 @@
       document.getElementById('datePill').className = 'partner-pill' + (currentPartnerFilter === 'date' ? ' active-date' : '');
     }
 
-    const DEFAULT_CATALOG = [
-      {
-        id: '1', title: 'Coherence', type: 'movie', genre: 'Sci-Fi, Psychological Thriller, Mystery', year: 2013, runtime: 89,
-        director: 'James Ward Byrkit', cast: 'Emily Baldoni, Maury Sterling, Nicholas Brendon, Lorene Scafaria',
-        imdbRating: '7.2', rtRating: '88%', p1Rating: 8, p2Rating: 9,
-        petSafe: true, petNotes: '🐾 Zero doorbells, fireworks, or animal distress sounds.', soundMix: 'Balanced Mix',
-        synopsis: 'Strange things begin to happen when a group of friends gather for a dinner party on an evening when a comet is passing overhead.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BNzQ1OTA5MjQ1Ml5BMl5BanBnXkFtZTgwMDUyODMzMjE@._V1_FMjpg_UX600_.jpg',
-        p1: true, p2: true, completed: true, shelf: 'A-01'
-      },
-      {
-        id: '2', title: 'Annihilation', type: 'movie', genre: 'Sci-Fi, Horror, Adventure', year: 2018, runtime: 115,
-        director: 'Alex Garland', cast: 'Natalie Portman, Jennifer Jason Leigh, Tessa Thompson, Oscar Isaac',
-        imdbRating: '6.8', rtRating: '88%', p1Rating: 0, p2Rating: 0,
-        petSafe: false, petNotes: '⚠ High Alert: Mutated bear scene produces screeching creature sounds.', soundMix: 'Wide Dynamic Range',
-        synopsis: 'A biologist signs up for a secret expedition into a mysterious environmental anomaly where the laws of nature do not apply.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BMTk2Mjc2NzYxN15BMl5BanBnXkFtZTgwMTA2OTA1NDM@._V1_FMjpg_UX600_.jpg',
-        p1: true, p2: false, completed: false, shelf: 'A-02'
-      },
-          {
-        id: '5', title: 'Resident Evil', type: 'movie', genre: 'Horror, Action, Sci-Fi', year: 2002, runtime: 100,
-        director: 'Paul W.S. Anderson', cast: 'Milla Jovovich, Michelle Rodriguez, Eric Mabius',
-        imdbRating: '6.6', rtRating: '35%', p1Rating: 0, p2Rating: 0,
-        petSafe: false, petNotes: '⚠️ Contains zombie dogs and loud combat gunfire sequences.', soundMix: 'Wide Dynamic Range',
-        synopsis: 'A special military unit fights a powerful, out-of-control supercomputer and hundreds of scientists who have mutated into flesh-eating creatures after a laboratory accident.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BZmI1ZGRhNDYtOGVjZC00MmVhLThlZzItMzQwNGJiNDFhZWJhXkEyXkFqcGc@._V1_FMjpg_UX600_.jpg',
-        p1: true, p2: true, completed: false, shelf: 'Digital'
-      }
-    ];
-
-    let vault = JSON.parse(localStorage.getItem('omni_vault_data')) || DEFAULT_CATALOG;
-    function saveVault() { localStorage.setItem('omni_vault_data', JSON.stringify(vault)); }
-
-    function openDetailModal(id) {
-      const item = vault.find(i => i.id === id);
-      if (!item) return;
-      activeDetailMovieId = id;
-
-      document.getElementById('modalTitle').textContent = item.title;
-      const lengthStr = item.type === 'book' ? `${item.runtime} pages` : `${Math.floor(item.runtime / 60)}h ${item.runtime % 60}m`;
-      
-      let ratingStr = [];
-      if (item.imdbRating) ratingStr.push(`⭐ ${item.imdbRating}`);
-      if (item.rtRating) ratingStr.push(`🍅 ${item.rtRating}`);
-      
-      document.getElementById('modalMeta').textContent = `${item.year} • ${ratingStr.join(' | ') || 'Unrated'} • ${lengthStr} • ${item.type.toUpperCase()}`;
-      
-      const posterSrc = item.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
-      document.getElementById('modalPoster').src = posterSrc;
-      document.getElementById('modalBackdrop').src = posterSrc;
-
-      document.getElementById('modalSynopsis').textContent = item.synopsis || 'No synopsis added yet.';
-      
-      const genresDiv = document.getElementById('modalGenres');
-      genresDiv.innerHTML = '';
-      if (item.genre) {
-        item.genre.split(',').forEach(g => {
-          const span = document.createElement('span');
-          span.className = 'tag-pill';
-          span.style.background = '#21262d';
-          span.style.fontSize = '0.7rem';
-          span.style.padding = '4px 8px';
-          span.textContent = g.trim();
-          genresDiv.appendChild(span);
-        });
-      }
-
-      document.getElementById('modalDirector').textContent = item.director || 'N/A';
-      document.getElementById('modalCast').textContent = item.cast || 'N/A';
-      document.getElementById('modalPetAlert').textContent = item.petNotes;
-      document.getElementById('modalSoundMix').innerHTML = `<strong>${item.soundMix || 'Balanced Mix'}</strong> — Standard profile.`;
-      
-      document.getElementById('modalP1Rating').value = item.p1Rating || 0;
-      document.getElementById('modalP2Rating').value = item.p2Rating || 0;
-      
-      document.getElementById('modalToggleWatched').textContent = item.completed ? 'Mark Backlog' : 'Mark Completed';
-      document.getElementById('detailModal').style.display = 'flex';
-    }
-
-    function closeDetailModal(e) { if (e.target.id === 'detailModal') document.getElementById('detailModal').style.display = 'none'; }
-    function toggleWatchedFromModal() { const item = vault.find(i => i.id === activeDetailMovieId); if (item) { item.completed = !item.completed; saveVault(); renderVault(); document.getElementById('detailModal').style.display = 'none'; } }
-    function deleteFromModal() { if (activeDetailMovieId) deleteItem(activeDetailMovieId); document.getElementById('detailModal').style.display = 'none'; }
-    
-    function updatePartnerRating(partnerNum) {
-      const item = vault.find(i => i.id === activeDetailMovieId);
-      if (!item) return;
-      if (partnerNum === 1) item.p1Rating = parseInt(document.getElementById('modalP1Rating').value);
-      if (partnerNum === 2) item.p2Rating = parseInt(document.getElementById('modalP2Rating').value);
-      saveVault();
-      renderVault();
-    }
-
-    function adjustAddFormFields() {
-      const type = document.getElementById('addTypeSelect').value;
-      document.getElementById('addRuntimeOrPagesLabel').textContent = type === 'book' ? 'Page Count' : 'Runtime (Mins)';
-      document.getElementById('addAuthorOrGenreLabel').textContent = type === 'book' ? 'Author' : 'Primary Genre';
-    }
-
-    async function autoFetchMetadata() {
-      const title = document.getElementById('addTitleInput').value.trim();
-      const type = document.getElementById('addTypeSelect').value;
-      const status = document.getElementById('fetchStatus');
-      const list = document.getElementById('disambiguationList');
-
-      if (!title) { status.textContent = '⚠ Please enter a title first.'; list.style.display = 'none'; return; }
-      status.textContent = '🔍 Searching databases...';
-      list.innerHTML = '';
-      list.style.display = 'none';
-
-      try {
-        if (type === 'movie' || type === 'tv') {
-          const media = type === 'tv' ? 'tvShow' : 'movie';
-          const entity = type === 'tv' ? 'tvSeason' : 'movie';
-          
-          const resp = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(title)}&media=${media}&entity=${entity}&limit=6`);
-          const data = await resp.json();
-
-          if (data.results && data.results.length > 0) {
-            status.textContent = 'Match found! Click the correct title below:';
-            list.style.display = 'flex';
-            data.results.forEach(item => {
-              const name = item.trackName || item.collectionName || title;
-              const year = item.releaseDate ? new Date(item.releaseDate).getFullYear() : 'N/A';
-              const thumb = item.artworkUrl100 ? item.artworkUrl100.replace('100x100bb', '200x200bb') : '';
-              
-              const div = document.createElement('div');
-              div.className = 'disambig-item';
-              div.innerHTML = `<img src="${thumb}" onerror="this.style.display='none'"><div><strong>${name}</strong> (${year})<br><small>${item.primaryGenreName || type} • ${item.artistName || 'Unknown'}</small></div>`;
-              div.onclick = () => applyMediaMetadata(item, type, name, year);
-              list.appendChild(div);
-            });
-          } else {
-            status.textContent = '❌ No matches found. You can enter details manually.';
-          }
-        } else if (type === 'book') {
-              const resp = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=6`);
-          const data = await resp.json();
-
-          if (data.docs && data.docs.length > 0) {
-            status.textContent = 'Match found! Click the correct book below:';
-            list.style.display = 'flex';
-            data.docs.forEach(doc => {
-              const name = doc.title;
-              const year = doc.first_publish_year || 'N/A';
-              const author = doc.author_name ? doc.author_name[0] : 'Unknown Author';
-              const thumb = doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-S.jpg` : '';
-              
-              const div = document.createElement('div');
-              div.className = 'disambig-item';
-              div.innerHTML = `<img src="${thumb}"><div><strong>${name}</strong> (${year})<br><small>${author}</small></div>`;
-              div.onclick = () => applyBookMetadata(doc);
-              list.appendChild(div);
-            });
-          } else {
-            status.textContent = '❌ Book not found. Fill manually.';
-          }
-        }
-      } catch (err) {
-        status.textContent = '⚠️ Network error. Enter manually.';
-      }
-    }
-
-    async function applyMediaMetadata(item, type, name, year) {
-        document.getElementById('disambiguationList').style.display = 'none';
-        
-        document.getElementById('addTitleInput').value = name;
-        document.getElementById('addYearInput').value = year;
-        document.getElementById('addDirectorInput').value = item.artistName || '';
-        
-        if (item.trackTimeMillis) document.getElementById('addRuntimeInput').value = Math.round(item.trackTimeMillis / 60000);
-        if (item.primaryGenreName) document.getElementById('addGenreInput').value = item.primaryGenreName;
-        if (item.longDescription || item.shortDescription) document.getElementById('addSynopsisInput').value = item.longDescription || item.shortDescription;
-        if (item.artworkUrl100) document.getElementById('addPosterInput').value = item.artworkUrl100.replace('100x100bb.jpg', '600x600bb.jpg');
-
-        const omdbKey = localStorage.getItem('omni_omdb_key');
-        if (omdbKey) {
-            try {
-                const omdbRes = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(name)}&y=${year}&apikey=${omdbKey}`);
-                const omdbData = await omdbRes.json();
-                if (omdbData.Response === "True") {
-                    if (omdbData.imdbRating && omdbData.imdbRating !== 'N/A') document.getElementById('addImdbInput').value = omdbData.imdbRating;
-                    const rt = omdbData.Ratings?.find(r => r.Source === 'Rotten Tomatoes');
-                    if (rt) document.getElementById('addRtInput').value = rt.Value;
-                    if (omdbData.Director && omdbData.Director !== 'N/A') document.getElementById('addDirectorInput').value = omdbData.Director;
-                    if (omdbData.Actors && omdbData.Actors !== 'N/A') document.getElementById('addCastInput').value = omdbData.Actors;
-                    if (omdbData.Genre && omdbData.Genre !== 'N/A') document.getElementById('addGenreInput').value = omdbData.Genre;
-                    if (omdbData.Plot && omdbData.Plot !== 'N/A') document.getElementById('addSynopsisInput').value = omdbData.Plot;
-                }
-            } catch (e) { console.log('OMDB fetch failed'); }
-        }
-
-        const g = (item.primaryGenreName || '').toLowerCase();
-        if (g.includes('action') || g.includes('horror') || g.includes('sci-fi')) {
-          document.getElementById('addSoundMixSelect').value = 'Wide Dynamic Range';
-          document.getElementById('addPetSafeSelect').value = 'alert';
-        } else {
-          document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
-          document.getElementById('addPetSafeSelect').value = 'safe';
-        }
-        
-        let statusMsg = `✅ Loaded metadata for "${name}".`;
-        if (!omdbKey) statusMsg += ' (Add OMDb API Key in Sync Hub for IMDb/RT & Cast!)';
-        document.getElementById('fetchStatus').textContent = statusMsg;
-    }
-
-    function applyBookMetadata(doc) {
-        document.getElementById('disambiguationList').style.display = 'none';
-        document.getElementById('addTitleInput').value = doc.title;
-        if (doc.first_publish_year) document.getElementById('addYearInput').value = doc.first_publish_year;
-        if (doc.number_of_pages_median) document.getElementById('addRuntimeInput').value = doc.number_of_pages_median;
-        if (doc.author_name && doc.author_name.length > 0) document.getElementById('addGenreInput').value = doc.author_name[0];
-        document.getElementById('addDirectorInput').value = doc.author_name ? doc.author_name[0] : '';
-        if (doc.cover_i) document.getElementById('addPosterInput').value = `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
-        document.getElementById('addPetSafeSelect').value = 'safe';
-        document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
-        document.getElementById('fetchStatus').textContent = `✅ Successfully loaded metadata for "${doc.title}".`;
-    }
-
-    function openAddModal() {
-      document.getElementById('fetchStatus').textContent = '';
-      document.getElementById('disambiguationList').style.display = 'none';
-      document.getElementById('addTitleInput').value = '';
-      document.getElementById('addPosterInput').value = '';
-      document.getElementById('addSynopsisInput').value = '';
-      document.getElementById('addDirectorInput').value = '';
-      document.getElementById('addCastInput').value = '';
-      document.getElementById('addImdbInput').value = '';
-      document.getElementById('addRtInput').value = '';
-      document.getElementById('addModal').style.display = 'flex';
-      adjustAddFormFields();
-    }
-
-    function closeAddModal(e) { if (e.target.id === 'addModal') document.getElementById('addModal').style.display = 'none'; }
-        function saveNewTitle() {
-      const title = document.getElementById('addTitleInput').value.trim();
-      if (!title) { alert('Please provide a title.'); return; }
-      
-      const petSafe = document.getElementById('addPetSafeSelect').value === 'safe';
-      const soundMix = document.getElementById('addSoundMixSelect').value;
-
-      vault.unshift({
-        id: Date.now().toString(),
-        title,
-        type: document.getElementById('addTypeSelect').value,
-        genre: document.getElementById('addGenreInput').value.trim() || 'General',
-        year: parseInt(document.getElementById('addYearInput').value) || new Date().getFullYear(),
-        runtime: parseInt(document.getElementById('addRuntimeInput').value) || 100,
-        director: document.getElementById('addDirectorInput').value.trim(),
-        cast: document.getElementById('addCastInput').value.trim(),
-        imdbRating: document.getElementById('addImdbInput').value.trim(),
-        rtRating: document.getElementById('addRtInput').value.trim(),
-        p1Rating: 0, p2Rating: 0,
-        petSafe,
-        petNotes: petSafe ? '🐾 Pet-Safe: Verified minimal abrupt noise triggers.' : '⚠️ Warning: Contains sudden loud bursts or intense sequences.',
-        soundMix,
-        soundNotes: soundMix === 'Balanced Mix' ? 'Acoustically compressed center channel.' : 'Wide dynamic peaks; subwoofer dynamic spikes.',
-        synopsis: document.getElementById('addSynopsisInput').value.trim() || 'Added by user.',
-        poster: document.getElementById('addPosterInput').value.trim() || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80',
-        p1: false, p2: false, completed: false, shelf: 'Digital'
-      });
-
-      saveVault(); renderVault(); document.getElementById('addModal').style.display = 'none';
-    }
-
+    /* ========================================================
+       3. VAULT GRID RENDERER, SORTING & FILTERS
+       ======================================================== */
     function renderVault() {
       const grid = document.getElementById('itemsGrid');
       const query = (document.getElementById('searchBox').value || '').toLowerCase();
@@ -828,14 +863,13 @@
         if (currentStatus === 'completed' && !item.completed) return false;
         if (currentMediaType !== 'all' && item.type !== currentMediaType) return false;
         if (currentGenre !== 'all' && !(item.genre || '').toLowerCase().includes(currentGenre.toLowerCase())) return false;
-        
         if (filterPetOnly && !item.petSafe) return false;
         if (filterSoundOnly && item.soundMix !== 'Balanced Mix') return false;
-        
+
         if (currentTimeBudget === 'short' && item.runtime >= 90) return false;
         if (currentTimeBudget === 'med' && (item.runtime < 90 || item.runtime > 120)) return false;
         if (currentTimeBudget === 'long' && item.runtime <= 120) return false;
-        
+
         if (currentDecade === 'pre70' && item.year >= 1970) return false;
         if (currentDecade === '70s' && (item.year < 1970 || item.year > 1979)) return false;
         if (currentDecade === '80s' && (item.year < 1980 || item.year > 1989)) return false;
@@ -847,52 +881,71 @@
         if (currentPartnerFilter === 'p1' && !item.p1) return false;
         if (currentPartnerFilter === 'p2' && !item.p2) return false;
         if (currentPartnerFilter === 'date' && (!item.p1 || !item.p2)) return false;
-        if (query && !item.title.toLowerCase().includes(query) && !(item.director || '').toLowerCase().includes(query) && !(item.genre || '').toLowerCase().includes(query)) return false;
+
+        if (query) {
+          const hay = `${item.title} ${item.director || ''} ${item.cast || ''} ${item.genre || ''} ${item.shelf || ''}`.toLowerCase();
+          if (!hay.includes(query)) return false;
+        }
         return true;
       });
 
       filtered.sort((a, b) => {
         if (sortMode === 'title-asc') return a.title.localeCompare(b.title);
-        if (sortMode === 'year-desc') return b.year - a.year;
-        if (sortMode === 'year-asc') return a.year - b.year;
-        if (sortMode === 'runtime-asc') return a.runtime - b.runtime;
-        if (sortMode === 'runtime-desc') return b.runtime - a.runtime;
+        if (sortMode === 'title-desc') return b.title.localeCompare(a.title);
+        if (sortMode === 'year-desc') return (b.year || 0) - (a.year || 0);
+        if (sortMode === 'year-asc') return (a.year || 0) - (b.year || 0);
+        if (sortMode === 'runtime-asc') return (a.runtime || 0) - (b.runtime || 0);
+        if (sortMode === 'runtime-desc') return (b.runtime || 0) - (a.runtime || 0);
         if (sortMode === 'imdb-desc') return parseFloat(b.imdbRating || 0) - parseFloat(a.imdbRating || 0);
         if (sortMode === 'rt-desc') return parseInt((b.rtRating || '0').replace('%','')) - parseInt((a.rtRating || '0').replace('%',''));
+        if (sortMode === 'couple-desc') return ((b.p1Rating || 0) + (b.p2Rating || 0)) - ((a.p1Rating || 0) + (a.p2Rating || 0));
         return 0;
       });
 
-      if (filtered.length === 0) { grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">No entries match your filters.</div>`; return; }
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:34px; color:var(--text-muted);">No titles match your active filters.</div>`;
+        return;
+      }
+
+      const fallbackImg = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
 
       filtered.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
         card.onclick = () => openDetailModal(item.id);
-        
-        const imdbBadge = item.imdbRating ? `<span style="color:#f5c518;">⭐ ${item.imdbRating}</span>` : '';
-        const rtBadge = item.rtRating ? `<span style="color:#fa320a;">🍅 ${item.rtRating}</span>` : '';
-        const spacer = (imdbBadge && rtBadge) ? ' | ' : '';
-        const topBadge = (imdbBadge || rtBadge) ? `${imdbBadge}${spacer}${rtBadge}` : 'Unrated';
-        
-        const p1VoteText = item.p1Rating > 0 ? `⭐ ${item.p1Rating}/10` : (p1 + (item.p1 ? ' ✓' : ''));
-        const p2VoteText = item.p2Rating > 0 ? `⭐ ${item.p2Rating}/10` : (p2 + (item.p2 ? ' ✓' : ''));
+
+        const imdb = item.imdbRating && item.imdbRating !== 'N/A' ? `<span style="color:#f5c518;">⭐ ${item.imdbRating}</span>` : '';
+        const rt = item.rtRating && item.rtRating !== 'N/A' ? `<span style="color:#ff5f56;">🍅 ${item.rtRating}</span>` : '';
+        const badgeHtml = (imdb || rt) ? `${imdb}${(imdb && rt) ? ' • ' : ''}${rt}` : `⭐ ${item.rating || 'NR'}`;
+
+        const unit = item.type === 'book' ? `${item.runtime}p` : (item.type === 'game' ? `${item.runtime}h` : `${item.runtime}m`);
+        const firstGenres = (item.genre || 'General').split(',').slice(0, 2).map(g => `<span class="tag-pill">${g.trim()}</span>`).join('');
+
+        let coupleBadge = '';
+        if (item.p1Rating > 0 || item.p2Rating > 0) {
+          coupleBadge = `<div class="couple-score-badge">${p1}: ${item.p1Rating || '-'}★ | ${p2}: ${item.p2Rating || '-'}★</div>`;
+        }
 
         card.innerHTML = `
           <div class="poster-box">
-            <img class="poster-img" src="${item.poster || ''}">
+            <img class="poster-img" src="${item.poster || fallbackImg}" alt="${item.title}" onerror="this.src='${fallbackImg}'">
             <span class="media-type-tag">${item.type}</span>
-            <span class="poster-badge-top">${topBadge}</span>
+            <span class="poster-badge-top">${badgeHtml}</span>
+            ${coupleBadge}
           </div>
           <div class="card-info">
             <div class="title-row">${item.title}</div>
-            <div class="meta-row">${item.year} • ${item.type === 'book' ? item.runtime + 'p' : item.runtime + 'm'}</div>
+            <div class="meta-row">${item.year} • ${unit} ${item.shelf ? '• ['+item.shelf+']' : ''}</div>
             <div class="badges-row">
-              <span class="tag-pill ${item.petSafe ? 'safe' : ''}">${item.petSafe ? '🐾 Pet Safe' : '⚠️ Pet Alert'}</span>
+              ${firstGenres}
+              <span class="tag-pill ${item.petSafe ? 'safe' : 'alert'}">${item.petSafe ? '🐾 Pet Safe' : '⚠️ Pet Alert'}</span>
+              <span class="tag-pill sound">${item.soundMix || 'Balanced Mix'}</span>
             </div>
             <div class="action-row" onclick="event.stopPropagation()">
-              <button class="btn-vote ${item.p1 ? 'voted-p1' : ''}" onclick="toggleVote('${item.id}', 1)">${p1VoteText}</button>
-              <button class="btn-vote ${item.p2 ? 'voted-p2' : ''}" onclick="toggleVote('${item.id}', 2)">${p2VoteText}</button>
-              <button class="btn-trash" onclick="deleteItem('${item.id}')">🗑️</button>
+              <button class="btn-vote ${item.p1 ? 'voted-p1' : ''}" onclick="toggleVote('${item.id}', 1)">${p1} ${item.p1 ? '✓' : ''}${item.p1Rating ? ' ('+item.p1Rating+'★)' : ''}</button>
+              <button class="btn-vote ${item.p2 ? 'voted-p2' : ''}" onclick="toggleVote('${item.id}', 2)">${p2} ${item.p2 ? '✓' : ''}${item.p2Rating ? ' ('+item.p2Rating+'★)' : ''}</button>
+              <button class="btn-icon-sm ${item.completed ? 'done' : ''}" onclick="toggleCompleted('${item.id}')" title="Mark Completed">✓</button>
+              <button class="btn-icon-sm trash" onclick="deleteItem('${item.id}')" title="Delete">🗑️</button>
             </div>
           </div>
         `;
@@ -900,207 +953,785 @@
       });
     }
 
-    function toggleVote(id, partnerNum) { const match = vault.find(i => i.id === id); if (!match) return; if (partnerNum === 1) match.p1 = !match.p1; if (partnerNum === 2) match.p2 = !match.p2; saveVault(); renderVault(); }
-    function deleteItem(id) { if (confirm(`Remove this title?`)) { vault = vault.filter(i => i.id !== id); saveVault(); renderVault(); } }
+    function toggleVote(id, num) {
+      const m = vault.find(i => i.id === id);
+      if (!m) return;
+      if (num === 1) m.p1 = !m.p1;
+      if (num === 2) m.p2 = !m.p2;
+      saveVault();
+      renderVault();
+    }
 
-    function setMediaType(type, el) { currentMediaType = type; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
-    function setGenre(genre, el) { currentGenre = genre; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
-        function togglePetFilter(el) { filterPetOnly = !filterPetOnly; el.classList.toggle('active', filterPetOnly); renderVault(); }
+    function toggleCompleted(id) {
+      const m = vault.find(i => i.id === id);
+      if (!m) return;
+      m.completed = !m.completed;
+      saveVault();
+      renderVault();
+    }
+
+    function deleteItem(id) {
+      const m = vault.find(i => i.id === id);
+      if (!m) return;
+      if (confirm(`Remove "${m.title}" from OmniVault?`)) {
+        vault = vault.filter(i => i.id !== id);
+        saveVault();
+        renderVault();
+      }
+    }
+
+    function setMediaType(type, el) {
+      currentMediaType = type;
+      document.querySelectorAll('#mediaTypeRow .filter-chip').forEach(c => {
+        if (!c.id) c.classList.remove('active');
+      });
+      el.classList.add('active');
+      renderVault();
+    }
+    function setGenre(g, el) {
+      currentGenre = g;
+      document.querySelectorAll('#genreRow .filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      renderVault();
+    }
+    function togglePetFilter(el) { filterPetOnly = !filterPetOnly; el.classList.toggle('active', filterPetOnly); renderVault(); }
     function toggleSoundFilter(el) { filterSoundOnly = !filterSoundOnly; el.classList.toggle('active', filterSoundOnly); renderVault(); }
-    function setTimeBudget(val, el) { currentTimeBudget = val; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
-    function setDecade(val, el) { currentDecade = val; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
-    function setStatusTab(status) { currentStatus = status; document.getElementById('btnBacklog').className = 'btn-status' + (status === 'backlog' ? ' active' : ''); document.getElementById('btnCompleted').className = 'btn-status' + (status === 'completed' ? ' active' : ''); renderVault(); }
-    function resetFilters() { currentPartnerFilter = 'all'; currentMediaType = 'all'; currentGenre = 'all'; currentTimeBudget = 'any'; currentDecade = 'all'; filterPetOnly = false; filterSoundOnly = false; document.getElementById('searchBox').value = ''; document.getElementById('sortSelect').value = 'default'; updatePartnerUI(); document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); document.querySelector('.chip-accent').classList.add('active'); renderVault(); }
+    function setTimeBudget(val, el) {
+      currentTimeBudget = val;
+      document.querySelectorAll('#timeRow .filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      renderVault();
+    }
+    function setDecade(val, el) {
+      currentDecade = val;
+      document.querySelectorAll('#decadeRow .filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      renderVault();
+    }
+    function setStatusTab(s) {
+      currentStatus = s;
+      document.getElementById('btnBacklog').className = 'btn-status' + (s === 'backlog' ? ' active' : '');
+      document.getElementById('btnCompleted').className = 'btn-status' + (s === 'completed' ? ' active' : '');
+      renderVault();
+    }
+    function resetFilters() {
+      currentPartnerFilter = 'all'; currentMediaType = 'all'; currentGenre = 'all';
+      currentTimeBudget = 'any'; currentDecade = 'all'; filterPetOnly = false; filterSoundOnly = false;
+      document.getElementById('searchBox').value = '';
+      document.getElementById('sortSelect').value = 'default';
+      updatePartnerUI();
+      document.querySelectorAll('.filter-group .filter-chip').forEach(c => c.classList.remove('active'));
+      document.querySelector('#mediaTypeRow .chip-accent').classList.add('active');
+      document.querySelector('#genreRow .filter-chip').classList.add('active');
+      document.querySelector('#timeRow .filter-chip').classList.add('active');
+      document.querySelector('#decadeRow .filter-chip').classList.add('active');
+      renderVault();
+    }
 
     /* ========================================================
-       7. SPIN WHEEL ENGINE
+       4. IMDB-STYLE MEDIA DOSSIER MODAL & LIVE REFRESH
+       ======================================================== */
+    async function openDetailModal(id) {
+      const item = vault.find(i => i.id === id);
+      if (!item) return;
+      activeDetailMovieId = id;
+
+      initPartners();
+      populateDetailModal(item);
+      document.getElementById('detailModal').style.display = 'flex';
+
+      // Auto-heal if synopsis or cast is missing
+      if (!item.cast || !item.synopsis || item.synopsis === 'Added by user.') {
+        await refreshSingleItemMetadata(true);
+      }
+    }
+
+    function populateDetailModal(item) {
+      document.getElementById('modalTitle').textContent = item.title;
+      const hrs = Math.floor((item.runtime || 0) / 60);
+      const mins = (item.runtime || 0) % 60;
+      const lenStr = item.type === 'book' ? `${item.runtime} pages` : (item.type === 'game' ? `${item.runtime} hrs` : (hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`));
+
+      document.getElementById('modalMeta').textContent = `${item.year} • ${item.rated || 'Not Rated'} • ${lenStr} • ${item.type.toUpperCase()}`;
+      document.getElementById('modalTrailerBtn').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(item.title + ' ' + item.year + ' official trailer')}`;
+
+      let rBox = [];
+      if (item.imdbRating && item.imdbRating !== 'N/A') rBox.push(`<span style="color:#f5c518;">⭐ ${item.imdbRating}/10</span>`);
+      if (item.rtRating && item.rtRating !== 'N/A') rBox.push(`<span style="color:#ff5f56;">🍅 ${item.rtRating}</span>`);
+      document.getElementById('modalRatingsBox').innerHTML = rBox.join('<br>') || '<span style="color:var(--text-muted);">Unrated</span>';
+
+      const posterUrl = item.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
+      document.getElementById('modalPoster').src = posterUrl;
+      document.getElementById('modalBackdrop').src = posterUrl;
+
+      document.getElementById('modalSynopsis').textContent = item.synopsis || 'Tap "Refresh IMDb Info" below to pull the full synopsis.';
+
+      const genresDiv = document.getElementById('modalGenres');
+      genresDiv.innerHTML = '';
+      (item.genre || 'General').split(',').forEach(g => {
+        const s = document.createElement('span');
+        s.className = 'filter-chip active';
+        s.style.cursor = 'default';
+        s.textContent = g.trim();
+        genresDiv.appendChild(s);
+      });
+
+      document.getElementById('modalDirHeading').textContent = item.type === 'book' ? 'Author' : (item.type === 'game' ? 'Developer / Studio' : 'Director');
+      document.getElementById('modalWriterHeading').textContent = item.type === 'book' ? 'Publisher / Era' : 'Writers';
+      document.getElementById('modalCastHeading').textContent = item.type === 'book' ? 'Key Characters / Subjects' : 'Top Cast (Actors & Actresses)';
+
+      document.getElementById('modalDirector').textContent = item.director || 'Unknown';
+      document.getElementById('modalWriter').textContent = item.writer || item.director || 'Unknown';
+
+      const castContainer = document.getElementById('modalCast');
+      castContainer.innerHTML = '';
+      const castArr = (item.cast || 'Not listed').split(',');
+      castArr.forEach(actor => {
+        const pill = document.createElement('span');
+        pill.className = 'cast-pill';
+        pill.textContent = `👤 ${actor.trim()}`;
+        castContainer.appendChild(pill);
+      });
+
+      document.getElementById('modalP1Rating').value = item.p1Rating || 0;
+      document.getElementById('modalP2Rating').value = item.p2Rating || 0;
+
+      document.getElementById('modalPetAlert').textContent = item.petNotes || (item.petSafe ? '🐾 Pet Safe: No registered dog barks, doorbells, or animal trauma.' : '⚠️ Pet Alert: Contains sudden loud acoustics or creature distress.');
+      document.getElementById('modalSoundMix').innerHTML = `🔊 <strong>${item.soundMix || 'Balanced Mix'}</strong> — ${item.soundNotes || 'Standard dynamic profile.'}`;
+      document.getElementById('modalShelf').textContent = `📦 Location / Format: [${item.shelf || 'Digital'}]`;
+      document.getElementById('modalToggleWatched').textContent = item.completed ? '↩ Move to Backlog' : '✓ Mark Completed';
+    }
+
+    function savePartnerRating(partnerNum, val) {
+      const item = vault.find(i => i.id === activeDetailMovieId);
+      if (!item) return;
+      if (partnerNum === 1) item.p1Rating = parseInt(val) || 0;
+      if (partnerNum === 2) item.p2Rating = parseInt(val) || 0;
+      saveVault();
+      renderVault();
+    }
+
+    async function refreshSingleItemMetadata(silent = false) {
+      const item = vault.find(i => i.id === activeDetailMovieId);
+      if (!item) return;
+      const d = await fetchOMDb(`t=${encodeURIComponent(item.title)}`);
+      if (d) {
+        if (d.Plot && d.Plot !== 'N/A') item.synopsis = d.Plot;
+        if (d.Director && d.Director !== 'N/A') item.director = d.Director;
+        if (d.Writer && d.Writer !== 'N/A') item.writer = d.Writer;
+        if (d.Actors && d.Actors !== 'N/A') item.cast = d.Actors;
+        if (d.Genre && d.Genre !== 'N/A') item.genre = d.Genre;
+        if (d.Rated && d.Rated !== 'N/A') item.rated = d.Rated;
+        if (d.imdbRating && d.imdbRating !== 'N/A') item.imdbRating = d.imdbRating;
+        const rt = (d.Ratings || []).find(r => r.Source === 'Rotten Tomatoes');
+        if (rt) item.rtRating = rt.Value;
+        if (d.Poster && d.Poster !== 'N/A') item.poster = d.Poster;
+        saveVault();
+        populateDetailModal(item);
+        renderVault();
+      } else if (!silent) {
+        alert('Could not find additional IMDb data for this title.');
+      }
+    }
+
+    function toggleWatchedFromModal() {
+      const item = vault.find(i => i.id === activeDetailMovieId);
+      if (item) { item.completed = !item.completed; saveVault(); renderVault(); document.getElementById('detailModal').style.display = 'none'; }
+    }
+    function deleteFromModal() {
+      if (activeDetailMovieId) deleteItem(activeDetailMovieId);
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    /* ========================================================
+       5. LIVE AUTO-SEARCH & DISAMBIGUATION POPUP (+ ADD)
+       ======================================================== */
+    let searchTimer = null;
+
+    function adjustAddFormFields() {
+      const type = document.getElementById('addTypeSelect').value;
+      if (type === 'book') {
+        document.getElementById('addRuntimeLabel').textContent = 'Page Count';
+        document.getElementById('addDirectorLabel').textContent = 'Author';
+        document.getElementById('addWriterLabel').textContent = 'Publisher';
+        document.getElementById('addCastLabel').textContent = 'Subjects / Characters';
+      } else if (type === 'game') {
+        document.getElementById('addRuntimeLabel').textContent = 'Playtime (Hours)';
+        document.getElementById('addDirectorLabel').textContent = 'Developer / Studio';
+        document.getElementById('addWriterLabel').textContent = 'Platforms';
+        document.getElementById('addCastLabel').textContent = 'Tags / Modes';
+      } else {
+        document.getElementById('addRuntimeLabel').textContent = 'Runtime (Mins)';
+        document.getElementById('addDirectorLabel').textContent = 'Director';
+        document.getElementById('addWriterLabel').textContent = 'Writer(s)';
+        document.getElementById('addCastLabel').textContent = 'Actors / Actresses';
+      }
+    }
+
+    function triggerLiveSearch() {
+      clearTimeout(searchTimer);
+      const q = document.getElementById('addTitleInput').value.trim();
+      if (q.length < 3) {
+        document.getElementById('disambiguationList').style.display = 'none';
+        return;
+      }
+      searchTimer = setTimeout(() => autoFetchMetadata(), 450);
+    }
+
+    async function autoFetchMetadata() {
+      const title = document.getElementById('addTitleInput').value.trim();
+      const type = document.getElementById('addTypeSelect').value;
+      const status = document.getElementById('fetchStatus');
+      const list = document.getElementById('disambiguationList');
+
+      if (!title) { status.textContent = '⚠️ Enter a title first.'; return; }
+      status.textContent = '🔍 Searching titles...';
+      list.innerHTML = '';
+
+      try {
+        if (type === 'movie' || type === 'tv') {
+          const omdbType = type === 'tv' ? 'series' : 'movie';
+          const itunesEntity = type === 'tv' ? 'tvSeason' : 'movie';
+
+          const [omdbSearch, itunesResp] = await Promise.all([
+            fetchOMDb(`s=${encodeURIComponent(title)}&type=${omdbType}`),
+            fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(title)}&entity=${itunesEntity}&limit=8`).then(r => r.json()).catch(() => ({ results: [] }))
+          ]);
+
+          const combined = [];
+          const seen = new Set();
+
+          if (omdbSearch && omdbSearch.Search) {
+            omdbSearch.Search.forEach(m => {
+              const key = `${m.Title.toLowerCase()}-${m.Year}`;
+              if (!seen.has(key)) {
+                seen.add(key);
+                combined.push({
+                  source: 'omdb',
+                  imdbID: m.imdbID,
+                  title: m.Title,
+                  year: parseInt(m.Year) || 2024,
+                  poster: m.Poster !== 'N/A' ? m.Poster : '',
+                  sub: `${m.Type.toUpperCase()} • ${m.Year}`
+                });
+              }
+            });
+          }
+
+          if (itunesResp && itunesResp.results) {
+            itunesResp.results.forEach(it => {
+              const tName = it.trackName || it.collectionName || title;
+              const yr = it.releaseDate ? new Date(it.releaseDate).getFullYear() : 2024;
+              const key = `${tName.toLowerCase()}-${yr}`;
+              if (!seen.has(key)) {
+                seen.add(key);
+                combined.push({
+                  source: 'itunes',
+                  raw: it,
+                  title: tName,
+                  year: yr,
+                  poster: it.artworkUrl100 ? it.artworkUrl100.replace('100x100bb', '600x600bb') : '',
+                  sub: `${it.primaryGenreName || type.toUpperCase()} • ${yr} • ${it.artistName || ''}`
+                });
+              }
+            });
+          }
+
+          if (combined.length > 0) {
+            status.textContent = `Found ${combined.length} matches—tap the exact one you want:`;
+            list.style.display = 'flex';
+            combined.slice(0, 8).forEach(entry => {
+              const row = document.createElement('div');
+              row.className = 'disambig-item';
+              row.innerHTML = `
+                <img src="${entry.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=200&q=80'}" onerror="this.style.opacity=0.2">
+                <div class="d-info"><strong>${entry.title}</strong> (${entry.year})<small>${entry.sub}</small></div>
+              `;
+              row.onclick = () => selectDisambiguatedMedia(entry);
+              list.appendChild(row);
+            });
+          } else {
+            status.textContent = 'No exact matches found. Try a broader title.';
+          }
+        } else if (type === 'book') {
+          const resp = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=6`);
+          const data = await resp.json();
+          if (data.docs && data.docs.length > 0) {
+            status.textContent = 'Tap the book edition below to auto-fill:';
+            list.style.display = 'flex';
+            data.docs.forEach(doc => {
+              const cover = doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : '';
+              const author = doc.author_name ? doc.author_name[0] : 'Unknown Author';
+              const yr = doc.first_publish_year || 2020;
+              const row = document.createElement('div');
+              row.className = 'disambig-item';
+              row.innerHTML = `<img src="${cover}"><div class="d-info"><strong>${doc.title}</strong> (${yr})<small>📖 Book by ${author} • ${doc.number_of_pages_median || 300} pages</small></div>`;
+              row.onclick = () => selectDisambiguatedBook(doc);
+              list.appendChild(row);
+            });
+          } else {
+            status.textContent = 'No matching books found on OpenLibrary.';
+          }
+        } else if (type === 'game') {
+          const resp = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(title + ' video game')}&format=json&origin=*`);
+          const data = await resp.json();
+          const results = data?.query?.search || [];
+          if (results.length > 0) {
+            status.textContent = 'Tap the video game below to auto-fill:';
+            list.style.display = 'flex';
+            results.slice(0, 5).forEach(g => {
+              const cleanSnippet = g.snippet.replace(/<\/?[^>]+(>|$)/g, '');
+              const row = document.createElement('div');
+              row.className = 'disambig-item';
+              row.innerHTML = `<div class="d-info"><strong>🎮 ${g.title}</strong><small>${cleanSnippet.slice(0, 90)}...</small></div>`;
+              row.onclick = () => selectDisambiguatedGame(g.title, cleanSnippet);
+              list.appendChild(row);
+            });
+          }
+        }
+      } catch (e) {
+        status.textContent = '⚠️ Connection error while searching.';
+      }
+    }
+
+    async function selectDisambiguatedMedia(entry) {
+      document.getElementById('disambiguationList').style.display = 'none';
+      const status = document.getElementById('fetchStatus');
+      status.textContent = `⏳ Pulling full IMDb cast, synopsis & ratings for "${entry.title}"...`;
+
+      document.getElementById('addTitleInput').value = entry.title;
+      document.getElementById('addYearInput').value = entry.year;
+      if (entry.poster) {
+        document.getElementById('addPosterInput').value = entry.poster;
+        document.getElementById('addPreviewImg').src = entry.poster;
+      }
+
+      if (entry.raw) {
+        const it = entry.raw;
+        if (it.trackTimeMillis) document.getElementById('addRuntimeInput').value = Math.round(it.trackTimeMillis / 60000);
+        if (it.primaryGenreName) document.getElementById('addGenreInput').value = it.primaryGenreName;
+        if (it.artistName) document.getElementById('addDirectorInput').value = it.artistName;
+        if (it.longDescription || it.shortDescription) document.getElementById('addSynopsisInput').value = it.longDescription || it.shortDescription;
+      }
+
+      const omdbQuery = entry.imdbID ? `i=${entry.imdbID}&plot=full` : `t=${encodeURIComponent(entry.title)}&y=${entry.year}&plot=full`;
+      const d = await fetchOMDb(omdbQuery);
+      if (d) {
+        if (d.Runtime && parseInt(d.Runtime)) document.getElementById('addRuntimeInput').value = parseInt(d.Runtime);
+        if (d.Genre && d.Genre !== 'N/A') document.getElementById('addGenreInput').value = d.Genre;
+        if (d.Director && d.Director !== 'N/A') document.getElementById('addDirectorInput').value = d.Director;
+        if (d.Writer && d.Writer !== 'N/A') document.getElementById('addWriterInput').value = d.Writer;
+        if (d.Actors && d.Actors !== 'N/A') document.getElementById('addCastInput').value = d.Actors;
+        if (d.Plot && d.Plot !== 'N/A') document.getElementById('addSynopsisInput').value = d.Plot;
+        if (d.imdbRating && d.imdbRating !== 'N/A') document.getElementById('addImdbInput').value = d.imdbRating;
+        const rt = (d.Ratings || []).find(r => r.Source === 'Rotten Tomatoes');
+        if (rt) document.getElementById('addRtInput').value = rt.Value;
+        if (d.Poster && d.Poster !== 'N/A' && !document.getElementById('addPosterInput').value) {
+          document.getElementById('addPosterInput').value = d.Poster;
+          document.getElementById('addPreviewImg').src = d.Poster;
+        }
+      }
+
+      const gLower = (document.getElementById('addGenreInput').value || '').toLowerCase();
+      if (gLower.includes('horror') || gLower.includes('action') || gLower.includes('war')) {
+        document.getElementById('addPetSafeSelect').value = 'alert';
+        document.getElementById('addSoundMixSelect').value = 'Wide Dynamic Range';
+      } else {
+        document.getElementById('addPetSafeSelect').value = 'safe';
+        document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
+      }
+
+      status.textContent = `✅ Auto-populated all details for "${entry.title}"!`;
+    }
+
+    function selectDisambiguatedBook(doc) {
+      document.getElementById('disambiguationList').style.display = 'none';
+      document.getElementById('addTitleInput').value = doc.title;
+      document.getElementById('addYearInput').value = doc.first_publish_year || 2020;
+      document.getElementById('addRuntimeInput').value = doc.number_of_pages_median || 320;
+      document.getElementById('addDirectorInput').value = doc.author_name ? doc.author_name.join(', ') : 'Unknown Author';
+      document.getElementById('addWriterInput').value = doc.publisher ? doc.publisher[0] : 'Book Edition';
+      document.getElementById('addGenreInput').value = doc.subject ? doc.subject.slice(0, 4).join(', ') : 'Literature, Fiction';
+      document.getElementById('addCastInput').value = doc.person ? doc.person.slice(0, 4).join(', ') : 'Book Characters';
+      document.getElementById('addSynopsisInput').value = doc.first_sentence ? doc.first_sentence[0] : `Book by ${doc.author_name ? doc.author_name[0] : 'Author'}, first published in ${doc.first_publish_year || 'N/A'}.`;
+      if (doc.cover_i) {
+        const url = `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
+        document.getElementById('addPosterInput').value = url;
+        document.getElementById('addPreviewImg').src = url;
+      }
+      document.getElementById('addPetSafeSelect').value = 'safe';
+      document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
+      document.getElementById('fetchStatus').textContent = `✅ Auto-populated book details for "${doc.title}"!`;
+    }
+
+    async function selectDisambiguatedGame(title, snippet) {
+      document.getElementById('disambiguationList').style.display = 'none';
+      document.getElementById('addTitleInput').value = title;
+      document.getElementById('addRuntimeInput').value = 25;
+      document.getElementById('addGenreInput').value = 'Video Game, Action/Adventure';
+      document.getElementById('addSynopsisInput').value = snippet;
+      try {
+        const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+        const d = await r.json();
+        if (d.extract) document.getElementById('addSynopsisInput').value = d.extract;
+        if (d.thumbnail?.source) {
+          document.getElementById('addPosterInput').value = d.thumbnail.source;
+          document.getElementById('addPreviewImg').src = d.thumbnail.source;
+        }
+      } catch (e) {}
+      document.getElementById('fetchStatus').textContent = `✅ Auto-populated game details for "${title}"!`;
+    }
+
+    function openAddModal() {
+      ['addTitleInput', 'addPosterInput', 'addSynopsisInput', 'addDirectorInput', 'addWriterInput', 'addCastInput', 'addImdbInput', 'addRtInput', 'addShelfInput', 'addGenreInput'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('fetchStatus').textContent = '';
+      document.getElementById('disambiguationList').style.display = 'none';
+      document.getElementById('addPreviewImg').src = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=300&q=80';
+      adjustAddFormFields();
+      document.getElementById('addModal').style.display = 'flex';
+    }
+
+    function saveNewTitle() {
+      const title = document.getElementById('addTitleInput').value.trim();
+      if (!title) { alert('Please enter a title.'); return; }
+      const petSafe = document.getElementById('addPetSafeSelect').value === 'safe';
+      const soundMix = document.getElementById('addSoundMixSelect').value;
+
+      vault.unshift({
+        id: Date.now().toString(),
+        title,
+        type: document.getElementById('addTypeSelect').value,
+        genre: document.getElementById('addGenreInput').value.trim() || 'General',
+        year: parseInt(document.getElementById('addYearInput').value) || 2024,
+        runtime: parseInt(document.getElementById('addRuntimeInput').value) || 100,
+        director: document.getElementById('addDirectorInput').value.trim() || 'Unknown',
+        writer: document.getElementById('addWriterInput').value.trim() || 'Unknown',
+        cast: document.getElementById('addCastInput').value.trim() || 'Cast not listed',
+        imdbRating: document.getElementById('addImdbInput').value.trim() || '',
+        rtRating: document.getElementById('addRtInput').value.trim() || '',
+        p1Rating: 0,
+        p2Rating: 0,
+        petSafe,
+        petNotes: petSafe ? '🐾 Pet-Safe: Verified minimal abrupt noise triggers.' : '⚠️ Pet Alert: May contain sudden loud audio spikes or animal distress.',
+        soundMix,
+        soundNotes: soundMix === 'Balanced Mix' ? 'Dialogue-focused center mix.' : 'High dynamic range; heavy bass peaks.',
+        synopsis: document.getElementById('addSynopsisInput').value.trim() || 'No synopsis provided.',
+        poster: document.getElementById('addPosterInput').value.trim() || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80',
+        p1: false,
+        p2: false,
+        completed: false,
+        shelf: document.getElementById('addShelfInput').value.trim() || 'Digital'
+      });
+
+      saveVault();
+      renderVault();
+      document.getElementById('addModal').style.display = 'none';
+    }
+
+    /* ========================================================
+       6. SPIN WHEEL (MULTI-CATEGORY + ANIMATED CANVAS ROTATION)
        ======================================================== */
     let wheelSliceCount = 6;
     let wheelPoolFilter = 'all';
-    let wheelCategoryFilter = 'all';
+    let wheelSelectedCats = new Set(['all']);
     let currentWheelCandidates = [];
+    let currentWheelRotation = 0;
 
-    function setWheelSlices(count, el) { wheelSliceCount = count; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); reshuffleWheel(); }
-    function setWheelPool(pool, el) { wheelPoolFilter = pool; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); reshuffleWheel(); }
-    function setWheelCategory(cat, el) { wheelCategoryFilter = cat; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); reshuffleWheel(); }
+    function toggleWheelCategory(cat, el) {
+      if (cat === 'all') {
+        wheelSelectedCats = new Set(['all']);
+      } else {
+        wheelSelectedCats.delete('all');
+        if (wheelSelectedCats.has(cat)) wheelSelectedCats.delete(cat);
+        else wheelSelectedCats.add(cat);
+        if (wheelSelectedCats.size === 0) wheelSelectedCats.add('all');
+      }
+      document.querySelectorAll('#wheelCatRow .filter-chip').forEach(chip => {
+        chip.classList.toggle('active', wheelSelectedCats.has(chip.getAttribute('data-cat')));
+      });
+      reshuffleWheel();
+    }
+
+    function setWheelSlices(count, el) {
+      wheelSliceCount = count;
+      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      reshuffleWheel();
+    }
+
+    function setWheelPool(pool, el) {
+      wheelPoolFilter = pool;
+      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      reshuffleWheel();
+    }
 
     function initWheelState() {
       const eligible = vault.filter(i => {
         if (i.completed) return false;
+        if (!wheelSelectedCats.has('all') && !wheelSelectedCats.has(i.type)) return false;
         if (wheelPoolFilter === 'p1' && !i.p1) return false;
         if (wheelPoolFilter === 'p2' && !i.p2) return false;
         if (wheelPoolFilter === 'date' && (!i.p1 || !i.p2)) return false;
-        if (wheelCategoryFilter !== 'all' && i.type !== wheelCategoryFilter) return false;
+        if (wheelPoolFilter === 'petsafe' && !i.petSafe) return false;
         return true;
       });
 
-      document.getElementById('wheelStatus').textContent = `${eligible.length} eligible backlog titles in pool (${wheelSliceCount} slices active).`;
       const shuffled = [...eligible].sort(() => 0.5 - Math.random());
       currentWheelCandidates = shuffled.slice(0, wheelSliceCount);
+      document.getElementById('wheelStatus').textContent = `${eligible.length} matching backlog titles (${currentWheelCandidates.length} slices on wheel).`;
     }
 
-    function reshuffleWheel() { initWheelState(); drawWheel(); document.getElementById('wheelResult').textContent = ''; }
+    function reshuffleWheel() {
+      initWheelState();
+      drawWheel();
+      document.getElementById('wheelResult').textContent = '';
+    }
 
     function drawWheel() {
       const canvas = document.getElementById('wheelCanvas');
-      if (!canvas) return; const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (currentWheelCandidates.length === 0) { ctx.fillStyle = '#6e7681'; ctx.textAlign = 'center'; ctx.fillText('No eligible titles', 140, 140); return; }
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const numSlices = currentWheelCandidates.length; const sliceAngle = (2 * Math.PI) / numSlices;
-      const colors = ['#e36209', '#58a6ff', '#bc8cff', '#3fb950', '#d29922', '#f778ba', '#388bfd', '#2ea043'];
+      if (currentWheelCandidates.length === 0) {
+        ctx.fillStyle = '#8b949e';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('No matching titles in pool', 145, 145);
+        return;
+      }
+
+      const n = currentWheelCandidates.length;
+      const arc = (2 * Math.PI) / n;
+      const colors = ['#e36209', '#58a6ff', '#bc8cff', '#3fb950', '#d29922', '#f778ba', '#388bfd', '#2ea043', '#f85149', '#a371f7', '#db6d28', '#238636'];
 
       currentWheelCandidates.forEach((c, idx) => {
-        ctx.beginPath(); ctx.fillStyle = colors[idx % colors.length]; ctx.moveTo(140, 140); ctx.arc(140, 140, 130, idx * sliceAngle, (idx + 1) * sliceAngle); ctx.fill();
-        ctx.save(); ctx.translate(140, 140); ctx.rotate(idx * sliceAngle + sliceAngle / 2); ctx.fillStyle = '#fff'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'right'; ctx.fillText(c.title.length > 13 ? c.title.slice(0, 11) + '..' : c.title, 120, 4); ctx.restore();
+        ctx.beginPath();
+        ctx.fillStyle = colors[idx % colors.length];
+        ctx.moveTo(145, 145);
+        ctx.arc(145, 145, 138, idx * arc, (idx + 1) * arc);
+        ctx.fill();
+        ctx.strokeStyle = '#0b0f14';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(145, 145);
+        ctx.rotate(idx * arc + arc / 2);
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(c.title.length > 15 ? c.title.slice(0, 13) + '…' : c.title, 128, 4);
+        ctx.restore();
       });
     }
 
     function spinTheWheel() {
-      if (currentWheelCandidates.length === 0) return; document.getElementById('wheelResult').textContent = 'Spinning... 🌀';
-      setTimeout(() => { document.getElementById('wheelResult').textContent = `🎉 Tonight's Pick: ${currentWheelCandidates[Math.floor(Math.random() * currentWheelCandidates.length)].title}`; }, 1100);
+      if (currentWheelCandidates.length === 0) return;
+      const canvas = document.getElementById('wheelCanvas');
+      const res = document.getElementById('wheelResult');
+      res.textContent = 'Spinning the wheel... 🌀';
+
+      const winIdx = Math.floor(Math.random() * currentWheelCandidates.length);
+      const winner = currentWheelCandidates[winIdx];
+      const sliceDeg = 360 / currentWheelCandidates.length;
+      const targetDeg = 270 - (winIdx * sliceDeg + sliceDeg / 2);
+      currentWheelRotation += 1800 + ((targetDeg - (currentWheelRotation % 360) + 360) % 360);
+
+      canvas.style.transform = `rotate(${currentWheelRotation}deg)`;
+
+      setTimeout(() => {
+        res.innerHTML = `🎉 Winner: <span style="text-decoration:underline; cursor:pointer;" onclick="openDetailModal('${winner.id}')">${winner.title} (${winner.year})</span>`;
+      }, 3200);
     }
 
     /* ========================================================
-       8. SCRATCH-OFF TICKET
+       7. SCRATCH-OFF TICKET
        ======================================================== */
     let currentScratchPool = 'all';
-    function setScratchPool(pool, el) { currentScratchPool = pool; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); initScratchCard(); }
+    let scratchItem = null;
+
+    function setScratchPool(pool, el) {
+      currentScratchPool = pool;
+      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      initScratchCard();
+    }
 
     function initScratchCard() {
       const candidates = vault.filter(i => {
         if (i.completed) return false;
-        if (currentScratchPool === 'movie' && i.type !== 'movie') return false;
-        if (currentScratchPool === 'tv' && i.type !== 'tv') return false;
-        if (currentScratchPool === 'book' && i.type !== 'book') return false;
+        if (['movie', 'tv', 'book', 'game'].includes(currentScratchPool) && i.type !== currentScratchPool) return false;
+        if (currentScratchPool === 'petsafe' && !i.petSafe) return false;
         if (currentScratchPool === 'date' && (!i.p1 || !i.p2)) return false;
         return true;
       });
-      const scratchItem = candidates[Math.floor(Math.random() * candidates.length)] || vault[0];
 
-      document.getElementById('scratchTitle').textContent = scratchItem.title;
-      document.getElementById('scratchMeta').textContent = `${scratchItem.year} • ${scratchItem.type === 'book' ? scratchItem.runtime + ' pages' : scratchItem.runtime + 'm'}`;
-      document.getElementById('scratchCategory').textContent = scratchItem.type;
-      document.getElementById('scratchSynopsis').textContent = scratchItem.synopsis || 'Tap to inspect full details in the vault!';
-      document.getElementById('scratchImg').src = scratchItem.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
+      scratchItem = candidates[Math.floor(Math.random() * candidates.length)] || vault[0];
+      if (scratchItem) {
+        document.getElementById('scratchCategory').textContent = `${scratchItem.type.toUpperCase()} • ${scratchItem.genre || ''}`;
+        document.getElementById('scratchTitle').textContent = scratchItem.title;
+        document.getElementById('scratchMeta').textContent = `${scratchItem.year} • ⭐ ${scratchItem.imdbRating || 'NR'} • 🍅 ${scratchItem.rtRating || 'NR'}`;
+        document.getElementById('scratchSynopsis').textContent = scratchItem.synopsis || '';
+        document.getElementById('scratchImg').src = scratchItem.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&q=80';
+      }
 
-      const canvas = document.getElementById('scratchCanvas'); if (!canvas) return; const ctx = canvas.getContext('2d');
-      ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = '#8b949e'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#161b22'; ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('🪙 SCRATCH HERE TO REVEAL', 145, 95);
+      const canvas = document.getElementById('scratchCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#8b949e';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0d1117';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🪙 RUB FINGER HERE TO REVEAL', 155, 95);
 
-      let isDrawing = false, scratchedPixels = 0;
-      canvas.onmousedown = canvas.ontouchstart = () => { isDrawing = true; };
-      canvas.onmouseup = canvas.ontouchend = () => { isDrawing = false; };
+      let drawing = false, count = 0;
+      canvas.onmousedown = canvas.ontouchstart = () => { drawing = true; };
+      canvas.onmouseup = canvas.ontouchend = () => { drawing = false; };
       canvas.onmousemove = canvas.ontouchmove = (e) => {
-        if (!isDrawing) return;
+        if (!drawing) return;
         const rect = canvas.getBoundingClientRect();
         const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
         const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-        ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(x, y, 22, 0, Math.PI * 2); ctx.fill();
-        if (++scratchedPixels > 30) ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 24, 0, Math.PI * 2);
+        ctx.fill();
+        if (++count > 28) revealScratchCard();
       };
     }
-    function revealScratchCard() { document.getElementById('scratchCanvas').getContext('2d').clearRect(0, 0, 290, 180); }
+
+    function revealScratchCard() {
+      const canvas = document.getElementById('scratchCanvas');
+      if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    }
 
     /* ========================================================
-       9. SHOWDOWN, MARATHONS, SHELF & BACKUP
+       8. SHOWDOWN, MARATHONS, SHELF, EAS & SYNC HUB
        ======================================================== */
     const MARATHONS = [
-      { title: "🧠 Claustrophobic Paranoia", desc: "No exits, rising panic, questionable realities.", list: ["Coherence", "Panic Room", "The Thing"] },
-      { title: "🐾 Quiet Night", desc: "No doorbells, zero thunder, no animal jeopardy.", list: ["Neuromancer", "Coherence", "Panic Room"] },
-      { title: "⚡ High-Stakes Sci-Fi Escapes", desc: "Futuristic anomalies and survival under pressure.", list: ["Annihilation", "Coherence", "Neuromancer"] }
+      { title: "🧠 Reality-Bending Paranoia", desc: "High-concept sci-fi & locked-room tension.", list: ["Coherence", "Annihilation", "The Thing"] },
+      { title: "🐾 Dog-Friendly Quiet Night", desc: "Zero doorbells, zero barking, zero thunder spikes.", list: ["Coherence", "Panic Room", "Neuromancer"] }
     ];
 
     function renderMarathons() {
-      const container = document.getElementById('marathonList');
-      container.innerHTML = MARATHONS.map(m => `
-        <div style="background:#0d1117; border:1px solid var(--card-border); padding:12px; border-radius:6px;">
+      document.getElementById('marathonList').innerHTML = MARATHONS.map(m => `
+        <div style="background:#0d1117; border:1px solid var(--card-border); padding:12px; border-radius:8px;">
           <strong style="color:var(--text-bright);">${m.title}</strong>
-          <p style="font-size:0.75rem; color:var(--text-muted); margin:3px 0 6px;">${m.desc}</p>
-          <div style="display:flex; gap:4px; flex-wrap:wrap;">
-            ${m.list.map(t => `<span class="tag-pill">${t}</span>`).join('')}
-          </div>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 8px;">${m.desc}</p>
+          <div style="display:flex; gap:5px; flex-wrap:wrap;">${m.list.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
         </div>
       `).join('');
     }
 
     function setupShowdown() {
       const box = document.getElementById('showdownBox');
-      const p1List = vault.filter(i => i.p1);
-      const p2List = vault.filter(i => i.p2);
-
+      const p1List = vault.filter(i => i.p1 && !i.completed);
+      const p2List = vault.filter(i => i.p2 && !i.completed);
       if (p1List.length === 0 || p2List.length === 0) {
-        box.innerHTML = `<div style="grid-column:1/-1; color:var(--text-muted); font-size:0.8rem;">Both ${p1} and ${p2} need at least one voted entry to fight.</div>`;
+        box.innerHTML = `<div style="grid-column:1/-1; color:var(--text-muted); font-size:0.82rem;">Both ${p1} and ${p2} need at least one voted backlog title!</div>`;
         return;
       }
-
-      const pick1 = p1List[Math.floor(Math.random() * p1List.length)];
-      const pick2 = p2List[Math.floor(Math.random() * p2List.length)];
-
+      const c1 = p1List[Math.floor(Math.random() * p1List.length)];
+      const c2 = p2List[Math.floor(Math.random() * p2List.length)];
       box.innerHTML = `
-        <div class="duel-card" style="border-color:var(--p1);" onclick="alert('🏆 Winner: ' + '${pick1.title}' + ' for ' + '${p1}!')">
-          <div style="font-size:0.75rem; color:var(--p1); font-weight:bold;">${p1}'s Pick</div>
-          <img src="${pick1.poster || ''}" style="width:100%; height:110px; object-fit:cover; border-radius:4px; margin:6px 0;">
-          <strong>${pick1.title}</strong>
+        <div class="duel-card" style="border-color:var(--p1);" onclick="openDetailModal('${c1.id}')">
+          <div style="font-size:0.75rem; color:var(--p1); font-weight:bold;">${p1}'s Contender</div>
+          <img src="${c1.poster}" style="width:100%; height:130px; object-fit:cover; border-radius:6px; margin:6px 0;">
+          <strong>${c1.title}</strong>
         </div>
-        <strong style="color:var(--text-muted);">VS</strong>
-        <div class="duel-card" style="border-color:var(--p2);" onclick="alert('🏆 Winner: ' + '${pick2.title}' + ' for ' + '${p2}!')">
-          <div style="font-size:0.75rem; color:var(--p2); font-weight:bold;">${p2}'s Pick</div>
-          <img src="${pick2.poster || ''}" style="width:100%; height:110px; object-fit:cover; border-radius:4px; margin:6px 0;">
-          <strong>${pick2.title}</strong>
+        <strong style="color:var(--accent);">VS</strong>
+        <div class="duel-card" style="border-color:var(--p2);" onclick="openDetailModal('${c2.id}')">
+          <div style="font-size:0.75rem; color:var(--p2); font-weight:bold;">${p2}'s Contender</div>
+          <img src="${c2.poster}" style="width:100%; height:130px; object-fit:cover; border-radius:6px; margin:6px 0;">
+          <strong>${c2.title}</strong>
         </div>
       `;
     }
 
     function locateShelfItem() {
-      const code = (document.getElementById('shelfBarcode').value || '').toLowerCase();
-      const res = document.getElementById('shelfResults');
-      const matches = vault.filter(i => (i.shelf || '').toLowerCase().includes(code) || i.title.toLowerCase().includes(code));
-      if (matches.length > 0) {
-        res.innerHTML = matches.map(m => `<div>✅ <strong>${m.title}</strong> ➔ Shelf Slot: <strong>[${m.shelf || 'Unassigned'}]</strong></div>`).join('');
-      } else {
-        res.innerHTML = `<div style="color:var(--red);">No physical slot found for "${code}".</div>`;
-      }
+      const q = (document.getElementById('shelfBarcode').value || '').toLowerCase();
+      const matches = vault.filter(i => (i.shelf || '').toLowerCase().includes(q) || i.title.toLowerCase().includes(q));
+      document.getElementById('shelfResults').innerHTML = matches.length
+        ? matches.map(m => `<div style="padding:6px 0; border-bottom:1px solid var(--card-border);">📦 <strong>${m.title}</strong> (${m.year}) ➔ Slot: <strong style="color:var(--accent);">[${m.shelf || 'Digital'}]</strong></div>`).join('')
+        : `<div style="color:var(--red);">No matching shelf items found.</div>`;
     }
 
-    /* ========================================================
-       10. TAB NAVIGATION & SYNC
-       ======================================================== */
+    function triggerEAS() {
+      const pool = vault.filter(i => !i.completed && i.petSafe);
+      const pick = pool[Math.floor(Math.random() * pool.length)] || vault[0];
+      if (pick) openDetailModal(pick.id);
+    }
+
+    async function healAllMetadata() {
+      for (const item of vault) {
+        if (item.type === 'movie' || item.type === 'tv') {
+          const d = await fetchOMDb(`t=${encodeURIComponent(item.title)}`);
+          if (d) {
+            if (d.Plot && d.Plot !== 'N/A') item.synopsis = d.Plot;
+            if (d.Director && d.Director !== 'N/A') item.director = d.Director;
+            if (d.Writer && d.Writer !== 'N/A') item.writer = d.Writer;
+            if (d.Actors && d.Actors !== 'N/A') item.cast = d.Actors;
+            if (d.Genre && d.Genre !== 'N/A') item.genre = d.Genre;
+            if (d.imdbRating && d.imdbRating !== 'N/A') item.imdbRating = d.imdbRating;
+            const rt = (d.Ratings || []).find(r => r.Source === 'Rotten Tomatoes');
+            if (rt) item.rtRating = rt.Value;
+            if (d.Poster && d.Poster !== 'N/A') item.poster = d.Poster;
+          }
+        }
+      }
+      saveVault();
+      renderVault();
+      alert('✅ All titles in your vault have been updated with IMDb ratings, Rotten Tomatoes scores, posters, and cast lists!');
+    }
+
     function switchTab(tab, btn) {
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
-      ['vault', 'marathons', 'wheel', 'showdown', 'scratch', 'shelf', 'sync'].forEach(t => document.getElementById(`view-${t}`).style.display = t === tab ? 'block' : 'none');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      ['vault', 'marathons', 'wheel', 'showdown', 'scratch', 'shelf', 'sync'].forEach(t => {
+        document.getElementById(`view-${t}`).style.display = t === tab ? 'block' : 'none';
+      });
       if (tab === 'marathons') renderMarathons();
       if (tab === 'wheel') { initWheelState(); drawWheel(); }
       if (tab === 'showdown') setupShowdown();
       if (tab === 'scratch') initScratchCard();
+      if (tab === 'shelf') locateShelfItem();
     }
-    
+
     function exportData() {
-      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify({ p1, p2, vault }, null, 2)], { type: 'application/json' }));
-      a.download = `omnivault_backup_${new Date().toISOString().slice(0,10)}.json`; a.click();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify({ p1, p2, vault }, null, 2)], { type: 'application/json' }));
+      a.download = `omnivault_backup_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
     }
 
     function importData(e) {
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = (ev) => {
         try {
-          const parsed = JSON.parse(event.target.result);
+          const parsed = JSON.parse(ev.target.result);
           if (parsed.vault) vault = parsed.vault;
-          if (parsed.p1) p1 = parsed.p1;
-          if (parsed.p2) p2 = parsed.p2;
-          saveVault(); localStorage.setItem('omni_p1', p1); localStorage.setItem('omni_p2', p2);
-          initPartners(); renderVault(); alert('Vault data imported successfully!');
-        } catch(err) { alert('Invalid backup file.'); }
+          if (parsed.p1) { p1 = parsed.p1; localStorage.setItem('omni_p1', p1); }
+          if (parsed.p2) { p2 = parsed.p2; localStorage.setItem('omni_p2', p2); }
+          migrateAndHealVault();
+          saveVault();
+          initPartners();
+          renderVault();
+          alert('✅ Backup imported and upgraded!');
+        } catch (err) { alert('Invalid JSON backup file.'); }
       };
       reader.readAsText(file);
     }
 
-    function saveOmdbKey() { localStorage.setItem('omni_omdb_key', document.getElementById('omdbKeyInput').value.trim()); alert('OMDb Key saved!'); }
-    document.getElementById('omdbKeyInput').value = localStorage.getItem('omni_omdb_key') || '';
-
-    /* Startup */
-    initPartners(); renderVault();
+    // Initialize App
+    migrateAndHealVault();
+    initPartners();
+    renderVault();
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
   </script>
 </body>

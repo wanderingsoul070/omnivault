@@ -40,6 +40,7 @@
     .btn-tool { background: #21262d; border: 1px solid var(--card-border); color: var(--text-bright); padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; }
     .btn-tool.btn-eas { background: rgba(248, 81, 73, 0.15); border-color: var(--red); color: var(--red); }
     .btn-tool.btn-add { background: #238636; border-color: rgba(240,246,252,0.1); color: #fff; }
+    .btn-tool.btn-scan { background: rgba(88, 166, 255, 0.16); border-color: var(--p1); color: var(--p1); }
 
     /* PWA Banner */
     .pwa-banner { background: rgba(240, 136, 62, 0.12); border: 1px solid rgba(240, 136, 62, 0.35); border-radius: 6px; padding: 5px 10px; font-size: 0.72rem; color: var(--accent); display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
@@ -130,6 +131,10 @@
     .disambig-item .d-info { flex: 1; font-size: 0.78rem; color: var(--text-bright); line-height: 1.3; }
     .disambig-item small { color: var(--text-muted); font-size: 0.7rem; display: block; }
 
+    /* Camera / Photo Scanner Box */
+    .scanner-box { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(188,140,255,0.12)); border: 1px dashed var(--p1); border-radius: 8px; padding: 10px; margin-bottom: 12px; text-align: center; }
+    .scanner-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+
     /* Modals */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.82); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 12px; }
     .modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; width: 100%; max-width: 520px; padding: 16px; max-height: 90vh; overflow-y: auto; text-align: left; }
@@ -182,7 +187,7 @@
     <button class="nav-btn" onclick="switchTab('wheel', this)">🎡 Spin Wheel</button>
     <button class="nav-btn" onclick="switchTab('showdown', this)">⚔️ Showdown</button>
     <button class="nav-btn" onclick="switchTab('scratch', this)">🎟️ Scratch-Off</button>
-    <button class="nav-btn" onclick="switchTab('shelf', this)">📦 Shelf & UPC</button>
+    <button class="nav-btn" onclick="switchTab('shelf', this)">📦 Shelf & Scanner</button>
     <button class="nav-btn" onclick="switchTab('sync', this)">🔄 Sync Hub</button>
   </div>
 
@@ -270,7 +275,7 @@
       </div>
     </section>
 
-    <!-- 3. SPIN WHEEL TAB (MULTI-CATEGORY + SLICE SELECTOR + ANIMATED SPIN) -->
+    <!-- 3. SPIN WHEEL TAB -->
     <section id="view-wheel" style="display:none;">
       <div class="view-card">
         <h3>🎡 Decision Wheel of Chaos</h3>
@@ -369,20 +374,39 @@
       </div>
     </section>
 
-    <!-- 6. SHELF & UPC TAB -->
+    <!-- 6. SHELF, BARCODE & BATCH AI PHOTO SCANNER TAB -->
     <section id="view-shelf" style="display:none;">
       <div class="view-card" style="text-align:left;">
-        <h3>📦 Physical Shelf & UPC Locator</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Search shelf slot codes (e.g., A-01, Steelbook-01) or titles.</p>
+        <h3>📷 AI Cover, Barcode & Batch Shelf Scanner</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Upload a photo of a single video game/movie cover, a barcode, or a stack of games on your shelf to identify and add them automatically.</p>
+
+        <div class="scanner-box">
+          <div style="font-size:0.8rem; font-weight:700; color:var(--text-bright);">Snap or Upload Media Photo</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:2px;">Supports front covers, discs, game spines, or UPC/ISBN barcodes</div>
+          <div class="scanner-btns">
+            <label class="btn-tool btn-scan" style="cursor:pointer; padding:8px 14px;">
+              📷 Scan Single Cover / Barcode
+              <input type="file" accept="image/*" style="display:none;" onchange="handlePhotoScan(event, 'single')">
+            </label>
+            <label class="btn-tool btn-add" style="cursor:pointer; padding:8px 14px;">
+              📚 Batch Scan Shelf / Stack Photo
+              <input type="file" accept="image/*" style="display:none;" onchange="handlePhotoScan(event, 'batch')">
+            </label>
+          </div>
+          <div id="shelfScanStatus" style="font-size:0.75rem; color:var(--accent); margin-top:8px;"></div>
+          <div id="batchScanResults" style="display:none; flex-direction:column; gap:6px; margin-top:10px; text-align:left;"></div>
+        </div>
+
+        <h4 style="color:var(--text-bright); font-size:0.9rem; margin:16px 0 8px;">📦 Physical Shelf & Slot Locator</h4>
         <div style="display:flex; gap:6px; margin-bottom:12px;">
-          <input type="text" id="shelfBarcode" class="search-input" placeholder="Enter shelf code or title..." oninput="locateShelfItem()">
+          <input type="text" id="shelfBarcode" class="search-input" placeholder="Enter shelf code (e.g. A-01, Steelbook, PS5) or title..." oninput="locateShelfItem()">
           <button class="btn-tool btn-add" onclick="locateShelfItem()">Find</button>
         </div>
         <div id="shelfResults" style="font-size:0.8rem; color:var(--text-muted);"></div>
       </div>
     </section>
 
-    <!-- 7. SYNC HUB TAB -->
+    <!-- 7. SYNC HUB & API KEYS TAB -->
     <section id="view-sync" style="display:none;">
       <div class="view-card" style="text-align:left;">
         <h3>🔄 Device Sync, Repair & Backup Hub</h3>
@@ -396,11 +420,33 @@
           </label>
         </div>
       </div>
+
+      <div class="view-card" style="text-align:left;">
+        <h3>🤖 AI Vision & Metadata API Keys (Optional)</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Barcode & OCR scanning work with zero keys. Add a free Google Gemini key to unlock instant AI Vision recognition for stylized video game covers, discs, and multi-item shelf photos.</p>
+        
+        <div class="form-group">
+          <label>Google Gemini API Key (For AI Photo & Shelf Recognition)</label>
+          <div style="display:flex; gap:6px;">
+            <input type="password" id="geminiKeyInput" class="form-control" placeholder="Paste free Gemini API key (AIzaSy...)">
+            <button class="btn-tool btn-add" onclick="saveApiKeys()">Save</button>
+          </div>
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" style="font-size:0.7rem; color:var(--p1); display:inline-block; margin-top:4px;">Get a free Gemini key from Google AI Studio →</a>
+        </div>
+
+        <div class="form-group" style="margin-top:12px;">
+          <label>Custom OMDb API Key (Optional override — built-in keys already active)</label>
+          <div style="display:flex; gap:6px;">
+            <input type="text" id="omdbKeyInput" class="form-control" placeholder="Optional OMDb key...">
+            <button class="btn-tool" onclick="saveApiKeys()">Save</button>
+          </div>
+        </div>
+      </div>
     </section>
 
   </div>
 
-  <!-- + ADD MODAL (WITH AUTO-SEARCH & DISAMBIGUATION POPUP) -->
+  <!-- + ADD MODAL (WITH PHOTO/BARCODE SCANNER + AUTO-SEARCH + DISAMBIGUATION) -->
   <div class="modal-overlay" id="addModal" onclick="if(event.target.id==='addModal') this.style.display='none'">
     <div class="modal-box" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -408,9 +454,25 @@
         <button class="btn-tool" style="border:none; font-size:1rem;" onclick="document.getElementById('addModal').style.display='none'">✕</button>
       </div>
 
+      <!-- Photo / Barcode Instant Scanner Banner -->
+      <div class="scanner-box">
+        <div style="font-size:0.76rem; font-weight:700; color:var(--text-bright);">📷 Instant Media Photo & Barcode Scanner</div>
+        <div style="font-size:0.68rem; color:var(--text-muted);">Upload or snap a photo of a game case, movie cover, book, or barcode to auto-fill everything</div>
+        <div class="scanner-btns">
+          <label class="btn-tool btn-scan" style="cursor:pointer;">
+            📸 Snap / Upload Cover Photo
+            <input type="file" accept="image/*" style="display:none;" onchange="handlePhotoScan(event, 'modal-cover')">
+          </label>
+          <label class="btn-tool" style="cursor:pointer;">
+            🏷️ Scan UPC / ISBN Barcode
+            <input type="file" accept="image/*" style="display:none;" onchange="handlePhotoScan(event, 'modal-barcode')">
+          </label>
+        </div>
+      </div>
+
       <div class="form-row">
         <div class="form-group">
-          <label>1. Select Category First</label>
+          <label>1. Category</label>
           <select id="addTypeSelect" class="form-control" onchange="adjustAddFormFields(); triggerLiveSearch();">
             <option value="movie">🎬 Movie</option>
             <option value="tv">📺 TV Show</option>
@@ -419,13 +481,13 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Physical Shelf / Format</label>
-          <input type="text" id="addShelfInput" class="form-control" placeholder="e.g. A-14, Steelbook, Digital">
+          <label>Physical Shelf / Platform</label>
+          <input type="text" id="addShelfInput" class="form-control" placeholder="e.g. PS5, Switch, A-14, Digital">
         </div>
       </div>
 
       <div class="form-group">
-        <label>2. Type Title (Auto-Searches & Pulls Details) *</label>
+        <label>2. Title (Type or Scan Photo Above) *</label>
         <div style="display:flex; gap:6px;">
           <input type="text" id="addTitleInput" class="form-control" placeholder="e.g. Resident Evil, Coherence, Neuromancer..." oninput="triggerLiveSearch()">
           <button class="btn-tool btn-add" style="white-space:nowrap;" onclick="autoFetchMetadata()">🔍 Search</button>
@@ -463,17 +525,17 @@
       <div class="form-row">
         <div class="form-group">
           <label id="addGenreLabel">Genres & Sub-Genres</label>
-          <input type="text" id="addGenreInput" class="form-control" placeholder="e.g. Sci-Fi, Psychological Thriller">
+          <input type="text" id="addGenreInput" class="form-control" placeholder="e.g. Sci-Fi, Survival Horror">
         </div>
         <div class="form-group">
-          <label id="addDirectorLabel">Director / Creator</label>
+          <label id="addDirectorLabel">Director / Studio</label>
           <input type="text" id="addDirectorInput" class="form-control" placeholder="Auto-filled">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label id="addWriterLabel">Writer(s)</label>
+          <label id="addWriterLabel">Writer(s) / Platform</label>
           <input type="text" id="addWriterInput" class="form-control" placeholder="Auto-filled">
         </div>
         <div class="form-group">
@@ -500,13 +562,13 @@
       </div>
 
       <div class="form-group">
-        <label>Poster Artwork URL (Auto-filled)</label>
+        <label>Poster Artwork URL (Auto-filled or Snapped Photo)</label>
         <input type="text" id="addPosterInput" class="form-control" placeholder="https://..." oninput="document.getElementById('addPreviewImg').src=this.value">
       </div>
 
       <div class="form-group">
         <label>Overview / Plot Synopsis (Auto-filled)</label>
-        <textarea id="addSynopsisInput" class="form-control" style="height:64px;" placeholder="Auto-populates when you select a title above..."></textarea>
+        <textarea id="addSynopsisInput" class="form-control" style="height:64px;" placeholder="Auto-populates when you select or scan a title above..."></textarea>
       </div>
 
       <button class="btn-tool btn-add" style="width:100%; justify-content:center; padding:11px; font-size:0.9rem;" onclick="saveNewTitle()">Save to OmniVault</button>
@@ -524,7 +586,7 @@
         
         <a id="modalTrailerBtn" href="#" target="_blank" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-decoration:none; color:#fff;">
           <div style="width:50px; height:50px; border-radius:50%; border:2px solid #fff; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; font-size:1.3rem;">▶</div>
-          <span style="font-size:0.75rem; font-weight:700; margin-top:6px; background:rgba(0,0,0,0.65); padding:2px 8px; border-radius:10px;">Play Trailer</span>
+          <span style="font-size:0.75rem; font-weight:700; margin-top:6px; background:rgba(0,0,0,0.65); padding:2px 8px; border-radius:10px;">Play Trailer / Gameplay</span>
         </a>
 
         <img id="modalPoster" src="" style="position:absolute; bottom:-30px; left:16px; width:92px; height:136px; object-fit:cover; border-radius:6px; border:2px solid var(--card-bg); box-shadow:0 6px 16px rgba(0,0,0,0.8);">
@@ -759,7 +821,6 @@
       }
     ];
 
-    // Built-in OMDb API key rotation so IMDb/RT/Cast work immediately out of the box
     const OMDB_KEYS = ['trilogy', 'b9bd48a6', '4a3b711b', '8b959a04'];
     async function fetchOMDb(params) {
       const userKey = localStorage.getItem('omni_omdb_key');
@@ -778,7 +839,6 @@
     let p2 = localStorage.getItem('omni_p2') || 'Sam';
     let vault = JSON.parse(localStorage.getItem('omni_vault_data')) || JSON.parse(localStorage.getItem('omni_vault_items')) || MASTER_SEED;
 
-    // Self-healing migration: upgrades old localStorage stubs with full IMDb details & posters
     function migrateAndHealVault() {
       let updated = false;
       MASTER_SEED.forEach(seed => {
@@ -805,6 +865,14 @@
       localStorage.setItem('omni_vault_data', JSON.stringify(vault));
     }
 
+    function saveApiKeys() {
+      const gKey = document.getElementById('geminiKeyInput').value.trim();
+      const oKey = document.getElementById('omdbKeyInput').value.trim();
+      if (gKey) localStorage.setItem('omni_gemini_key', gKey);
+      if (oKey) localStorage.setItem('omni_omdb_key', oKey);
+      alert('✅ API Keys saved locally to your device!');
+    }
+
     /* ========================================================
        2. PARTNER RENAME & FILTER STATE
        ======================================================== */
@@ -825,6 +893,8 @@
       if (document.getElementById('wheelP2Chip')) document.getElementById('wheelP2Chip').textContent = `${p2}'s Picks`;
       if (document.getElementById('modalP1RateLbl')) document.getElementById('modalP1RateLbl').textContent = `${p1}'s Score`;
       if (document.getElementById('modalP2RateLbl')) document.getElementById('modalP2RateLbl').textContent = `${p2}'s Score`;
+      if (document.getElementById('geminiKeyInput')) document.getElementById('geminiKeyInput').value = localStorage.getItem('omni_gemini_key') || '';
+      if (document.getElementById('omdbKeyInput')) document.getElementById('omdbKeyInput').value = localStorage.getItem('omni_omdb_key') || '';
     }
 
     function renamePartner(num) {
@@ -1029,7 +1099,326 @@
     }
 
     /* ========================================================
-       4. IMDB-STYLE MEDIA DOSSIER MODAL & LIVE REFRESH
+       4. DUAL-ENGINE PHOTO, BARCODE & SHELF SCANNER
+       ======================================================== */
+    function compressImageToBase64(file, maxDim = 1024) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.min(1, maxDim / Math.max(img.width, img.height));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+            resolve({ dataUrl, base64: dataUrl.split(',')[1], imgElement: img });
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handlePhotoScan(event, mode) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const isModal = mode.startsWith('modal');
+      const statusEl = document.getElementById(isModal ? 'fetchStatus' : 'shelfScanStatus');
+      const batchBox = document.getElementById('batchScanResults');
+      if (batchBox) { batchBox.style.display = 'none'; batchBox.innerHTML = ''; }
+
+      statusEl.textContent = '📷 Analyzing image...';
+
+      try {
+        const { dataUrl, base64, imgElement } = await compressImageToBase64(file);
+
+        if (isModal) {
+          document.getElementById('addPreviewImg').src = dataUrl;
+          document.getElementById('addPosterInput').value = dataUrl;
+        }
+
+        // STEP 1: Check for Hardware Barcode (UPC / EAN / ISBN) first
+        if ('BarcodeDetector' in window && (mode === 'modal-barcode' || mode === 'single')) {
+          try {
+            const detector = new BarcodeDetector({ formats: ['ean_13', 'upc_a', 'ean_8', 'upc_e', 'code_128'] });
+            const barcodes = await detector.detect(imgElement);
+            if (barcodes && barcodes.length > 0) {
+              const code = barcodes[0].rawValue;
+              statusEl.textContent = `🏷️ Detected Barcode [${code}]! Looking up media details...`;
+              const resolved = await lookupByBarcode(code, isModal);
+              if (resolved) return;
+            }
+          } catch (e) {}
+        }
+
+        // STEP 2: Use Gemini Vision AI if key is available (Best for stylized Game Covers & Multi-Item Shelves)
+        const geminiKey = localStorage.getItem('omni_gemini_key');
+        if (geminiKey) {
+          statusEl.textContent = '🤖 Gemini Vision AI identifying media artwork & details...';
+          const aiSuccess = await scanWithGeminiVision(base64, mode, statusEl, dataUrl);
+          if (aiSuccess) return;
+        }
+
+        // STEP 3: Zero-Key In-Browser OCR Fallback (Tesseract.js)
+        statusEl.textContent = '🔤 Reading cover text with built-in OCR (add a free Gemini key in Sync Hub for instant AI logo recognition)...';
+        await scanWithTesseractOCR(dataUrl, isModal, statusEl);
+
+      } catch (err) {
+        statusEl.textContent = '⚠️ Could not process image. Try a clearer photo or type the title.';
+      } finally {
+        event.target.value = '';
+      }
+    }
+
+    async function lookupByBarcode(code, isModal) {
+      const statusEl = document.getElementById(isModal ? 'fetchStatus' : 'shelfScanStatus');
+      // 1. Check Book ISBN (starts with 978 or 979)
+      if (code.startsWith('978') || code.startsWith('979')) {
+        try {
+          const r = await fetch(`https://openlibrary.org/search.json?isbn=${code}&limit=1`);
+          const d = await r.json();
+          if (d.docs && d.docs.length > 0) {
+            if (!isModal) openAddModal();
+            document.getElementById('addTypeSelect').value = 'book';
+            adjustAddFormFields();
+            selectDisambiguatedBook(d.docs[0]);
+            return true;
+          }
+        } catch (e) {}
+      }
+
+      // 2. Check UPCitemdb for Video Games / Movies / Blu-rays
+      try {
+        const r = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${code}`);
+        const d = await r.json();
+        if (d.items && d.items.length > 0) {
+          let rawTitle = d.items[0].title || '';
+          let platform = 'Physical Disc';
+          if (/ps5|playstation 5/i.test(rawTitle)) platform = 'PS5';
+          else if (/ps4|playstation 4/i.test(rawTitle)) platform = 'PS4';
+          else if (/xbox/i.test(rawTitle)) platform = 'Xbox';
+          else if (/switch|nintendo/i.test(rawTitle)) platform = 'Switch';
+          else if (/4k|ultra hd/i.test(rawTitle)) platform = '4K UHD';
+          else if (/blu-ray/i.test(rawTitle)) platform = 'Blu-ray';
+
+          const cleanTitle = rawTitle
+            .replace(/\(.*?\)|\[.*?\]/g, '')
+            .replace(/playstation \d|ps5|ps4|xbox series x|xbox one|nintendo switch|blu-ray|4k ultra hd|dvd|steelbook|standard edition/gi, '')
+            .replace(/[-–:|]/g, ' ')
+            .trim();
+
+          if (!isModal) openAddModal();
+          if (['PS5', 'PS4', 'Xbox', 'Switch'].includes(platform)) {
+            document.getElementById('addTypeSelect').value = 'game';
+          }
+          adjustAddFormFields();
+          document.getElementById('addShelfInput').value = `${platform} [${code}]`;
+          document.getElementById('addTitleInput').value = cleanTitle;
+          await autoFetchMetadata();
+          return true;
+        }
+      } catch (e) {}
+
+      statusEl.textContent = `🏷️ Scanned barcode ${code}. Type the title to link this barcode.`;
+      if (isModal) document.getElementById('addShelfInput').value = `UPC: ${code}`;
+      return false;
+    }
+
+    async function scanWithGeminiVision(base64Jpeg, mode, statusEl, fallbackDataUrl) {
+      const geminiKey = localStorage.getItem('omni_gemini_key');
+      const promptText = `Analyze this image of media item(s) (video game cases/discs, movie Blu-rays/posters, TV shows, or books).
+Return ONLY a valid JSON array of objects. Each object MUST have:
+- "title": exact clean title of the game, movie, TV show, or book
+- "type": one of "movie", "tv", "book", "game"
+- "year": release year as a number (e.g. 2023)
+- "shelf": detected platform or physical format (e.g. "PS5", "Switch", "Xbox", "4K Blu-ray", "Hardcover")
+- "genre": comma-separated genres and sub-genres
+- "director": director, author, or game studio/developer
+- "writer": writer(s) or publisher
+- "cast": comma-separated main actors, voice actors, or key characters
+- "runtime": runtime in minutes (for movie/tv), page count (for book), or average playtime hours (for game) as a number
+- "imdbRating": estimated or known IMDb score (e.g. "8.1")
+- "rtRating": estimated or known Rotten Tomatoes / Metacritic percentage (e.g. "89%")
+- "petSafe": boolean (false if horror/action/loud gunfire/monsters, true if calm)
+- "soundMix": "Balanced Mix" or "Wide Dynamic Range"
+- "synopsis": 2-sentence overview/plot summary.`;
+
+      try {
+        const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{
+              parts: [
+                { text: promptText },
+                { inline_data: { mime_type: 'image/jpeg', data: base64Jpeg } }
+              ]
+            }]
+          })
+        });
+        const data = await resp.json();
+        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        const jsonMatch = rawText.match(/\[[\s\S]*\]/);
+        if (!jsonMatch) return false;
+
+        const items = JSON.parse(jsonMatch[0]);
+        if (!items || items.length === 0) return false;
+
+        if (mode === 'batch' || (mode === 'single' && items.length > 1)) {
+          renderBatchScanResults(items, fallbackDataUrl);
+          statusEl.textContent = `✅ AI Vision identified ${items.length} media item(s) from your photo!`;
+          return true;
+        }
+
+        // Single item -> populate + Add modal and fetch high-res official artwork
+        const item = items[0];
+        if (!mode.startsWith('modal')) openAddModal();
+
+        document.getElementById('addTypeSelect').value = ['movie', 'tv', 'book', 'game'].includes(item.type) ? item.type : 'movie';
+        adjustAddFormFields();
+        document.getElementById('addTitleInput').value = item.title || '';
+        document.getElementById('addYearInput').value = parseInt(item.year) || 2024;
+        document.getElementById('addRuntimeInput').value = parseInt(item.runtime) || 100;
+        document.getElementById('addShelfInput').value = item.shelf || 'Physical Copy';
+        document.getElementById('addGenreInput').value = item.genre || 'General';
+        document.getElementById('addDirectorInput').value = item.director || '';
+        document.getElementById('addWriterInput').value = item.writer || '';
+        document.getElementById('addCastInput').value = item.cast || '';
+        document.getElementById('addImdbInput').value = item.imdbRating || '';
+        document.getElementById('addRtInput').value = item.rtRating || '';
+        document.getElementById('addSynopsisInput').value = item.synopsis || '';
+        document.getElementById('addPetSafeSelect').value = item.petSafe === false ? 'alert' : 'safe';
+        document.getElementById('addSoundMixSelect').value = item.soundMix === 'Wide Dynamic Range' ? 'Wide Dynamic Range' : 'Balanced Mix';
+
+        // Try fetching clean digital cover art to replace camera photo
+        const officialPoster = await fetchCleanArtworkForItem(item.title, item.type, item.year);
+        if (officialPoster) {
+          document.getElementById('addPosterInput').value = officialPoster;
+          document.getElementById('addPreviewImg').src = officialPoster;
+        }
+
+        statusEl.textContent = `✅ AI identified "${item.title}" (${item.year}) and auto-filled all details!`;
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    async function fetchCleanArtworkForItem(title, type, year) {
+      try {
+        if (type === 'game') {
+          const cs = await fetch(`https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(title)}&limit=1`).then(r => r.json());
+          if (cs && cs.length > 0 && cs[0].thumb) return cs[0].thumb;
+        }
+        const omdb = await fetchOMDb(`t=${encodeURIComponent(title)}`);
+        if (omdb && omdb.Poster && omdb.Poster !== 'N/A') return omdb.Poster;
+
+        if (type === 'book') {
+          const ol = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=1`).then(r => r.json());
+          if (ol.docs?.[0]?.cover_i) return `https://covers.openlibrary.org/b/id/${ol.docs[0].cover_i}-L.jpg`;
+        } else {
+          const it = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(title)}&limit=1`).then(r => r.json());
+          if (it.results?.[0]?.artworkUrl100) return it.results[0].artworkUrl100.replace('100x100bb', '600x600bb');
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    let lastBatchDetected = [];
+    function renderBatchScanResults(items, fallbackImg) {
+      lastBatchDetected = items;
+      const box = document.getElementById('batchScanResults');
+      box.style.display = 'flex';
+      box.innerHTML = `
+        <button class="btn-tool btn-add" style="justify-content:center; padding:9px;" onclick="addAllBatchItems()">➕ Add All ${items.length} Detected Titles to Vault</button>
+        ${items.map((it, idx) => `
+          <div class="disambig-item" onclick="addSingleBatchItem(${idx})">
+            <div class="d-info">
+              <strong>${it.title}</strong> (${it.year || 'N/A'}) • <span style="color:var(--accent);">${(it.type || 'media').toUpperCase()}</span>
+              <small>${it.shelf || ''} • ${it.genre || ''} • Tap to add</small>
+            </div>
+            <span class="btn-tool btn-add">+ Add</span>
+          </div>
+        `).join('')}
+      `;
+    }
+
+    async function addSingleBatchItem(idx) {
+      const it = lastBatchDetected[idx];
+      if (!it) return;
+      const poster = await fetchCleanArtworkForItem(it.title, it.type, it.year);
+      vault.unshift({
+        id: Date.now().toString() + Math.random().toString(36).slice(2, 6),
+        title: it.title,
+        type: it.type || 'game',
+        genre: it.genre || 'General',
+        year: parseInt(it.year) || 2024,
+        runtime: parseInt(it.runtime) || 25,
+        director: it.director || 'Unknown',
+        writer: it.writer || 'Unknown',
+        cast: it.cast || 'Not listed',
+        imdbRating: it.imdbRating || '',
+        rtRating: it.rtRating || '',
+        p1Rating: 0,
+        p2Rating: 0,
+        petSafe: it.petSafe !== false,
+        petNotes: it.petSafe === false ? '⚠️ Pet Alert: Loud action/horror audio.' : '🐾 Pet-Safe.',
+        soundMix: it.soundMix || 'Balanced Mix',
+        synopsis: it.synopsis || 'Added via AI Shelf Scanner.',
+        poster: poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80',
+        p1: false,
+        p2: false,
+        completed: false,
+        shelf: it.shelf || 'Shelf'
+      });
+      saveVault();
+      renderVault();
+      alert(`✅ Added "${it.title}" to your Vault!`);
+    }
+
+    async function addAllBatchItems() {
+      for (let i = 0; i < lastBatchDetected.length; i++) {
+        await addSingleBatchItem(i);
+      }
+      document.getElementById('batchScanResults').style.display = 'none';
+    }
+
+    async function scanWithTesseractOCR(dataUrl, isModal, statusEl) {
+      if (!window.Tesseract) {
+        await new Promise((res, rej) => {
+          const s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+          s.onload = res;
+          s.onerror = rej;
+          document.head.appendChild(s);
+        });
+      }
+
+      const result = await Tesseract.recognize(dataUrl, 'eng');
+      const rawLines = (result?.data?.text || '')
+        .split('\n')
+        .map(l => l.replace(/[^a-zA-Z0-9 :'-]/g, ' ').replace(/\s+/g, ' ').trim())
+        .filter(l => l.length >= 3 && !/^(ps5|ps4|xbox|nintendo|switch|only on|playstation|esrb|mature|teen|everyone|capcom|sony|blu-ray|4k|ultra hd)$/i.test(l));
+
+      if (rawLines.length > 0) {
+        const bestGuess = rawLines.sort((a, b) => b.length - a.length)[0].slice(0, 40);
+        if (!isModal) openAddModal();
+        document.getElementById('addTitleInput').value = bestGuess;
+        statusEl.textContent = `🔍 Detected cover text: "${bestGuess}" — searching matches...`;
+        await autoFetchMetadata();
+      } else {
+        statusEl.innerHTML = `⚠️ Stylized logo detected. Paste a free <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--p1);">Gemini Vision Key in Sync Hub</a> to recognize artwork without plain text, or type the title below.`;
+      }
+    }
+
+    /* ========================================================
+       5. IMDB-STYLE MEDIA DOSSIER MODAL & LIVE REFRESH
        ======================================================== */
     async function openDetailModal(id) {
       const item = vault.find(i => i.id === id);
@@ -1040,7 +1429,6 @@
       populateDetailModal(item);
       document.getElementById('detailModal').style.display = 'flex';
 
-      // Auto-heal if synopsis or cast is missing
       if (!item.cast || !item.synopsis || item.synopsis === 'Added by user.') {
         await refreshSingleItemMetadata(true);
       }
@@ -1053,7 +1441,8 @@
       const lenStr = item.type === 'book' ? `${item.runtime} pages` : (item.type === 'game' ? `${item.runtime} hrs` : (hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`));
 
       document.getElementById('modalMeta').textContent = `${item.year} • ${item.rated || 'Not Rated'} • ${lenStr} • ${item.type.toUpperCase()}`;
-      document.getElementById('modalTrailerBtn').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(item.title + ' ' + item.year + ' official trailer')}`;
+      const trailerSuffix = item.type === 'game' ? 'gameplay trailer' : 'official trailer';
+      document.getElementById('modalTrailerBtn').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(item.title + ' ' + item.year + ' ' + trailerSuffix)}`;
 
       let rBox = [];
       if (item.imdbRating && item.imdbRating !== 'N/A') rBox.push(`<span style="color:#f5c518;">⭐ ${item.imdbRating}/10</span>`);
@@ -1076,7 +1465,7 @@
         genresDiv.appendChild(s);
       });
 
-      document.getElementById('modalDirHeading').textContent = item.type === 'book' ? 'Author' : (item.type === 'game' ? 'Developer / Studio' : 'Director');
+      document.getElementById('modalDirHeading').textContent = item.type === 'book' ? 'Author' : (item.type === 'game' ? 'Director / Studio' : 'Director');
       document.getElementById('modalWriterHeading').textContent = item.type === 'book' ? 'Publisher / Era' : 'Writers';
       document.getElementById('modalCastHeading').textContent = item.type === 'book' ? 'Key Characters / Subjects' : 'Top Cast (Actors & Actresses)';
 
@@ -1114,7 +1503,7 @@
     async function refreshSingleItemMetadata(silent = false) {
       const item = vault.find(i => i.id === activeDetailMovieId);
       if (!item) return;
-      const d = await fetchOMDb(`t=${encodeURIComponent(item.title)}`);
+      const d = await fetchOMDb(`t=${encodeURIComponent(item.title)}&plot=full`);
       if (d) {
         if (d.Plot && d.Plot !== 'N/A') item.synopsis = d.Plot;
         if (d.Director && d.Director !== 'N/A') item.director = d.Director;
@@ -1144,7 +1533,7 @@
     }
 
     /* ========================================================
-       5. LIVE AUTO-SEARCH & DISAMBIGUATION POPUP (+ ADD)
+       6. LIVE AUTO-SEARCH & DISAMBIGUATION POPUP (+ ADD)
        ======================================================== */
     let searchTimer = null;
 
@@ -1157,9 +1546,9 @@
         document.getElementById('addCastLabel').textContent = 'Subjects / Characters';
       } else if (type === 'game') {
         document.getElementById('addRuntimeLabel').textContent = 'Playtime (Hours)';
-        document.getElementById('addDirectorLabel').textContent = 'Developer / Studio';
-        document.getElementById('addWriterLabel').textContent = 'Platforms';
-        document.getElementById('addCastLabel').textContent = 'Tags / Modes';
+        document.getElementById('addDirectorLabel').textContent = 'Director / Studio';
+        document.getElementById('addWriterLabel').textContent = 'Writer(s) / Franchise';
+        document.getElementById('addCastLabel').textContent = 'Voice Cast / Characters';
       } else {
         document.getElementById('addRuntimeLabel').textContent = 'Runtime (Mins)';
         document.getElementById('addDirectorLabel').textContent = 'Director';
@@ -1184,8 +1573,8 @@
       const status = document.getElementById('fetchStatus');
       const list = document.getElementById('disambiguationList');
 
-      if (!title) { status.textContent = '⚠️ Enter a title first.'; return; }
-      status.textContent = '🔍 Searching titles...';
+      if (!title) { status.textContent = '⚠️ Enter a title or scan a photo first.'; return; }
+      status.textContent = '🔍 Searching databases...';
       list.innerHTML = '';
 
       try {
@@ -1273,20 +1662,77 @@
             status.textContent = 'No matching books found on OpenLibrary.';
           }
         } else if (type === 'game') {
-          const resp = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(title + ' video game')}&format=json&origin=*`);
-          const data = await resp.json();
-          const results = data?.query?.search || [];
-          if (results.length > 0) {
-            status.textContent = 'Tap the video game below to auto-fill:';
+          const [omdbGames, cheapShark, wikiResp] = await Promise.all([
+            fetchOMDb(`s=${encodeURIComponent(title)}&type=game`),
+            fetch(`https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(title)}&limit=6`).then(r => r.json()).catch(() => []),
+            fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(title + ' video game')}&format=json&origin=*`).then(r => r.json()).catch(() => ({}))
+          ]);
+
+          const gameMatches = [];
+          const seenGames = new Set();
+
+          if (omdbGames && omdbGames.Search) {
+            omdbGames.Search.forEach(g => {
+              const key = g.Title.toLowerCase();
+              if (!seenGames.has(key)) {
+                seenGames.add(key);
+                gameMatches.push({
+                  imdbID: g.imdbID,
+                  title: g.Title,
+                  year: parseInt(g.Year) || 2024,
+                  poster: g.Poster !== 'N/A' ? g.Poster : '',
+                  sub: `🎮 Video Game (${g.Year}) • IMDb Game Archive`
+                });
+              }
+            });
+          }
+
+          if (Array.isArray(cheapShark)) {
+            cheapShark.forEach(cs => {
+              const key = cs.external.toLowerCase();
+              if (!seenGames.has(key)) {
+                seenGames.add(key);
+                gameMatches.push({
+                  title: cs.external,
+                  year: 2024,
+                  poster: cs.thumb || '',
+                  sub: `🎮 Video Game • Box Art Match`
+                });
+              }
+            });
+          }
+
+          const wikiResults = wikiResp?.query?.search || [];
+          wikiResults.slice(0, 4).forEach(w => {
+            const key = w.title.toLowerCase();
+            if (!seenGames.has(key)) {
+              seenGames.add(key);
+              gameMatches.push({
+                title: w.title.replace(/\s*\(video game\)/i, ''),
+                wikiTitle: w.title,
+                year: 2024,
+                poster: '',
+                snippet: w.snippet.replace(/<\/?[^>]+(>|$)/g, ''),
+                sub: `🎮 Video Game • Wikipedia Encyclopedia`
+              });
+            }
+          });
+
+          if (gameMatches.length > 0) {
+            status.textContent = `Found ${gameMatches.length} video games—tap to auto-fill:`;
             list.style.display = 'flex';
-            results.slice(0, 5).forEach(g => {
-              const cleanSnippet = g.snippet.replace(/<\/?[^>]+(>|$)/g, '');
+            gameMatches.slice(0, 8).forEach(gm => {
               const row = document.createElement('div');
               row.className = 'disambig-item';
-              row.innerHTML = `<div class="d-info"><strong>🎮 ${g.title}</strong><small>${cleanSnippet.slice(0, 90)}...</small></div>`;
-              row.onclick = () => selectDisambiguatedGame(g.title, cleanSnippet);
+              row.innerHTML = `
+                <img src="${gm.poster || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=200&q=80'}" onerror="this.style.opacity=0.2">
+                <div class="d-info"><strong>${gm.title}</strong> ${gm.year ? '('+gm.year+')' : ''}<small>${gm.sub}</small></div>
+              `;
+              row.onclick = () => selectDisambiguatedGame(gm);
               list.appendChild(row);
             });
+          } else {
+            status.textContent = 'No matching video games found.';
           }
         }
       } catch (e) {
@@ -1364,22 +1810,52 @@
       document.getElementById('fetchStatus').textContent = `✅ Auto-populated book details for "${doc.title}"!`;
     }
 
-    async function selectDisambiguatedGame(title, snippet) {
+    async function selectDisambiguatedGame(gm) {
       document.getElementById('disambiguationList').style.display = 'none';
-      document.getElementById('addTitleInput').value = title;
+      const status = document.getElementById('fetchStatus');
+      status.textContent = `⏳ Pulling video game box art, credits & overview for "${gm.title}"...`;
+
+      document.getElementById('addTitleInput').value = gm.title;
+      if (gm.year) document.getElementById('addYearInput').value = gm.year;
       document.getElementById('addRuntimeInput').value = 25;
       document.getElementById('addGenreInput').value = 'Video Game, Action/Adventure';
-      document.getElementById('addSynopsisInput').value = snippet;
+      if (gm.poster) {
+        document.getElementById('addPosterInput').value = gm.poster;
+        document.getElementById('addPreviewImg').src = gm.poster;
+      }
+
+      // 1. Check OMDb Game Record for Voice Cast, Director, Writer, Plot, IMDb Rating
+      const omdbQuery = gm.imdbID ? `i=${gm.imdbID}&plot=full` : `t=${encodeURIComponent(gm.title)}&type=game&plot=full`;
+      const d = await fetchOMDb(omdbQuery);
+      if (d) {
+        if (d.Year && parseInt(d.Year)) document.getElementById('addYearInput').value = parseInt(d.Year);
+        if (d.Genre && d.Genre !== 'N/A') document.getElementById('addGenreInput').value = d.Genre;
+        if (d.Director && d.Director !== 'N/A') document.getElementById('addDirectorInput').value = d.Director;
+        if (d.Writer && d.Writer !== 'N/A') document.getElementById('addWriterInput').value = d.Writer;
+        if (d.Actors && d.Actors !== 'N/A') document.getElementById('addCastInput').value = d.Actors;
+        if (d.Plot && d.Plot !== 'N/A') document.getElementById('addSynopsisInput').value = d.Plot;
+        if (d.imdbRating && d.imdbRating !== 'N/A') document.getElementById('addImdbInput').value = d.imdbRating;
+        if (d.Poster && d.Poster !== 'N/A') {
+          document.getElementById('addPosterInput').value = d.Poster;
+          document.getElementById('addPreviewImg').src = d.Poster;
+        }
+      }
+
+      // 2. Supplement with Wikipedia Summary & Cover Thumbnail if needed
       try {
-        const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
-        const d = await r.json();
-        if (d.extract) document.getElementById('addSynopsisInput').value = d.extract;
-        if (d.thumbnail?.source) {
-          document.getElementById('addPosterInput').value = d.thumbnail.source;
-          document.getElementById('addPreviewImg').src = d.thumbnail.source;
+        const wikiPage = gm.wikiTitle || gm.title;
+        const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiPage)}`);
+        const w = await r.json();
+        if (w.extract && (!document.getElementById('addSynopsisInput').value || document.getElementById('addSynopsisInput').value.length < 30)) {
+          document.getElementById('addSynopsisInput').value = w.extract;
+        }
+        if (w.thumbnail?.source && !document.getElementById('addPosterInput').value) {
+          document.getElementById('addPosterInput').value = w.thumbnail.source;
+          document.getElementById('addPreviewImg').src = w.thumbnail.source;
         }
       } catch (e) {}
-      document.getElementById('fetchStatus').textContent = `✅ Auto-populated game details for "${title}"!`;
+
+      status.textContent = `✅ Auto-populated video game details for "${gm.title}"!`;
     }
 
     function openAddModal() {
@@ -1429,7 +1905,7 @@
     }
 
     /* ========================================================
-       6. SPIN WHEEL (MULTI-CATEGORY + ANIMATED CANVAS ROTATION)
+       7. SPIN WHEEL (MULTI-CATEGORY + ANIMATED CANVAS ROTATION)
        ======================================================== */
     let wheelSliceCount = 6;
     let wheelPoolFilter = 'all';
@@ -1547,7 +2023,7 @@
     }
 
     /* ========================================================
-       7. SCRATCH-OFF TICKET
+       8. SCRATCH-OFF TICKET
        ======================================================== */
     let currentScratchPool = 'all';
     let scratchItem = null;
@@ -1610,7 +2086,7 @@
     }
 
     /* ========================================================
-       8. SHOWDOWN, MARATHONS, SHELF, EAS & SYNC HUB
+       9. SHOWDOWN, MARATHONS, SHELF, EAS & SYNC HUB
        ======================================================== */
     const MARATHONS = [
       { title: "🧠 Reality-Bending Paranoia", desc: "High-concept sci-fi & locked-room tension.", list: ["Coherence", "Annihilation", "The Thing"] },
@@ -1668,8 +2144,8 @@
 
     async function healAllMetadata() {
       for (const item of vault) {
-        if (item.type === 'movie' || item.type === 'tv') {
-          const d = await fetchOMDb(`t=${encodeURIComponent(item.title)}`);
+        if (item.type === 'movie' || item.type === 'tv' || item.type === 'game') {
+          const d = await fetchOMDb(`t=${encodeURIComponent(item.title)}&plot=full`);
           if (d) {
             if (d.Plot && d.Plot !== 'N/A') item.synopsis = d.Plot;
             if (d.Director && d.Director !== 'N/A') item.director = d.Director;

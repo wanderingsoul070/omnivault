@@ -8,29 +8,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>OmniVault</title>
   <link rel="manifest" href="manifest.json">
-
   <style>
     :root {
-      --bg: #0b0f14;
-      --card-bg: #161b22;
-      --card-border: #30363d;
-      --accent: #f0883e;
-      --p1: #58a6ff;
-      --p2: #bc8cff;
-      --date: #f778ba;
-      --green: #3fb950;
-      --red: #f85149;
-      --gold: #f5c518;
-      --text: #c9d1d9;
-      --text-bright: #f0f6fc;
-      --text-muted: #8b949e;
-      --radius: 10px;
+      --bg: #0b0f14; --card-bg: #161b22; --card-border: #30363d; --accent: #f0883e;
+      --p1: #58a6ff; --p2: #bc8cff; --date: #f778ba; --green: #3fb950; --red: #f85149;
+      --gold: #f5c518; --text: #c9d1d9; --text-bright: #f0f6fc; --text-muted: #8b949e; --radius: 10px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background-color: var(--bg); color: var(--text); padding-bottom: 90px; }
-
-    /* Header */
     header { background: var(--card-bg); border-bottom: 1px solid var(--card-border); padding: 10px 14px; position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.05rem; color: var(--text-bright); }
@@ -41,27 +26,18 @@
     .btn-tool.btn-eas { background: rgba(248, 81, 73, 0.15); border-color: var(--red); color: var(--red); }
     .btn-tool.btn-add { background: #238636; border-color: rgba(240,246,252,0.1); color: #fff; }
     .btn-tool.btn-scan { background: rgba(88, 166, 255, 0.16); border-color: var(--p1); color: var(--p1); }
-
-    /* PWA Banner */
     .pwa-banner { background: rgba(240, 136, 62, 0.12); border: 1px solid rgba(240, 136, 62, 0.35); border-radius: 6px; padding: 5px 10px; font-size: 0.72rem; color: var(--accent); display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-
-    /* Partner Bar */
     .partner-bar { display: flex; gap: 6px; align-items: center; overflow-x: auto; }
     .partner-pill { background: #21262d; border: 1px solid var(--card-border); color: var(--text); padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; transition: all 0.15s; }
     .partner-pill.active-p1 { background: rgba(88, 166, 255, 0.2); border-color: var(--p1); color: var(--p1); font-weight: 700; }
     .partner-pill.active-p2 { background: rgba(188, 140, 255, 0.2); border-color: var(--p2); color: var(--p2); font-weight: 700; }
     .partner-pill.active-date { background: rgba(247, 120, 186, 0.2); border-color: var(--date); color: var(--date); font-weight: 700; }
     .partner-edit-icon { font-size: 0.72rem; opacity: 0.65; padding: 2px; }
-
-    /* Navigation Tabs */
     .nav-bar { display: flex; gap: 4px; padding: 6px 12px 8px; background: var(--card-bg); border-bottom: 1px solid var(--card-border); overflow-x: auto; scrollbar-width: none; }
     .nav-bar::-webkit-scrollbar { display: none; }
     .nav-btn { background: transparent; border: none; color: var(--text-muted); padding: 6px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: 5px; }
     .nav-btn.active { background: #21262d; color: var(--text-bright); border: 1px solid var(--card-border); }
-
     .main-body { padding: 12px 14px; max-width: 1020px; margin: 0 auto; }
-
-    /* Filter Cluster */
     .filter-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
     .search-row { display: flex; gap: 8px; flex-wrap: wrap; }
     .search-input { flex: 1; min-width: 180px; background: #0d1117; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 12px; font-size: 0.85rem; color: var(--text-bright); }
@@ -72,14 +48,10 @@
     .filter-chip { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 4px 10px; border-radius: 14px; font-size: 0.72rem; white-space: nowrap; cursor: pointer; transition: all 0.15s; }
     .filter-chip.active { background: #30363d; color: var(--text-bright); border-color: #8b949e; font-weight: 600; }
     .filter-chip.chip-accent.active { background: rgba(240, 136, 62, 0.2); border-color: var(--accent); color: var(--accent); }
-
-    /* Backlog vs Completed Switch */
     .status-switch { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
     .btn-status { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; }
     .btn-status.active { background: rgba(240, 136, 62, 0.15); color: var(--accent); border-color: var(--accent); }
     .reset-link { margin-left: auto; font-size: 0.72rem; color: var(--text-muted); text-decoration: underline; cursor: pointer; }
-
-    /* Cards Grid */
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
     .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; position: relative; cursor: pointer; transition: transform 0.15s, border-color 0.15s; }
     .card:hover { border-color: #58a6ff; }
@@ -89,7 +61,6 @@
     .poster-badge-top { position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; color: var(--text-bright); display: flex; gap: 5px; align-items: center; }
     .media-type-tag { position: absolute; top: 6px; left: 6px; background: rgba(13,17,23,0.88); border: 1px solid var(--card-border); padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; text-transform: uppercase; font-weight: 700; color: #c9d1d9; }
     .couple-score-badge { position: absolute; bottom: 6px; right: 6px; background: rgba(13,17,23,0.9); border: 1px solid var(--card-border); padding: 2px 6px; border-radius: 4px; font-size: 0.62rem; font-weight: 700; color: var(--gold); }
-
     .card-info { padding: 9px; display: flex; flex-direction: column; flex-grow: 1; }
     .title-row { font-size: 0.85rem; font-weight: 700; color: var(--text-bright); line-height: 1.25; margin-bottom: 2px; }
     .meta-row { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 6px; }
@@ -98,7 +69,6 @@
     .tag-pill.safe { background: rgba(63, 185, 80, 0.12); color: var(--green); border-color: rgba(63, 185, 80, 0.3); }
     .tag-pill.alert { background: rgba(248, 81, 73, 0.12); color: var(--red); border-color: rgba(248, 81, 73, 0.3); }
     .tag-pill.sound { background: rgba(88, 166, 255, 0.12); color: var(--p1); border-color: rgba(88, 166, 255, 0.3); }
-
     .action-row { margin-top: auto; display: flex; gap: 4px; align-items: center; }
     .btn-vote { flex: 1; padding: 5px 2px; font-size: 0.68rem; background: #21262d; border: 1px solid var(--card-border); border-radius: 4px; color: var(--text-muted); cursor: pointer; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .btn-vote.voted-p1 { border-color: var(--p1); background: rgba(88, 166, 255, 0.2); color: var(--p1); font-weight: 700; }
@@ -106,44 +76,43 @@
     .btn-icon-sm { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.72rem; padding: 4px 6px; cursor: pointer; border-radius: 4px; }
     .btn-icon-sm.done { color: var(--green); border-color: var(--green); background: rgba(63, 185, 80, 0.15); }
     .btn-icon-sm.trash { color: var(--red); }
-
-    /* Interactive Containers */
     .view-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px; text-align: center; margin-bottom: 14px; }
     .wheel-wrap { position: relative; width: 290px; height: 290px; margin: 14px auto; }
     .wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: var(--accent); z-index: 10; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)); }
     .wheel-canvas { width: 290px; height: 290px; border-radius: 50%; border: 4px solid var(--card-border); transition: transform 3.2s cubic-bezier(0.15, 0.85, 0.25, 1); }
-
     .duel-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-top: 14px; }
     .duel-card { background: #0d1117; border: 2px solid var(--card-border); border-radius: 8px; padding: 12px; cursor: pointer; transition: transform 0.15s; }
     .duel-card:active { transform: scale(0.96); }
 
-    /* Scratch-Off Component */
-    .scratch-container { position: relative; width: 310px; height: 185px; margin: 14px auto; border-radius: 10px; overflow: hidden; border: 2px solid var(--card-border); background: #0d1117; }
-    .scratch-prize { position: absolute; inset: 0; display: flex; padding: 12px; gap: 12px; align-items: center; text-align: left; }
-    .scratch-prize-img { width: 95px; height: 155px; object-fit: cover; border-radius: 6px; border: 1px solid var(--card-border); flex-shrink: 0; }
-    .scratch-canvas { position: absolute; inset: 0; touch-action: none; cursor: crosshair; }
+    /* Realistic Multi-Style Lottery Ticket Studio */
+    .lottery-ticket { width: 100%; max-width: 370px; margin: 14px auto; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 28px rgba(0,0,0,0.75); border: 2px solid #f5c518; transition: all 0.25s; user-select: none; }
+    .lottery-header { padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed rgba(255,255,255,0.22); }
+    .lottery-title { font-size: 0.95rem; font-weight: 900; letter-spacing: 0.6px; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
+    .lottery-jackpot { font-size: 0.66rem; font-weight: 800; padding: 3px 7px; border-radius: 6px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.25); }
+    .scratch-container { position: relative; width: 340px; height: 195px; margin: 12px auto; border-radius: 10px; overflow: hidden; border: 2px solid rgba(255,255,255,0.28); background: #0d1117; box-shadow: inset 0 0 12px rgba(0,0,0,0.8); }
+    .scratch-prize { position: absolute; inset: 0; display: flex; padding: 12px; gap: 12px; align-items: center; text-align: left; cursor: pointer; }
+    .scratch-prize-img { width: 100px; height: 165px; object-fit: cover; border-radius: 6px; border: 1px solid var(--card-border); flex-shrink: 0; }
+    .scratch-canvas { position: absolute; inset: 0; touch-action: none; cursor: grab; transition: opacity 0.45s ease; }
+    .scratch-canvas:active { cursor: grabbing; }
+    .lottery-footer { padding: 8px 14px; font-size: 0.68rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.45); color: rgba(255,255,255,0.85); font-family: monospace; }
+    .progress-bar-wrap { width: 90px; height: 6px; background: rgba(255,255,255,0.18); border-radius: 4px; overflow: hidden; display: inline-block; vertical-align: middle; margin-left: 5px; }
+    .progress-bar-fill { height: 100%; width: 0%; background: var(--green); transition: width 0.1s; }
 
-    /* Disambiguation Search Popup List */
+    /* Disambiguation & Scanner */
     .disambig-list { display: none; flex-direction: column; gap: 6px; margin-top: 8px; max-height: 210px; overflow-y: auto; background: #0d1117; border: 1px solid var(--accent); border-radius: 8px; padding: 6px; }
     .disambig-item { display: flex; gap: 10px; align-items: center; background: #161b22; border: 1px solid var(--card-border); padding: 6px 8px; border-radius: 6px; cursor: pointer; text-align: left; }
     .disambig-item:hover, .disambig-item:active { background: #30363d; border-color: var(--p1); }
     .disambig-item img { width: 42px; height: 60px; object-fit: cover; border-radius: 4px; background: #0d1117; flex-shrink: 0; }
     .disambig-item .d-info { flex: 1; font-size: 0.78rem; color: var(--text-bright); line-height: 1.3; }
     .disambig-item small { color: var(--text-muted); font-size: 0.7rem; display: block; }
-
-    /* Camera / Photo Scanner Box */
     .scanner-box { background: linear-gradient(135deg, rgba(88,166,255,0.12), rgba(188,140,255,0.12)); border: 1px dashed var(--p1); border-radius: 8px; padding: 10px; margin-bottom: 12px; text-align: center; }
     .scanner-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
-
-    /* Modals */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.82); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 12px; }
     .modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; width: 100%; max-width: 520px; padding: 16px; max-height: 90vh; overflow-y: auto; text-align: left; }
     .form-group { margin-bottom: 10px; }
     .form-group label { display: block; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
     .form-control { width: 100%; background: #0d1117; border: 1px solid var(--card-border); border-radius: 6px; padding: 8px 10px; font-size: 0.82rem; color: var(--text-bright); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-    /* Cast Pills */
     .cast-grid { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
     .cast-pill { background: #161b22; border: 1px solid var(--card-border); border-radius: 6px; padding: 4px 8px; font-size: 0.72rem; color: var(--text-bright); }
   </style>
@@ -162,12 +131,10 @@
         <button class="btn-tool btn-add" onclick="openAddModal()">+ Add</button>
       </div>
     </div>
-
     <div class="pwa-banner" id="pwaBanner">
       <span>📲 Add to Home Screen: Run full-screen offline like a native store app!</span>
       <span style="font-weight:bold; cursor:pointer; padding:0 4px;" onclick="document.getElementById('pwaBanner').style.display='none'">✕</span>
     </div>
-
     <div class="partner-bar">
       <div class="partner-pill" id="p1Pill" onclick="togglePartner('p1')">
         <span id="p1Label">Alex</span>
@@ -211,7 +178,6 @@
             <option value="couple-desc">Couple's Score (Highest)</option>
           </select>
         </div>
-
         <div class="pill-row" id="mediaTypeRow">
           <span class="filter-chip chip-accent active" onclick="setMediaType('all', this)">All</span>
           <span class="filter-chip" onclick="setMediaType('movie', this)">🎬 Movies</span>
@@ -221,7 +187,6 @@
           <span class="filter-chip" id="petChip" onclick="togglePetFilter(this)">🐾 Pet Safe Only</span>
           <span class="filter-chip" id="soundChip" onclick="toggleSoundFilter(this)">🔊 Balanced Mix</span>
         </div>
-
         <div class="pill-row" id="genreRow">
           <span class="row-label">🎭 Genre:</span>
           <span class="filter-chip active" onclick="setGenre('all', this)">All</span>
@@ -235,7 +200,6 @@
           <span class="filter-chip" onclick="setGenre('adventure', this)">Adventure</span>
           <span class="filter-chip" onclick="setGenre('cyberpunk', this)">Cyberpunk</span>
         </div>
-
         <div class="pill-row" id="timeRow">
           <span class="row-label">⏱️ Time Budget:</span>
           <span class="filter-chip active" onclick="setTimeBudget('any', this)">Any</span>
@@ -243,7 +207,6 @@
           <span class="filter-chip" onclick="setTimeBudget('med', this)">90-120m</span>
           <span class="filter-chip" onclick="setTimeBudget('long', this)">&gt;120m</span>
         </div>
-
         <div class="pill-row" id="decadeRow">
           <span class="row-label">⏳ Decades:</span>
           <span class="filter-chip active" onclick="setDecade('all', this)">All</span>
@@ -256,13 +219,11 @@
           <span class="filter-chip" onclick="setDecade('2020s', this)">2020s</span>
         </div>
       </div>
-
       <div class="status-switch">
         <button class="btn-status active" id="btnBacklog" onclick="setStatusTab('backlog')">Backlog (<span id="backlogCount">0</span>)</button>
         <button class="btn-status" id="btnCompleted" onclick="setStatusTab('completed')">Completed (<span id="completedCount">0</span>)</button>
         <span class="reset-link" onclick="resetFilters()">Reset Filters</span>
       </div>
-
       <div class="grid" id="itemsGrid"></div>
     </section>
 
@@ -280,7 +241,6 @@
       <div class="view-card">
         <h3>🎡 Decision Wheel of Chaos</h3>
         <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Select one or more categories, choose wheel size, and spin.</p>
-
         <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px; margin:12px auto 6px; text-align:left; max-width:420px;">
           <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">MEDIA CATEGORIES (TAP ONE OR MULTIPLE):</div>
           <div class="pill-row" id="wheelCatRow" style="margin-bottom:8px;">
@@ -290,7 +250,6 @@
             <span class="filter-chip" data-cat="book" onclick="toggleWheelCategory('book', this)">📖 Books</span>
             <span class="filter-chip" data-cat="game" onclick="toggleWheelCategory('game', this)">🎮 Video Games</span>
           </div>
-
           <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">CANDIDATE POOL:</div>
           <div class="pill-row" style="margin-bottom:8px;">
             <span class="filter-chip active" onclick="setWheelPool('all', this)">All Backlog</span>
@@ -299,7 +258,6 @@
             <span class="filter-chip" onclick="setWheelPool('date', this)">💕 Date Night</span>
             <span class="filter-chip" onclick="setWheelPool('petsafe', this)">🐾 Pet-Safe</span>
           </div>
-
           <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">WHEEL SIZE (SLICES):</div>
           <div class="pill-row">
             <span class="filter-chip" onclick="setWheelSlices(4, this)">4 Slices</span>
@@ -309,17 +267,14 @@
             <span class="filter-chip" onclick="setWheelSlices(12, this)">12 Slices</span>
           </div>
         </div>
-
         <div class="wheel-wrap">
           <div class="wheel-pointer">▼</div>
           <canvas id="wheelCanvas" class="wheel-canvas" width="290" height="290"></canvas>
         </div>
-
         <div style="display:flex; justify-content:center; gap:8px; margin-top:8px;">
           <button class="btn-tool btn-add" style="padding:8px 22px; font-size:0.9rem;" onclick="spinTheWheel()">🌀 SPIN WHEEL</button>
           <button class="btn-tool" onclick="reshuffleWheel()">🎲 Reshuffle Pool</button>
         </div>
-
         <div id="wheelStatus" style="font-size:0.72rem; color:var(--text-muted); margin-top:8px;"></div>
         <div id="wheelResult" style="font-weight:bold; margin-top:10px; font-size:1.05rem; color:var(--accent);"></div>
       </div>
@@ -335,41 +290,68 @@
       </div>
     </section>
 
-    <!-- 5. SCRATCH-OFF TAB -->
+    <!-- 5. REALISTIC MULTI-STYLE LOTTERY SCRATCH-OFF STUDIO TAB -->
     <section id="view-scratch" style="display:none;">
       <div class="view-card">
-        <h3>🎟️ Blind Mystery Scratch-Off</h3>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Filter what you're in the mood for, then rub the silver foil to reveal tonight's pick.</p>
+        <h3>🎟️ Realistic Lottery Scratch-Off Studio</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Select categories & ticket theme. Scrape off 82% of the metallic latex foil with your finger or coin to win!</p>
 
-        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:8px 12px; margin:10px auto; max-width:360px; text-align:left;">
-          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">FILTER SCRATCH POOL:</div>
-          <div class="pill-row">
-            <span class="filter-chip active" onclick="setScratchPool('all', this)">All</span>
-            <span class="filter-chip" onclick="setScratchPool('movie', this)">🎬 Movies</span>
-            <span class="filter-chip" onclick="setScratchPool('tv', this)">📺 TV</span>
-            <span class="filter-chip" onclick="setScratchPool('book', this)">📖 Books</span>
-            <span class="filter-chip" onclick="setScratchPool('game', this)">🎮 Games</span>
-            <span class="filter-chip" onclick="setScratchPool('petsafe', this)">🐾 Pet-Safe</span>
-            <span class="filter-chip" onclick="setScratchPool('date', this)">💕 Date Night</span>
+        <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin:10px auto; max-width:420px; text-align:left;">
+          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">1. MEDIA POOL (TAP ONE OR MULTIPLE):</div>
+          <div class="pill-row" id="scratchCatRow" style="margin-bottom:8px;">
+            <span class="filter-chip active" data-scat="all" onclick="toggleScratchCategory('all', this)">All</span>
+            <span class="filter-chip" data-scat="movie" onclick="toggleScratchCategory('movie', this)">🎬 Movies</span>
+            <span class="filter-chip" data-scat="tv" onclick="toggleScratchCategory('tv', this)">📺 TV</span>
+            <span class="filter-chip" data-scat="book" onclick="toggleScratchCategory('book', this)">📖 Books</span>
+            <span class="filter-chip" data-scat="game" onclick="toggleScratchCategory('game', this)">🎮 Games</span>
+            <span class="filter-chip" id="scratchPetChip" onclick="toggleScratchTrait('petsafe', this)">🐾 Pet-Safe</span>
+            <span class="filter-chip" id="scratchDateChip" onclick="toggleScratchTrait('date', this)">💕 Date Night</span>
+          </div>
+
+          <div style="font-size:0.68rem; color:var(--text-muted); font-weight:700; margin-bottom:5px;">2. LOTTERY TICKET DESIGN (AUTO-ROTATES OR PICK):</div>
+          <div class="pill-row" id="lotteryThemeRow">
+            <span class="filter-chip chip-accent active" data-theme="auto" onclick="setLotteryTheme('auto', this)">🔄 Auto-Rotate</span>
+            <span class="filter-chip" data-theme="0" onclick="setLotteryTheme(0, this)">🎰 Mega Gold Rush</span>
+            <span class="filter-chip" data-theme="1" onclick="setLotteryTheme(1, this)">💎 Diamond Royale</span>
+            <span class="filter-chip" data-theme="2" onclick="setLotteryTheme(2, this)">🍀 Lucky Emerald 777</span>
+            <span class="filter-chip" data-theme="3" onclick="setLotteryTheme(3, this)">🌆 Neon Retro '84</span>
+            <span class="filter-chip" data-theme="4" onclick="setLotteryTheme(4, this)">🔥 Inferno Hot Picks</span>
+            <span class="filter-chip" data-theme="5" onclick="setLotteryTheme(5, this)">🌌 Cosmic Supernova</span>
           </div>
         </div>
 
-        <div class="scratch-container" id="scratchContainer">
-          <div class="scratch-prize" id="scratchPrize" onclick="if(scratchItem) openDetailModal(scratchItem.id)">
-            <img id="scratchImg" class="scratch-prize-img" src="" alt="Poster">
-            <div style="overflow:hidden;">
-              <div id="scratchCategory" style="font-size:0.65rem; color:var(--accent); font-weight:bold; text-transform:uppercase;">MOVIE</div>
-              <h4 id="scratchTitle" style="color:var(--text-bright); font-size:0.95rem; margin:2px 0;">Title</h4>
-              <div id="scratchMeta" style="font-size:0.7rem; color:var(--gold); margin-bottom:4px;">2024 • ⭐ 7.5</div>
-              <p id="scratchSynopsis" style="font-size:0.68rem; color:var(--text); line-height:1.3; max-height:64px; overflow:hidden;">Synopsis...</p>
+        <!-- Dynamic Lottery Ticket Shell -->
+        <div class="lottery-ticket" id="lotteryTicketShell">
+          <div class="lottery-header" id="lotteryHeader">
+            <span class="lottery-title" id="lotteryThemeTitle">🎰 MEGA GOLD RUSH</span>
+            <span class="lottery-jackpot" id="lotteryJackpotBadge">$1,000,000 JACKPOT</span>
+          </div>
+
+          <div class="scratch-container" id="scratchContainer">
+            <div class="scratch-prize" id="scratchPrize" onclick="if(scratchItem) openDetailModal(scratchItem.id)">
+              <img id="scratchImg" class="scratch-prize-img" src="" alt="Poster">
+              <div style="overflow:hidden; flex:1;">
+                <div id="scratchCategory" style="font-size:0.65rem; color:var(--accent); font-weight:800; text-transform:uppercase;">MOVIE</div>
+                <h4 id="scratchTitle" style="color:var(--text-bright); font-size:0.98rem; margin:2px 0;">Title</h4>
+                <div id="scratchMeta" style="font-size:0.72rem; color:var(--gold); margin-bottom:5px; font-weight:700;">2024 • ⭐ 7.5</div>
+                <p id="scratchSynopsis" style="font-size:0.68rem; color:var(--text); line-height:1.32; max-height:66px; overflow:hidden;">Synopsis...</p>
+                <div style="font-size:0.62rem; color:var(--p1); margin-top:4px; font-weight:600;">Tap prize card for full IMDb dossier →</div>
+              </div>
             </div>
+            <canvas id="scratchCanvas" class="scratch-canvas" width="340" height="195"></canvas>
           </div>
-          <canvas id="scratchCanvas" class="scratch-canvas" width="310" height="185"></canvas>
+
+          <div class="lottery-footer" id="lotteryFooter">
+            <span id="lotterySerialNo">SER #OV-884920-A</span>
+            <span>SCRATCHED: <strong id="scratchPctText">0%</strong>
+              <span class="progress-bar-wrap"><span class="progress-bar-fill" id="scratchProgFill"></span></span>
+            </span>
+          </div>
         </div>
 
-        <div style="display:flex; justify-content:center; gap:8px;">
-          <button class="btn-tool" onclick="revealScratchCard()">✨ Reveal Instantly</button>
-          <button class="btn-tool btn-add" onclick="initScratchCard()">🎟️ New Mystery Ticket</button>
+        <div style="display:flex; justify-content:center; gap:8px; margin-top:10px;">
+          <button class="btn-tool" onclick="revealScratchCard()">✨ Instant Reveal</button>
+          <button class="btn-tool btn-add" onclick="nextLotteryTicket()">🎟️ New Mystery Ticket</button>
         </div>
       </div>
     </section>
@@ -379,7 +361,6 @@
       <div class="view-card" style="text-align:left;">
         <h3>📷 AI Cover, Barcode & Batch Shelf Scanner</h3>
         <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Upload a photo of a single video game/movie cover, a barcode, or a stack of games on your shelf to identify and add them automatically.</p>
-
         <div class="scanner-box">
           <div style="font-size:0.8rem; font-weight:700; color:var(--text-bright);">Snap or Upload Media Photo</div>
           <div style="font-size:0.7rem; color:var(--text-muted); margin-top:2px;">Supports front covers, discs, game spines, or UPC/ISBN barcodes</div>
@@ -396,7 +377,6 @@
           <div id="shelfScanStatus" style="font-size:0.75rem; color:var(--accent); margin-top:8px;"></div>
           <div id="batchScanResults" style="display:none; flex-direction:column; gap:6px; margin-top:10px; text-align:left;"></div>
         </div>
-
         <h4 style="color:var(--text-bright); font-size:0.9rem; margin:16px 0 8px;">📦 Physical Shelf & Slot Locator</h4>
         <div style="display:flex; gap:6px; margin-bottom:12px;">
           <input type="text" id="shelfBarcode" class="search-input" placeholder="Enter shelf code (e.g. A-01, Steelbook, PS5) or title..." oninput="locateShelfItem()">
@@ -420,11 +400,9 @@
           </label>
         </div>
       </div>
-
       <div class="view-card" style="text-align:left;">
         <h3>🤖 AI Vision & Metadata API Keys (Optional)</h3>
         <p style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 12px;">Barcode & OCR scanning work with zero keys. Add a free Google Gemini key to unlock instant AI Vision recognition for stylized video game covers, discs, and multi-item shelf photos.</p>
-        
         <div class="form-group">
           <label>Google Gemini API Key (For AI Photo & Shelf Recognition)</label>
           <div style="display:flex; gap:6px;">
@@ -433,7 +411,6 @@
           </div>
           <a href="https://aistudio.google.com/app/apikey" target="_blank" style="font-size:0.7rem; color:var(--p1); display:inline-block; margin-top:4px;">Get a free Gemini key from Google AI Studio →</a>
         </div>
-
         <div class="form-group" style="margin-top:12px;">
           <label>Custom OMDb API Key (Optional override — built-in keys already active)</label>
           <div style="display:flex; gap:6px;">
@@ -446,15 +423,13 @@
 
   </div>
 
-  <!-- + ADD MODAL (WITH PHOTO/BARCODE SCANNER + AUTO-SEARCH + DISAMBIGUATION) -->
+  <!-- + ADD MODAL -->
   <div class="modal-overlay" id="addModal" onclick="if(event.target.id==='addModal') this.style.display='none'">
     <div class="modal-box" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
         <h3>+ Add New Title to Vault</h3>
         <button class="btn-tool" style="border:none; font-size:1rem;" onclick="document.getElementById('addModal').style.display='none'">✕</button>
       </div>
-
-      <!-- Photo / Barcode Instant Scanner Banner -->
       <div class="scanner-box">
         <div style="font-size:0.76rem; font-weight:700; color:var(--text-bright);">📷 Instant Media Photo & Barcode Scanner</div>
         <div style="font-size:0.68rem; color:var(--text-muted);">Upload or snap a photo of a game case, movie cover, book, or barcode to auto-fill everything</div>
@@ -469,7 +444,6 @@
           </label>
         </div>
       </div>
-
       <div class="form-row">
         <div class="form-group">
           <label>1. Category</label>
@@ -485,7 +459,6 @@
           <input type="text" id="addShelfInput" class="form-control" placeholder="e.g. PS5, Switch, A-14, Digital">
         </div>
       </div>
-
       <div class="form-group">
         <label>2. Title (Type or Scan Photo Above) *</label>
         <div style="display:flex; gap:6px;">
@@ -495,7 +468,6 @@
         <div id="fetchStatus" style="font-size:0.72rem; color:var(--accent); margin-top:4px;"></div>
         <div id="disambiguationList" class="disambig-list"></div>
       </div>
-
       <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px; background:#0d1117; padding:8px; border-radius:8px; border:1px solid var(--card-border);">
         <img id="addPreviewImg" src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=300&q=80" style="width:52px; height:76px; object-fit:cover; border-radius:4px; flex-shrink:0;">
         <div style="flex:1;">
@@ -521,7 +493,6 @@
           </div>
         </div>
       </div>
-
       <div class="form-row">
         <div class="form-group">
           <label id="addGenreLabel">Genres & Sub-Genres</label>
@@ -532,7 +503,6 @@
           <input type="text" id="addDirectorInput" class="form-control" placeholder="Auto-filled">
         </div>
       </div>
-
       <div class="form-row">
         <div class="form-group">
           <label id="addWriterLabel">Writer(s) / Platform</label>
@@ -543,7 +513,6 @@
           <input type="text" id="addCastInput" class="form-control" placeholder="Auto-filled">
         </div>
       </div>
-
       <div class="form-row">
         <div class="form-group">
           <label>Pet Safety</label>
@@ -560,17 +529,14 @@
           </select>
         </div>
       </div>
-
       <div class="form-group">
         <label>Poster Artwork URL (Auto-filled or Snapped Photo)</label>
         <input type="text" id="addPosterInput" class="form-control" placeholder="https://..." oninput="document.getElementById('addPreviewImg').src=this.value">
       </div>
-
       <div class="form-group">
         <label>Overview / Plot Synopsis (Auto-filled)</label>
         <textarea id="addSynopsisInput" class="form-control" style="height:64px;" placeholder="Auto-populates when you select or scan a title above..."></textarea>
       </div>
-
       <button class="btn-tool btn-add" style="width:100%; justify-content:center; padding:11px; font-size:0.9rem;" onclick="saveNewTitle()">Save to OmniVault</button>
     </div>
   </div>
@@ -578,20 +544,15 @@
   <!-- IMDB-STYLE MEDIA DOSSIER PREVIEW MODAL -->
   <div class="modal-overlay" id="detailModal" onclick="if(event.target.id==='detailModal') this.style.display='none'">
     <div class="modal-box" style="padding:0; overflow:hidden;" onclick="event.stopPropagation()">
-      
-      <!-- Hero Banner + Trailer Link -->
       <div style="position:relative; width:100%; height:195px; background:#0b0f14;">
         <img id="modalBackdrop" src="" style="width:100%; height:100%; object-fit:cover; opacity:0.38; filter:blur(2px);">
         <button class="btn-tool" style="position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.75); border:none; font-size:1.1rem; padding:4px 10px;" onclick="document.getElementById('detailModal').style.display='none'">✕</button>
-        
         <a id="modalTrailerBtn" href="#" target="_blank" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-decoration:none; color:#fff;">
           <div style="width:50px; height:50px; border-radius:50%; border:2px solid #fff; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; font-size:1.3rem;">▶</div>
           <span style="font-size:0.75rem; font-weight:700; margin-top:6px; background:rgba(0,0,0,0.65); padding:2px 8px; border-radius:10px;">Play Trailer / Gameplay</span>
         </a>
-
         <img id="modalPoster" src="" style="position:absolute; bottom:-30px; left:16px; width:92px; height:136px; object-fit:cover; border-radius:6px; border:2px solid var(--card-bg); box-shadow:0 6px 16px rgba(0,0,0,0.8);">
       </div>
-
       <div style="padding:36px 16px 16px;">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
           <div>
@@ -600,17 +561,11 @@
           </div>
           <div id="modalRatingsBox" style="text-align:right; font-size:0.82rem; font-weight:700; white-space:nowrap;"></div>
         </div>
-
-        <!-- Genre & Sub-Genre Pills -->
         <div id="modalGenres" style="display:flex; flex-wrap:wrap; gap:5px; margin:12px 0;"></div>
-
-        <!-- Overview / Synopsis -->
         <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin-bottom:12px;">
           <div style="font-size:0.68rem; font-weight:700; color:var(--accent); text-transform:uppercase; margin-bottom:4px;">Overview / Synopsis</div>
           <p id="modalSynopsis" style="font-size:0.83rem; line-height:1.45; color:var(--text-bright);"></p>
         </div>
-
-        <!-- Director, Writers & Top Cast (IMDb Style) -->
         <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin-bottom:12px;">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; border-bottom:1px solid var(--card-border); padding-bottom:8px;">
             <div>
@@ -627,8 +582,6 @@
             <div id="modalCast" class="cast-grid"></div>
           </div>
         </div>
-
-        <!-- Individual Partner Ratings -->
         <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin-bottom:12px;">
           <div style="font-size:0.68rem; font-weight:700; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">⭐ Couple's Individual Ratings</div>
           <div class="form-row">
@@ -636,45 +589,42 @@
               <label id="modalP1RateLbl" style="font-size:0.72rem; color:var(--p1); font-weight:700; display:block; margin-bottom:4px;">Alex's Rating</label>
               <select id="modalP1Rating" class="form-control" onchange="savePartnerRating(1, this.value)">
                 <option value="0">Not Rated Yet</option>
-                <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10 Masterpiece)</option>
-                <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9/10 Amazing)</option>
-                <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐ (8/10 Great)</option>
-                <option value="7">⭐⭐⭐⭐⭐⭐⭐ (7/10 Good)</option>
-                <option value="6">⭐⭐⭐⭐⭐⭐ (6/10 Decent)</option>
-                <option value="5">⭐⭐⭐⭐⭐ (5/10 Mixed)</option>
-                <option value="4">⭐⭐⭐⭐ (4/10 Below Avg)</option>
-                <option value="3">⭐⭐⭐ (3/10 Bad)</option>
-                <option value="2">⭐⭐ (2/10 Awful)</option>
-                <option value="1">⭐ (1/10 Unwatchable)</option>
+                <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10)</option>
+                <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9/10)</option>
+                <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐ (8/10)</option>
+                <option value="7">⭐⭐⭐⭐⭐⭐⭐ (7/10)</option>
+                <option value="6">⭐⭐⭐⭐⭐⭐ (6/10)</option>
+                <option value="5">⭐⭐⭐⭐⭐ (5/10)</option>
+                <option value="4">⭐⭐⭐⭐ (4/10)</option>
+                <option value="3">⭐⭐⭐ (3/10)</option>
+                <option value="2">⭐⭐ (2/10)</option>
+                <option value="1">⭐ (1/10)</option>
               </select>
             </div>
             <div>
               <label id="modalP2RateLbl" style="font-size:0.72rem; color:var(--p2); font-weight:700; display:block; margin-bottom:4px;">Sam's Rating</label>
               <select id="modalP2Rating" class="form-control" onchange="savePartnerRating(2, this.value)">
                 <option value="0">Not Rated Yet</option>
-                <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10 Masterpiece)</option>
-                <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9/10 Amazing)</option>
-                <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐ (8/10 Great)</option>
-                <option value="7">⭐⭐⭐⭐⭐⭐⭐ (7/10 Good)</option>
-                <option value="6">⭐⭐⭐⭐⭐⭐ (6/10 Decent)</option>
-                <option value="5">⭐⭐⭐⭐⭐ (5/10 Mixed)</option>
-                <option value="4">⭐⭐⭐⭐ (4/10 Below Avg)</option>
-                <option value="3">⭐⭐⭐ (3/10 Bad)</option>
-                <option value="2">⭐⭐ (2/10 Awful)</option>
-                <option value="1">⭐ (1/10 Unwatchable)</option>
+                <option value="10">⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10)</option>
+                <option value="9">⭐⭐⭐⭐⭐⭐⭐⭐⭐ (9/10)</option>
+                <option value="8">⭐⭐⭐⭐⭐⭐⭐⭐ (8/10)</option>
+                <option value="7">⭐⭐⭐⭐⭐⭐⭐ (7/10)</option>
+                <option value="6">⭐⭐⭐⭐⭐⭐ (6/10)</option>
+                <option value="5">⭐⭐⭐⭐⭐ (5/10)</option>
+                <option value="4">⭐⭐⭐⭐ (4/10)</option>
+                <option value="3">⭐⭐⭐ (3/10)</option>
+                <option value="2">⭐⭐ (2/10)</option>
+                <option value="1">⭐ (1/10)</option>
               </select>
             </div>
           </div>
         </div>
-
-        <!-- Pet Safety, Acoustics & Shelf -->
         <div style="background:#0d1117; border:1px solid var(--card-border); border-radius:8px; padding:10px 12px; margin-bottom:14px;">
           <div style="font-size:0.68rem; font-weight:700; color:var(--green); text-transform:uppercase; margin-bottom:4px;">🐾 Pet Safety, Sound Mix & Shelf</div>
           <p id="modalPetAlert" style="font-size:0.76rem; color:var(--text); margin-bottom:4px;"></p>
           <p id="modalSoundMix" style="font-size:0.76rem; color:var(--text); margin-bottom:4px;"></p>
           <p id="modalShelf" style="font-size:0.76rem; color:var(--text-muted);"></p>
         </div>
-
         <div style="display:flex; gap:6px; flex-wrap:wrap;">
           <button class="btn-tool" style="flex:1; justify-content:center; padding:9px;" onclick="refreshSingleItemMetadata()">🔄 Refresh IMDb Info</button>
           <button class="btn-tool btn-add" style="flex:1; justify-content:center; padding:9px;" id="modalToggleWatched" onclick="toggleWatchedFromModal()">✓ Mark Completed</button>
@@ -685,140 +635,13 @@
   </div>
 
   <script>
-    /* ========================================================
-       1. MASTER CATALOG & AUTOMATIC STORAGE MIGRATION
-       ======================================================== */
+    /* 1. MASTER CATALOG & SELF-HEALING MIGRATION */
     const MASTER_SEED = [
-      {
-        id: '1',
-        title: 'Coherence',
-        type: 'movie',
-        genre: 'Sci-Fi, Psychological Thriller, Suspense Mystery, Time Travel',
-        year: 2013,
-        runtime: 89,
-        rated: 'Not Rated',
-        director: 'James Ward Byrkit',
-        writer: 'James Ward Byrkit, Alex Manugian',
-        cast: 'Emily Baldoni, Maury Sterling, Nicholas Brendon, Lorene Scafaria, Elizabeth Gracen, Hugo Armstrong',
-        imdbRating: '7.2',
-        rtRating: '88%',
-        p1Rating: 0,
-        p2Rating: 0,
-        petSafe: true,
-        petNotes: '🐾 Pet-Safe: Zero doorbells, fireworks, or animal distress triggers.',
-        soundMix: 'Balanced Mix',
-        soundNotes: 'Dialogue-driven chamber piece; safe for late-night viewing.',
-        synopsis: 'Strange things begin to happen when a group of friends gather for a dinner party on an evening when a comet is passing overhead.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BNzQ1OTA5MjQ1Ml5BMl5BanBnXkFtZTgwMDUyODMzMjE@._V1_FMjpg_UX600_.jpg',
-        p1: true,
-        p2: true,
-        completed: false,
-        shelf: 'A-01'
-      },
-      {
-        id: '2',
-        title: 'Annihilation',
-        type: 'movie',
-        genre: 'Sci-Fi, Horror, Adventure, Psychological Thriller',
-        year: 2018,
-        runtime: 115,
-        rated: 'R',
-        director: 'Alex Garland',
-        writer: 'Alex Garland, Jeff VanderMeer (Novel)',
-        cast: 'Natalie Portman, Jennifer Jason Leigh, Gina Rodriguez, Tessa Thompson, Tuva Novotny, Oscar Isaac',
-        imdbRating: '6.8',
-        rtRating: '88%',
-        p1Rating: 0,
-        p2Rating: 0,
-        petSafe: false,
-        petNotes: '⚠️ Pet Alert: Mutated bear scene features loud, agonizing creature vocalizations.',
-        soundMix: 'Wide Dynamic Range',
-        soundNotes: 'Heavy sub-bass synth swells and sudden gunfire spikes.',
-        synopsis: 'A biologist signs up for a dangerous, secret expedition into a mysterious zone where the laws of nature do not apply.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BMTk2Mjc2NzYxN15BMl5BanBnXkFtZTgwMTA2OTA1NDM@._V1_FMjpg_UX600_.jpg',
-        p1: true,
-        p2: false,
-        completed: false,
-        shelf: 'A-02'
-      },
-      {
-        id: '3',
-        title: 'Neuromancer',
-        type: 'book',
-        genre: 'Sci-Fi, Cyberpunk, Dystopian Thriller',
-        year: 1984,
-        runtime: 271,
-        rated: 'Novel',
-        director: 'William Gibson',
-        writer: 'William Gibson',
-        cast: 'Case, Molly Millions, Armitage, Wintermute, Riviera',
-        imdbRating: '8.6',
-        rtRating: '95%',
-        p1Rating: 0,
-        p2Rating: 0,
-        petSafe: true,
-        petNotes: '🐾 100% Pet-Safe reading / audiobook.',
-        soundMix: 'Balanced Mix',
-        soundNotes: 'Even narration levels.',
-        synopsis: 'Case was the sharpest data-thief in the matrix until his nervous system was crippled. Now a mysterious employer offers a last-chance cure against a powerful AI.',
-        poster: 'https://covers.openlibrary.org/b/id/12843860-L.jpg',
-        p1: true,
-        p2: true,
-        completed: false,
-        shelf: 'Book-04'
-      },
-      {
-        id: '4',
-        title: 'Panic Room',
-        type: 'movie',
-        genre: 'Thriller, Crime, Suspense, Drama',
-        year: 2002,
-        runtime: 112,
-        rated: 'R',
-        director: 'David Fincher',
-        writer: 'David Koepp',
-        cast: 'Jodie Foster, Kristen Stewart, Forest Whitaker, Dwight Yoakam, Jared Leto',
-        imdbRating: '6.8',
-        rtRating: '76%',
-        p1Rating: 0,
-        p2Rating: 0,
-        petSafe: true,
-        petNotes: '🐾 Pet-Safe: Tense indoor thriller with zero canine distress or loud doorbells.',
-        soundMix: 'Balanced Mix',
-        soundNotes: 'Controlled interior acoustics with clear center-channel voices.',
-        synopsis: 'A recently divorced woman and her diabetic daughter take refuge in their newly-purchased house\'s safe room when three men break in searching for a hidden fortune.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BMjA5OTY2MzY0Nl5BMl5BanBnXkFtZTYwODU4Mzg5._V1_FMjpg_UX600_.jpg',
-        p1: false,
-        p2: true,
-        completed: false,
-        shelf: 'B-12'
-      },
-      {
-        id: '5',
-        title: 'The Thing',
-        type: 'movie',
-        genre: 'Horror, Sci-Fi, Mystery, Paranoia Thriller',
-        year: 1982,
-        runtime: 109,
-        rated: 'R',
-        director: 'John Carpenter',
-        writer: 'Bill Lancaster, John W. Campbell Jr.',
-        cast: 'Kurt Russell, Wilford Brimley, Keith David, Richard Masur, Donald Moffat',
-        imdbRating: '8.2',
-        rtRating: '85%',
-        p1Rating: 0,
-        p2Rating: 0,
-        petSafe: false,
-        petNotes: '⚠️ High Pet Alert: Famous kennel scene features intense sled dog barking, howling, and distress.',
-        soundMix: 'Wide Dynamic Range',
-        soundNotes: 'Piercing creature shrieks and loud flamethrower blasts.',
-        synopsis: 'A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.',
-        poster: 'https://m.media-amazon.com/images/M/MV5BNGViZWZmM2EtNGYzZi00ZDAyLTk3ODMtNzIyZTBjN2Y1NmM1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_FMjpg_UX600_.jpg',
-        p1: true,
-        p2: true,
-        completed: false,
-        shelf: 'Steelbook-01'
-      }
+      { id: '1', title: 'Coherence', type: 'movie', genre: 'Sci-Fi, Psychological Thriller, Suspense Mystery, Time Travel', year: 2013, runtime: 89, rated: 'Not Rated', director: 'James Ward Byrkit', writer: 'James Ward Byrkit, Alex Manugian', cast: 'Emily Baldoni, Maury Sterling, Nicholas Brendon, Lorene Scafaria, Elizabeth Gracen, Hugo Armstrong', imdbRating: '7.2', rtRating: '88%', p1Rating: 0, p2Rating: 0, petSafe: true, petNotes: '🐾 Pet-Safe: Zero doorbells, fireworks, or animal distress triggers.', soundMix: 'Balanced Mix', soundNotes: 'Dialogue-driven chamber piece; safe for late-night viewing.', synopsis: 'Strange things begin to happen when a group of friends gather for a dinner party on an evening when a comet is passing overhead.', poster: 'https://m.media-amazon.com/images/M/MV5BNzQ1OTA5MjQ1Ml5BMl5BanBnXkFtZTgwMDUyODMzMjE@._V1_FMjpg_UX600_.jpg', p1: true, p2: true, completed: false, shelf: 'A-01' },
+      { id: '2', title: 'Annihilation', type: 'movie', genre: 'Sci-Fi, Horror, Adventure, Psychological Thriller', year: 2018, runtime: 115, rated: 'R', director: 'Alex Garland', writer: 'Alex Garland, Jeff VanderMeer (Novel)', cast: 'Natalie Portman, Jennifer Jason Leigh, Gina Rodriguez, Tessa Thompson, Tuva Novotny, Oscar Isaac', imdbRating: '6.8', rtRating: '88%', p1Rating: 0, p2Rating: 0, petSafe: false, petNotes: '⚠️ Pet Alert: Mutated bear scene features loud, agonizing creature vocalizations.', soundMix: 'Wide Dynamic Range', soundNotes: 'Heavy sub-bass synth swells and sudden gunfire spikes.', synopsis: 'A biologist signs up for a dangerous, secret expedition into a mysterious zone where the laws of nature do not apply.', poster: 'https://m.media-amazon.com/images/M/MV5BMTk2Mjc2NzYxN15BMl5BanBnXkFtZTgwMTA2OTA1NDM@._V1_FMjpg_UX600_.jpg', p1: true, p2: false, completed: false, shelf: 'A-02' },
+      { id: '3', title: 'Neuromancer', type: 'book', genre: 'Sci-Fi, Cyberpunk, Dystopian Thriller', year: 1984, runtime: 271, rated: 'Novel', director: 'William Gibson', writer: 'William Gibson', cast: 'Case, Molly Millions, Armitage, Wintermute, Riviera', imdbRating: '8.6', rtRating: '95%', p1Rating: 0, p2Rating: 0, petSafe: true, petNotes: '🐾 100% Pet-Safe reading / audiobook.', soundMix: 'Balanced Mix', soundNotes: 'Even narration levels.', synopsis: 'Case was the sharpest data-thief in the matrix until his nervous system was crippled. Now a mysterious employer offers a last-chance cure against a powerful AI.', poster: 'https://covers.openlibrary.org/b/id/12843860-L.jpg', p1: true, p2: true, completed: false, shelf: 'Book-04' },
+      { id: '4', title: 'Panic Room', type: 'movie', genre: 'Thriller, Crime, Suspense, Drama', year: 2002, runtime: 112, rated: 'R', director: 'David Fincher', writer: 'David Koepp', cast: 'Jodie Foster, Kristen Stewart, Forest Whitaker, Dwight Yoakam, Jared Leto', imdbRating: '6.8', rtRating: '76%', p1Rating: 0, p2Rating: 0, petSafe: true, petNotes: '🐾 Pet-Safe: Tense indoor thriller with zero canine distress or loud doorbells.', soundMix: 'Balanced Mix', soundNotes: 'Controlled interior acoustics with clear center-channel voices.', synopsis: 'A recently divorced woman and her diabetic daughter take refuge in their newly-purchased house\'s safe room when three men break in searching for a hidden fortune.', poster: 'https://m.media-amazon.com/images/M/MV5BMjA5OTY2MzY0Nl5BMl5BanBnXkFtZTYwODU4Mzg5._V1_FMjpg_UX600_.jpg', p1: false, p2: true, completed: false, shelf: 'B-12' },
+      { id: '5', title: 'The Thing', type: 'movie', genre: 'Horror, Sci-Fi, Mystery, Paranoia Thriller', year: 1982, runtime: 109, rated: 'R', director: 'John Carpenter', writer: 'Bill Lancaster, John W. Campbell Jr.', cast: 'Kurt Russell, Wilford Brimley, Keith David, Richard Masur, Donald Moffat', imdbRating: '8.2', rtRating: '85%', p1Rating: 0, p2Rating: 0, petSafe: false, petNotes: '⚠️ High Pet Alert: Famous kennel scene features intense sled dog barking, howling, and distress.', soundMix: 'Wide Dynamic Range', soundNotes: 'Piercing creature shrieks and loud flamethrower blasts.', synopsis: 'A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.', poster: 'https://m.media-amazon.com/images/M/MV5BNGViZWZmM2EtNGYzZi00ZDAyLTk3ODMtNzIyZTBjN2Y1NmM1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_FMjpg_UX600_.jpg', p1: true, p2: true, completed: false, shelf: 'Steelbook-01' }
     ];
 
     const OMDB_KEYS = ['trilogy', 'b9bd48a6', '4a3b711b', '8b959a04'];
@@ -847,24 +670,14 @@
           ['genre', 'director', 'writer', 'cast', 'imdbRating', 'rtRating', 'petNotes', 'soundNotes', 'rated'].forEach(k => {
             if (!existing[k] || existing[k] === 'General' || existing[k] === 'N/A') { existing[k] = seed[k]; updated = true; }
           });
-          if (!existing.synopsis || existing.synopsis === 'Added by user.' || existing.synopsis.includes('No synopsis')) {
-            existing.synopsis = seed.synopsis; updated = true;
-          }
-          if (!existing.poster || existing.poster.includes('unsplash.com') || existing.poster.length < 15) {
-            existing.poster = seed.poster; updated = true;
-          }
-        } else if (vault.length < 5) {
-          vault.push(seed);
-          updated = true;
-        }
+          if (!existing.synopsis || existing.synopsis === 'Added by user.' || existing.synopsis.includes('No synopsis')) { existing.synopsis = seed.synopsis; updated = true; }
+          if (!existing.poster || existing.poster.includes('unsplash.com') || existing.poster.length < 15) { existing.poster = seed.poster; updated = true; }
+        } else if (vault.length < 5) { vault.push(seed); updated = true; }
       });
       if (updated) saveVault();
     }
 
-    function saveVault() {
-      localStorage.setItem('omni_vault_data', JSON.stringify(vault));
-    }
-
+    function saveVault() { localStorage.setItem('omni_vault_data', JSON.stringify(vault)); }
     function saveApiKeys() {
       const gKey = document.getElementById('geminiKeyInput').value.trim();
       const oKey = document.getElementById('omdbKeyInput').value.trim();
@@ -873,18 +686,8 @@
       alert('✅ API Keys saved locally to your device!');
     }
 
-    /* ========================================================
-       2. PARTNER RENAME & FILTER STATE
-       ======================================================== */
-    let currentPartnerFilter = 'all';
-    let currentStatus = 'backlog';
-    let currentMediaType = 'all';
-    let currentGenre = 'all';
-    let currentTimeBudget = 'any';
-    let currentDecade = 'all';
-    let filterPetOnly = false;
-    let filterSoundOnly = false;
-    let activeDetailMovieId = null;
+    /* 2. PARTNER RENAME & FILTER STATE */
+    let currentPartnerFilter = 'all', currentStatus = 'backlog', currentMediaType = 'all', currentGenre = 'all', currentTimeBudget = 'any', currentDecade = 'all', filterPetOnly = false, filterSoundOnly = false, activeDetailMovieId = null;
 
     function initPartners() {
       document.getElementById('p1Label').textContent = p1;
@@ -903,8 +706,7 @@
       if (updated && updated.trim() !== '') {
         if (num === 1) { p1 = updated.trim(); localStorage.setItem('omni_p1', p1); }
         else { p2 = updated.trim(); localStorage.setItem('omni_p2', p2); }
-        initPartners();
-        renderVault();
+        initPartners(); renderVault();
       }
     }
 
@@ -916,9 +718,7 @@
       document.getElementById('datePill').className = 'partner-pill' + (currentPartnerFilter === 'date' ? ' active-date' : '');
     }
 
-    /* ========================================================
-       3. VAULT GRID RENDERER, SORTING & FILTERS
-       ======================================================== */
+    /* 3. VAULT GRID RENDERER, SORTING & FILTERS */
     function renderVault() {
       const grid = document.getElementById('itemsGrid');
       const query = (document.getElementById('searchBox').value || '').toLowerCase();
@@ -935,11 +735,9 @@
         if (currentGenre !== 'all' && !(item.genre || '').toLowerCase().includes(currentGenre.toLowerCase())) return false;
         if (filterPetOnly && !item.petSafe) return false;
         if (filterSoundOnly && item.soundMix !== 'Balanced Mix') return false;
-
         if (currentTimeBudget === 'short' && item.runtime >= 90) return false;
         if (currentTimeBudget === 'med' && (item.runtime < 90 || item.runtime > 120)) return false;
         if (currentTimeBudget === 'long' && item.runtime <= 120) return false;
-
         if (currentDecade === 'pre70' && item.year >= 1970) return false;
         if (currentDecade === '70s' && (item.year < 1970 || item.year > 1979)) return false;
         if (currentDecade === '80s' && (item.year < 1980 || item.year > 1989)) return false;
@@ -947,11 +745,9 @@
         if (currentDecade === '2000s' && (item.year < 2000 || item.year > 2009)) return false;
         if (currentDecade === '2010s' && (item.year < 2010 || item.year > 2019)) return false;
         if (currentDecade === '2020s' && item.year < 2020) return false;
-
         if (currentPartnerFilter === 'p1' && !item.p1) return false;
         if (currentPartnerFilter === 'p2' && !item.p2) return false;
         if (currentPartnerFilter === 'date' && (!item.p1 || !item.p2)) return false;
-
         if (query) {
           const hay = `${item.title} ${item.director || ''} ${item.cast || ''} ${item.genre || ''} ${item.shelf || ''}`.toLowerCase();
           if (!hay.includes(query)) return false;
@@ -978,23 +774,16 @@
       }
 
       const fallbackImg = 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
-
       filtered.forEach(item => {
         const card = document.createElement('div');
         card.className = 'card';
         card.onclick = () => openDetailModal(item.id);
-
         const imdb = item.imdbRating && item.imdbRating !== 'N/A' ? `<span style="color:#f5c518;">⭐ ${item.imdbRating}</span>` : '';
         const rt = item.rtRating && item.rtRating !== 'N/A' ? `<span style="color:#ff5f56;">🍅 ${item.rtRating}</span>` : '';
         const badgeHtml = (imdb || rt) ? `${imdb}${(imdb && rt) ? ' • ' : ''}${rt}` : `⭐ ${item.rating || 'NR'}`;
-
         const unit = item.type === 'book' ? `${item.runtime}p` : (item.type === 'game' ? `${item.runtime}h` : `${item.runtime}m`);
         const firstGenres = (item.genre || 'General').split(',').slice(0, 2).map(g => `<span class="tag-pill">${g.trim()}</span>`).join('');
-
-        let coupleBadge = '';
-        if (item.p1Rating > 0 || item.p2Rating > 0) {
-          coupleBadge = `<div class="couple-score-badge">${p1}: ${item.p1Rating || '-'}★ | ${p2}: ${item.p2Rating || '-'}★</div>`;
-        }
+        let coupleBadge = (item.p1Rating > 0 || item.p2Rating > 0) ? `<div class="couple-score-badge">${p1}: ${item.p1Rating || '-'}★ | ${p2}: ${item.p2Rating || '-'}★</div>` : '';
 
         card.innerHTML = `
           <div class="poster-box">
@@ -1023,73 +812,19 @@
       });
     }
 
-    function toggleVote(id, num) {
-      const m = vault.find(i => i.id === id);
-      if (!m) return;
-      if (num === 1) m.p1 = !m.p1;
-      if (num === 2) m.p2 = !m.p2;
-      saveVault();
-      renderVault();
-    }
-
-    function toggleCompleted(id) {
-      const m = vault.find(i => i.id === id);
-      if (!m) return;
-      m.completed = !m.completed;
-      saveVault();
-      renderVault();
-    }
-
-    function deleteItem(id) {
-      const m = vault.find(i => i.id === id);
-      if (!m) return;
-      if (confirm(`Remove "${m.title}" from OmniVault?`)) {
-        vault = vault.filter(i => i.id !== id);
-        saveVault();
-        renderVault();
-      }
-    }
-
-    function setMediaType(type, el) {
-      currentMediaType = type;
-      document.querySelectorAll('#mediaTypeRow .filter-chip').forEach(c => {
-        if (!c.id) c.classList.remove('active');
-      });
-      el.classList.add('active');
-      renderVault();
-    }
-    function setGenre(g, el) {
-      currentGenre = g;
-      document.querySelectorAll('#genreRow .filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      renderVault();
-    }
+    function toggleVote(id, num) { const m = vault.find(i => i.id === id); if (!m) return; if (num === 1) m.p1 = !m.p1; if (num === 2) m.p2 = !m.p2; saveVault(); renderVault(); }
+    function toggleCompleted(id) { const m = vault.find(i => i.id === id); if (!m) return; m.completed = !m.completed; saveVault(); renderVault(); }
+    function deleteItem(id) { const m = vault.find(i => i.id === id); if (!m) return; if (confirm(`Remove "${m.title}" from OmniVault?`)) { vault = vault.filter(i => i.id !== id); saveVault(); renderVault(); } }
+    function setMediaType(type, el) { currentMediaType = type; document.querySelectorAll('#mediaTypeRow .filter-chip').forEach(c => { if (!c.id) c.classList.remove('active'); }); el.classList.add('active'); renderVault(); }
+    function setGenre(g, el) { currentGenre = g; document.querySelectorAll('#genreRow .filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
     function togglePetFilter(el) { filterPetOnly = !filterPetOnly; el.classList.toggle('active', filterPetOnly); renderVault(); }
     function toggleSoundFilter(el) { filterSoundOnly = !filterSoundOnly; el.classList.toggle('active', filterSoundOnly); renderVault(); }
-    function setTimeBudget(val, el) {
-      currentTimeBudget = val;
-      document.querySelectorAll('#timeRow .filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      renderVault();
-    }
-    function setDecade(val, el) {
-      currentDecade = val;
-      document.querySelectorAll('#decadeRow .filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      renderVault();
-    }
-    function setStatusTab(s) {
-      currentStatus = s;
-      document.getElementById('btnBacklog').className = 'btn-status' + (s === 'backlog' ? ' active' : '');
-      document.getElementById('btnCompleted').className = 'btn-status' + (s === 'completed' ? ' active' : '');
-      renderVault();
-    }
+    function setTimeBudget(val, el) { currentTimeBudget = val; document.querySelectorAll('#timeRow .filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
+    function setDecade(val, el) { currentDecade = val; document.querySelectorAll('#decadeRow .filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); renderVault(); }
+    function setStatusTab(s) { currentStatus = s; document.getElementById('btnBacklog').className = 'btn-status' + (s === 'backlog' ? ' active' : ''); document.getElementById('btnCompleted').className = 'btn-status' + (s === 'completed' ? ' active' : ''); renderVault(); }
     function resetFilters() {
-      currentPartnerFilter = 'all'; currentMediaType = 'all'; currentGenre = 'all';
-      currentTimeBudget = 'any'; currentDecade = 'all'; filterPetOnly = false; filterSoundOnly = false;
-      document.getElementById('searchBox').value = '';
-      document.getElementById('sortSelect').value = 'default';
-      updatePartnerUI();
+      currentPartnerFilter = 'all'; currentMediaType = 'all'; currentGenre = 'all'; currentTimeBudget = 'any'; currentDecade = 'all'; filterPetOnly = false; filterSoundOnly = false;
+      document.getElementById('searchBox').value = ''; document.getElementById('sortSelect').value = 'default'; updatePartnerUI();
       document.querySelectorAll('.filter-group .filter-chip').forEach(c => c.classList.remove('active'));
       document.querySelector('#mediaTypeRow .chip-accent').classList.add('active');
       document.querySelector('#genreRow .filter-chip').classList.add('active');
@@ -1098,9 +833,7 @@
       renderVault();
     }
 
-    /* ========================================================
-       4. DUAL-ENGINE PHOTO, BARCODE & SHELF SCANNER
-       ======================================================== */
+    /* 4. DUAL-ENGINE PHOTO, BARCODE & SHELF SCANNER */
     function compressImageToBase64(file, maxDim = 1024) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -1111,39 +844,27 @@
             const canvas = document.createElement('canvas');
             canvas.width = Math.round(img.width * scale);
             canvas.height = Math.round(img.height * scale);
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
             const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
             resolve({ dataUrl, base64: dataUrl.split(',')[1], imgElement: img });
           };
-          img.onerror = reject;
-          img.src = e.target.result;
+          img.onerror = reject; img.src = e.target.result;
         };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
+        reader.onerror = reject; reader.readAsDataURL(file);
       });
     }
 
     async function handlePhotoScan(event, mode) {
       const file = event.target.files[0];
       if (!file) return;
-
       const isModal = mode.startsWith('modal');
       const statusEl = document.getElementById(isModal ? 'fetchStatus' : 'shelfScanStatus');
       const batchBox = document.getElementById('batchScanResults');
       if (batchBox) { batchBox.style.display = 'none'; batchBox.innerHTML = ''; }
-
       statusEl.textContent = '📷 Analyzing image...';
-
       try {
         const { dataUrl, base64, imgElement } = await compressImageToBase64(file);
-
-        if (isModal) {
-          document.getElementById('addPreviewImg').src = dataUrl;
-          document.getElementById('addPosterInput').value = dataUrl;
-        }
-
-        // STEP 1: Check for Hardware Barcode (UPC / EAN / ISBN) first
+        if (isModal) { document.getElementById('addPreviewImg').src = dataUrl; document.getElementById('addPosterInput').value = dataUrl; }
         if ('BarcodeDetector' in window && (mode === 'modal-barcode' || mode === 'single')) {
           try {
             const detector = new BarcodeDetector({ formats: ['ean_13', 'upc_a', 'ean_8', 'upc_e', 'code_128'] });
@@ -1151,72 +872,44 @@
             if (barcodes && barcodes.length > 0) {
               const code = barcodes[0].rawValue;
               statusEl.textContent = `🏷️ Detected Barcode [${code}]! Looking up media details...`;
-              const resolved = await lookupByBarcode(code, isModal);
-              if (resolved) return;
+              if (await lookupByBarcode(code, isModal)) return;
             }
           } catch (e) {}
         }
-
-        // STEP 2: Use Gemini Vision AI if key is available (Best for stylized Game Covers & Multi-Item Shelves)
         const geminiKey = localStorage.getItem('omni_gemini_key');
         if (geminiKey) {
           statusEl.textContent = '🤖 Gemini Vision AI identifying media artwork & details...';
-          const aiSuccess = await scanWithGeminiVision(base64, mode, statusEl, dataUrl);
-          if (aiSuccess) return;
+          if (await scanWithGeminiVision(base64, mode, statusEl, dataUrl)) return;
         }
-
-        // STEP 3: Zero-Key In-Browser OCR Fallback (Tesseract.js)
-        statusEl.textContent = '🔤 Reading cover text with built-in OCR (add a free Gemini key in Sync Hub for instant AI logo recognition)...';
+        statusEl.textContent = '🔤 Reading cover text with built-in OCR...';
         await scanWithTesseractOCR(dataUrl, isModal, statusEl);
-
       } catch (err) {
         statusEl.textContent = '⚠️ Could not process image. Try a clearer photo or type the title.';
-      } finally {
-        event.target.value = '';
-      }
+      } finally { event.target.value = ''; }
     }
 
     async function lookupByBarcode(code, isModal) {
-      const statusEl = document.getElementById(isModal ? 'fetchStatus' : 'shelfScanStatus');
-      // 1. Check Book ISBN (starts with 978 or 979)
       if (code.startsWith('978') || code.startsWith('979')) {
         try {
-          const r = await fetch(`https://openlibrary.org/search.json?isbn=${code}&limit=1`);
-          const d = await r.json();
+          const d = await fetch(`https://openlibrary.org/search.json?isbn=${code}&limit=1`).then(r => r.json());
           if (d.docs && d.docs.length > 0) {
             if (!isModal) openAddModal();
-            document.getElementById('addTypeSelect').value = 'book';
-            adjustAddFormFields();
-            selectDisambiguatedBook(d.docs[0]);
-            return true;
+            document.getElementById('addTypeSelect').value = 'book'; adjustAddFormFields(); selectDisambiguatedBook(d.docs[0]); return true;
           }
         } catch (e) {}
       }
-
-      // 2. Check UPCitemdb for Video Games / Movies / Blu-rays
       try {
-        const r = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${code}`);
-        const d = await r.json();
+        const d = await fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${code}`).then(r => r.json());
         if (d.items && d.items.length > 0) {
-          let rawTitle = d.items[0].title || '';
-          let platform = 'Physical Disc';
+          let rawTitle = d.items[0].title || '', platform = 'Physical Disc';
           if (/ps5|playstation 5/i.test(rawTitle)) platform = 'PS5';
           else if (/ps4|playstation 4/i.test(rawTitle)) platform = 'PS4';
           else if (/xbox/i.test(rawTitle)) platform = 'Xbox';
           else if (/switch|nintendo/i.test(rawTitle)) platform = 'Switch';
           else if (/4k|ultra hd/i.test(rawTitle)) platform = '4K UHD';
-          else if (/blu-ray/i.test(rawTitle)) platform = 'Blu-ray';
-
-          const cleanTitle = rawTitle
-            .replace(/\(.*?\)|\[.*?\]/g, '')
-            .replace(/playstation \d|ps5|ps4|xbox series x|xbox one|nintendo switch|blu-ray|4k ultra hd|dvd|steelbook|standard edition/gi, '')
-            .replace(/[-–:|]/g, ' ')
-            .trim();
-
+          const cleanTitle = rawTitle.replace(/\(.*?\)|\[.*?\]/g, '').replace(/playstation \d|ps5|ps4|xbox series x|xbox one|nintendo switch|blu-ray|4k ultra hd|dvd|steelbook|standard edition/gi, '').replace(/[-–:|]/g, ' ').trim();
           if (!isModal) openAddModal();
-          if (['PS5', 'PS4', 'Xbox', 'Switch'].includes(platform)) {
-            document.getElementById('addTypeSelect').value = 'game';
-          }
+          if (['PS5', 'PS4', 'Xbox', 'Switch'].includes(platform)) document.getElementById('addTypeSelect').value = 'game';
           adjustAddFormFields();
           document.getElementById('addShelfInput').value = `${platform} [${code}]`;
           document.getElementById('addTitleInput').value = cleanTitle;
@@ -1224,62 +917,30 @@
           return true;
         }
       } catch (e) {}
-
-      statusEl.textContent = `🏷️ Scanned barcode ${code}. Type the title to link this barcode.`;
-      if (isModal) document.getElementById('addShelfInput').value = `UPC: ${code}`;
       return false;
     }
 
     async function scanWithGeminiVision(base64Jpeg, mode, statusEl, fallbackDataUrl) {
       const geminiKey = localStorage.getItem('omni_gemini_key');
-      const promptText = `Analyze this image of media item(s) (video game cases/discs, movie Blu-rays/posters, TV shows, or books).
-Return ONLY a valid JSON array of objects. Each object MUST have:
-- "title": exact clean title of the game, movie, TV show, or book
-- "type": one of "movie", "tv", "book", "game"
-- "year": release year as a number (e.g. 2023)
-- "shelf": detected platform or physical format (e.g. "PS5", "Switch", "Xbox", "4K Blu-ray", "Hardcover")
-- "genre": comma-separated genres and sub-genres
-- "director": director, author, or game studio/developer
-- "writer": writer(s) or publisher
-- "cast": comma-separated main actors, voice actors, or key characters
-- "runtime": runtime in minutes (for movie/tv), page count (for book), or average playtime hours (for game) as a number
-- "imdbRating": estimated or known IMDb score (e.g. "8.1")
-- "rtRating": estimated or known Rotten Tomatoes / Metacritic percentage (e.g. "89%")
-- "petSafe": boolean (false if horror/action/loud gunfire/monsters, true if calm)
-- "soundMix": "Balanced Mix" or "Wide Dynamic Range"
-- "synopsis": 2-sentence overview/plot summary.`;
-
+      const promptText = `Analyze this image of media item(s) (video game cases/discs, movie Blu-rays/posters, TV shows, or books). Return ONLY a valid JSON array of objects with: "title", "type" ("movie"|"tv"|"book"|"game"), "year" (number), "shelf" (platform/format), "genre", "director", "writer", "cast", "runtime" (number), "imdbRating", "rtRating", "petSafe" (boolean), "soundMix" ("Balanced Mix"|"Wide Dynamic Range"), "synopsis".`;
       try {
         const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{
-              parts: [
-                { text: promptText },
-                { inline_data: { mime_type: 'image/jpeg', data: base64Jpeg } }
-              ]
-            }]
-          })
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: promptText }, { inline_data: { mime_type: 'image/jpeg', data: base64Jpeg } }] }] })
         });
         const data = await resp.json();
         const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
         const jsonMatch = rawText.match(/\[[\s\S]*\]/);
         if (!jsonMatch) return false;
-
         const items = JSON.parse(jsonMatch[0]);
         if (!items || items.length === 0) return false;
-
         if (mode === 'batch' || (mode === 'single' && items.length > 1)) {
           renderBatchScanResults(items, fallbackDataUrl);
           statusEl.textContent = `✅ AI Vision identified ${items.length} media item(s) from your photo!`;
           return true;
         }
-
-        // Single item -> populate + Add modal and fetch high-res official artwork
         const item = items[0];
         if (!mode.startsWith('modal')) openAddModal();
-
         document.getElementById('addTypeSelect').value = ['movie', 'tv', 'book', 'game'].includes(item.type) ? item.type : 'movie';
         adjustAddFormFields();
         document.getElementById('addTitleInput').value = item.title || '';
@@ -1295,22 +956,14 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         document.getElementById('addSynopsisInput').value = item.synopsis || '';
         document.getElementById('addPetSafeSelect').value = item.petSafe === false ? 'alert' : 'safe';
         document.getElementById('addSoundMixSelect').value = item.soundMix === 'Wide Dynamic Range' ? 'Wide Dynamic Range' : 'Balanced Mix';
-
-        // Try fetching clean digital cover art to replace camera photo
         const officialPoster = await fetchCleanArtworkForItem(item.title, item.type, item.year);
-        if (officialPoster) {
-          document.getElementById('addPosterInput').value = officialPoster;
-          document.getElementById('addPreviewImg').src = officialPoster;
-        }
-
+        if (officialPoster) { document.getElementById('addPosterInput').value = officialPoster; document.getElementById('addPreviewImg').src = officialPoster; }
         statusEl.textContent = `✅ AI identified "${item.title}" (${item.year}) and auto-filled all details!`;
         return true;
-      } catch (e) {
-        return false;
-      }
+      } catch (e) { return false; }
     }
 
-    async function fetchCleanArtworkForItem(title, type, year) {
+    async function fetchCleanArtworkForItem(title, type) {
       try {
         if (type === 'game') {
           const cs = await fetch(`https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(title)}&limit=1`).then(r => r.json());
@@ -1318,7 +971,6 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         }
         const omdb = await fetchOMDb(`t=${encodeURIComponent(title)}`);
         if (omdb && omdb.Poster && omdb.Poster !== 'N/A') return omdb.Poster;
-
         if (type === 'book') {
           const ol = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=1`).then(r => r.json());
           if (ol.docs?.[0]?.cover_i) return `https://covers.openlibrary.org/b/id/${ol.docs[0].cover_i}-L.jpg`;
@@ -1331,62 +983,33 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
     }
 
     let lastBatchDetected = [];
-    function renderBatchScanResults(items, fallbackImg) {
+    function renderBatchScanResults(items) {
       lastBatchDetected = items;
       const box = document.getElementById('batchScanResults');
       box.style.display = 'flex';
-      box.innerHTML = `
-        <button class="btn-tool btn-add" style="justify-content:center; padding:9px;" onclick="addAllBatchItems()">➕ Add All ${items.length} Detected Titles to Vault</button>
-        ${items.map((it, idx) => `
-          <div class="disambig-item" onclick="addSingleBatchItem(${idx})">
-            <div class="d-info">
-              <strong>${it.title}</strong> (${it.year || 'N/A'}) • <span style="color:var(--accent);">${(it.type || 'media').toUpperCase()}</span>
-              <small>${it.shelf || ''} • ${it.genre || ''} • Tap to add</small>
-            </div>
-            <span class="btn-tool btn-add">+ Add</span>
-          </div>
-        `).join('')}
-      `;
+      box.innerHTML = `<button class="btn-tool btn-add" style="justify-content:center; padding:9px;" onclick="addAllBatchItems()">➕ Add All ${items.length} Detected Titles to Vault</button>` +
+        items.map((it, idx) => `<div class="disambig-item" onclick="addSingleBatchItem(${idx})"><div class="d-info"><strong>${it.title}</strong> (${it.year || 'N/A'}) • <span style="color:var(--accent);">${(it.type || 'media').toUpperCase()}</span><small>${it.shelf || ''} • ${it.genre || ''}</small></div><span class="btn-tool btn-add">+ Add</span></div>`).join('');
     }
 
     async function addSingleBatchItem(idx) {
       const it = lastBatchDetected[idx];
       if (!it) return;
-      const poster = await fetchCleanArtworkForItem(it.title, it.type, it.year);
+      const poster = await fetchCleanArtworkForItem(it.title, it.type);
       vault.unshift({
-        id: Date.now().toString() + Math.random().toString(36).slice(2, 6),
-        title: it.title,
-        type: it.type || 'game',
-        genre: it.genre || 'General',
-        year: parseInt(it.year) || 2024,
-        runtime: parseInt(it.runtime) || 25,
-        director: it.director || 'Unknown',
-        writer: it.writer || 'Unknown',
-        cast: it.cast || 'Not listed',
-        imdbRating: it.imdbRating || '',
-        rtRating: it.rtRating || '',
-        p1Rating: 0,
-        p2Rating: 0,
-        petSafe: it.petSafe !== false,
-        petNotes: it.petSafe === false ? '⚠️ Pet Alert: Loud action/horror audio.' : '🐾 Pet-Safe.',
-        soundMix: it.soundMix || 'Balanced Mix',
-        synopsis: it.synopsis || 'Added via AI Shelf Scanner.',
-        poster: poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80',
-        p1: false,
-        p2: false,
-        completed: false,
-        shelf: it.shelf || 'Shelf'
+        id: Date.now().toString() + Math.random().toString(36).slice(2, 6), title: it.title, type: it.type || 'game', genre: it.genre || 'General',
+        year: parseInt(it.year) || 2024, runtime: parseInt(it.runtime) || 25, director: it.director || 'Unknown', writer: it.writer || 'Unknown',
+        cast: it.cast || 'Not listed', imdbRating: it.imdbRating || '', rtRating: it.rtRating || '', p1Rating: 0, p2Rating: 0,
+        petSafe: it.petSafe !== false, petNotes: it.petSafe === false ? '⚠️ Pet Alert: Loud action/horror audio.' : '🐾 Pet-Safe.',
+        soundMix: it.soundMix || 'Balanced Mix', synopsis: it.synopsis || 'Added via AI Shelf Scanner.',
+        poster: poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80', p1: false, p2: false, completed: false, shelf: it.shelf || 'Shelf'
       });
-      saveVault();
-      renderVault();
-      alert(`✅ Added "${it.title}" to your Vault!`);
+      saveVault(); renderVault();
     }
 
     async function addAllBatchItems() {
-      for (let i = 0; i < lastBatchDetected.length; i++) {
-        await addSingleBatchItem(i);
-      }
+      for (let i = 0; i < lastBatchDetected.length; i++) await addSingleBatchItem(i);
       document.getElementById('batchScanResults').style.display = 'none';
+      alert(`✅ Added ${lastBatchDetected.length} titles to your Vault!`);
     }
 
     async function scanWithTesseractOCR(dataUrl, isModal, statusEl) {
@@ -1394,18 +1017,12 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         await new Promise((res, rej) => {
           const s = document.createElement('script');
           s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
-          s.onload = res;
-          s.onerror = rej;
-          document.head.appendChild(s);
+          s.onload = res; s.onerror = rej; document.head.appendChild(s);
         });
       }
-
       const result = await Tesseract.recognize(dataUrl, 'eng');
-      const rawLines = (result?.data?.text || '')
-        .split('\n')
-        .map(l => l.replace(/[^a-zA-Z0-9 :'-]/g, ' ').replace(/\s+/g, ' ').trim())
+      const rawLines = (result?.data?.text || '').split('\n').map(l => l.replace(/[^a-zA-Z0-9 :'-]/g, ' ').replace(/\s+/g, ' ').trim())
         .filter(l => l.length >= 3 && !/^(ps5|ps4|xbox|nintendo|switch|only on|playstation|esrb|mature|teen|everyone|capcom|sony|blu-ray|4k|ultra hd)$/i.test(l));
-
       if (rawLines.length > 0) {
         const bestGuess = rawLines.sort((a, b) => b.length - a.length)[0].slice(0, 40);
         if (!isModal) openAddModal();
@@ -1413,78 +1030,52 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         statusEl.textContent = `🔍 Detected cover text: "${bestGuess}" — searching matches...`;
         await autoFetchMetadata();
       } else {
-        statusEl.innerHTML = `⚠️ Stylized logo detected. Paste a free <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--p1);">Gemini Vision Key in Sync Hub</a> to recognize artwork without plain text, or type the title below.`;
+        statusEl.innerHTML = `⚠️ Stylized logo detected. Add a free Gemini Vision Key in Sync Hub or type the title below.`;
       }
     }
 
-    /* ========================================================
-       5. IMDB-STYLE MEDIA DOSSIER MODAL & LIVE REFRESH
-       ======================================================== */
+    /* 5. IMDB-STYLE MEDIA DOSSIER MODAL */
     async function openDetailModal(id) {
       const item = vault.find(i => i.id === id);
       if (!item) return;
       activeDetailMovieId = id;
-
       initPartners();
       populateDetailModal(item);
       document.getElementById('detailModal').style.display = 'flex';
-
-      if (!item.cast || !item.synopsis || item.synopsis === 'Added by user.') {
-        await refreshSingleItemMetadata(true);
-      }
+      if (!item.cast || !item.synopsis || item.synopsis === 'Added by user.') await refreshSingleItemMetadata(true);
     }
 
     function populateDetailModal(item) {
       document.getElementById('modalTitle').textContent = item.title;
-      const hrs = Math.floor((item.runtime || 0) / 60);
-      const mins = (item.runtime || 0) % 60;
+      const hrs = Math.floor((item.runtime || 0) / 60), mins = (item.runtime || 0) % 60;
       const lenStr = item.type === 'book' ? `${item.runtime} pages` : (item.type === 'game' ? `${item.runtime} hrs` : (hrs > 0 ? `${hrs}h ${mins}m` : `${mins}m`));
-
       document.getElementById('modalMeta').textContent = `${item.year} • ${item.rated || 'Not Rated'} • ${lenStr} • ${item.type.toUpperCase()}`;
-      const trailerSuffix = item.type === 'game' ? 'gameplay trailer' : 'official trailer';
-      document.getElementById('modalTrailerBtn').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(item.title + ' ' + item.year + ' ' + trailerSuffix)}`;
-
+      document.getElementById('modalTrailerBtn').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(item.title + ' ' + item.year + ' ' + (item.type === 'game' ? 'gameplay trailer' : 'official trailer'))}`;
       let rBox = [];
       if (item.imdbRating && item.imdbRating !== 'N/A') rBox.push(`<span style="color:#f5c518;">⭐ ${item.imdbRating}/10</span>`);
       if (item.rtRating && item.rtRating !== 'N/A') rBox.push(`<span style="color:#ff5f56;">🍅 ${item.rtRating}</span>`);
       document.getElementById('modalRatingsBox').innerHTML = rBox.join('<br>') || '<span style="color:var(--text-muted);">Unrated</span>';
-
       const posterUrl = item.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80';
       document.getElementById('modalPoster').src = posterUrl;
       document.getElementById('modalBackdrop').src = posterUrl;
-
       document.getElementById('modalSynopsis').textContent = item.synopsis || 'Tap "Refresh IMDb Info" below to pull the full synopsis.';
-
       const genresDiv = document.getElementById('modalGenres');
       genresDiv.innerHTML = '';
       (item.genre || 'General').split(',').forEach(g => {
-        const s = document.createElement('span');
-        s.className = 'filter-chip active';
-        s.style.cursor = 'default';
-        s.textContent = g.trim();
-        genresDiv.appendChild(s);
+        const s = document.createElement('span'); s.className = 'filter-chip active'; s.style.cursor = 'default'; s.textContent = g.trim(); genresDiv.appendChild(s);
       });
-
       document.getElementById('modalDirHeading').textContent = item.type === 'book' ? 'Author' : (item.type === 'game' ? 'Director / Studio' : 'Director');
       document.getElementById('modalWriterHeading').textContent = item.type === 'book' ? 'Publisher / Era' : 'Writers';
       document.getElementById('modalCastHeading').textContent = item.type === 'book' ? 'Key Characters / Subjects' : 'Top Cast (Actors & Actresses)';
-
       document.getElementById('modalDirector').textContent = item.director || 'Unknown';
       document.getElementById('modalWriter').textContent = item.writer || item.director || 'Unknown';
-
       const castContainer = document.getElementById('modalCast');
       castContainer.innerHTML = '';
-      const castArr = (item.cast || 'Not listed').split(',');
-      castArr.forEach(actor => {
-        const pill = document.createElement('span');
-        pill.className = 'cast-pill';
-        pill.textContent = `👤 ${actor.trim()}`;
-        castContainer.appendChild(pill);
+      (item.cast || 'Not listed').split(',').forEach(actor => {
+        const pill = document.createElement('span'); pill.className = 'cast-pill'; pill.textContent = `👤 ${actor.trim()}`; castContainer.appendChild(pill);
       });
-
       document.getElementById('modalP1Rating').value = item.p1Rating || 0;
       document.getElementById('modalP2Rating').value = item.p2Rating || 0;
-
       document.getElementById('modalPetAlert').textContent = item.petNotes || (item.petSafe ? '🐾 Pet Safe: No registered dog barks, doorbells, or animal trauma.' : '⚠️ Pet Alert: Contains sudden loud acoustics or creature distress.');
       document.getElementById('modalSoundMix').innerHTML = `🔊 <strong>${item.soundMix || 'Balanced Mix'}</strong> — ${item.soundNotes || 'Standard dynamic profile.'}`;
       document.getElementById('modalShelf').textContent = `📦 Location / Format: [${item.shelf || 'Digital'}]`;
@@ -1496,8 +1087,7 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
       if (!item) return;
       if (partnerNum === 1) item.p1Rating = parseInt(val) || 0;
       if (partnerNum === 2) item.p2Rating = parseInt(val) || 0;
-      saveVault();
-      renderVault();
+      saveVault(); renderVault();
     }
 
     async function refreshSingleItemMetadata(silent = false) {
@@ -1515,28 +1105,18 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         const rt = (d.Ratings || []).find(r => r.Source === 'Rotten Tomatoes');
         if (rt) item.rtRating = rt.Value;
         if (d.Poster && d.Poster !== 'N/A') item.poster = d.Poster;
-        saveVault();
-        populateDetailModal(item);
-        renderVault();
-      } else if (!silent) {
-        alert('Could not find additional IMDb data for this title.');
-      }
+        saveVault(); populateDetailModal(item); renderVault();
+      } else if (!silent) alert('Could not find additional IMDb data for this title.');
     }
 
     function toggleWatchedFromModal() {
       const item = vault.find(i => i.id === activeDetailMovieId);
       if (item) { item.completed = !item.completed; saveVault(); renderVault(); document.getElementById('detailModal').style.display = 'none'; }
     }
-    function deleteFromModal() {
-      if (activeDetailMovieId) deleteItem(activeDetailMovieId);
-      document.getElementById('detailModal').style.display = 'none';
-    }
+    function deleteFromModal() { if (activeDetailMovieId) deleteItem(activeDetailMovieId); document.getElementById('detailModal').style.display = 'none'; }
 
-    /* ========================================================
-       6. LIVE AUTO-SEARCH & DISAMBIGUATION POPUP (+ ADD)
-       ======================================================== */
+    /* 6. LIVE AUTO-SEARCH & DISAMBIGUATION POPUP (+ ADD) */
     let searchTimer = null;
-
     function adjustAddFormFields() {
       const type = document.getElementById('addTypeSelect').value;
       if (type === 'book') {
@@ -1560,10 +1140,7 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
     function triggerLiveSearch() {
       clearTimeout(searchTimer);
       const q = document.getElementById('addTitleInput').value.trim();
-      if (q.length < 3) {
-        document.getElementById('disambiguationList').style.display = 'none';
-        return;
-      }
+      if (q.length < 3) { document.getElementById('disambiguationList').style.display = 'none'; return; }
       searchTimer = setTimeout(() => autoFetchMetadata(), 450);
     }
 
@@ -1572,186 +1149,90 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
       const type = document.getElementById('addTypeSelect').value;
       const status = document.getElementById('fetchStatus');
       const list = document.getElementById('disambiguationList');
-
       if (!title) { status.textContent = '⚠️ Enter a title or scan a photo first.'; return; }
-      status.textContent = '🔍 Searching databases...';
-      list.innerHTML = '';
-
+      status.textContent = '🔍 Searching databases...'; list.innerHTML = '';
       try {
         if (type === 'movie' || type === 'tv') {
           const omdbType = type === 'tv' ? 'series' : 'movie';
           const itunesEntity = type === 'tv' ? 'tvSeason' : 'movie';
-
           const [omdbSearch, itunesResp] = await Promise.all([
             fetchOMDb(`s=${encodeURIComponent(title)}&type=${omdbType}`),
             fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(title)}&entity=${itunesEntity}&limit=8`).then(r => r.json()).catch(() => ({ results: [] }))
           ]);
-
-          const combined = [];
-          const seen = new Set();
-
+          const combined = [], seen = new Set();
           if (omdbSearch && omdbSearch.Search) {
             omdbSearch.Search.forEach(m => {
               const key = `${m.Title.toLowerCase()}-${m.Year}`;
-              if (!seen.has(key)) {
-                seen.add(key);
-                combined.push({
-                  source: 'omdb',
-                  imdbID: m.imdbID,
-                  title: m.Title,
-                  year: parseInt(m.Year) || 2024,
-                  poster: m.Poster !== 'N/A' ? m.Poster : '',
-                  sub: `${m.Type.toUpperCase()} • ${m.Year}`
-                });
-              }
+              if (!seen.has(key)) { seen.add(key); combined.push({ source: 'omdb', imdbID: m.imdbID, title: m.Title, year: parseInt(m.Year) || 2024, poster: m.Poster !== 'N/A' ? m.Poster : '', sub: `${m.Type.toUpperCase()} • ${m.Year}` }); }
             });
           }
-
           if (itunesResp && itunesResp.results) {
             itunesResp.results.forEach(it => {
-              const tName = it.trackName || it.collectionName || title;
-              const yr = it.releaseDate ? new Date(it.releaseDate).getFullYear() : 2024;
-              const key = `${tName.toLowerCase()}-${yr}`;
-              if (!seen.has(key)) {
-                seen.add(key);
-                combined.push({
-                  source: 'itunes',
-                  raw: it,
-                  title: tName,
-                  year: yr,
-                  poster: it.artworkUrl100 ? it.artworkUrl100.replace('100x100bb', '600x600bb') : '',
-                  sub: `${it.primaryGenreName || type.toUpperCase()} • ${yr} • ${it.artistName || ''}`
-                });
-              }
+              const tName = it.trackName || it.collectionName || title, yr = it.releaseDate ? new Date(it.releaseDate).getFullYear() : 2024, key = `${tName.toLowerCase()}-${yr}`;
+              if (!seen.has(key)) { seen.add(key); combined.push({ source: 'itunes', raw: it, title: tName, year: yr, poster: it.artworkUrl100 ? it.artworkUrl100.replace('100x100bb', '600x600bb') : '', sub: `${it.primaryGenreName || type.toUpperCase()} • ${yr} • ${it.artistName || ''}` }); }
             });
           }
-
           if (combined.length > 0) {
-            status.textContent = `Found ${combined.length} matches—tap the exact one you want:`;
-            list.style.display = 'flex';
+            status.textContent = `Found ${combined.length} matches—tap the exact one you want:`; list.style.display = 'flex';
             combined.slice(0, 8).forEach(entry => {
-              const row = document.createElement('div');
-              row.className = 'disambig-item';
-              row.innerHTML = `
-                <img src="${entry.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=200&q=80'}" onerror="this.style.opacity=0.2">
-                <div class="d-info"><strong>${entry.title}</strong> (${entry.year})<small>${entry.sub}</small></div>
-              `;
-              row.onclick = () => selectDisambiguatedMedia(entry);
-              list.appendChild(row);
+              const row = document.createElement('div'); row.className = 'disambig-item';
+              row.innerHTML = `<img src="${entry.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=200&q=80'}" onerror="this.style.opacity=0.2"><div class="d-info"><strong>${entry.title}</strong> (${entry.year})<small>${entry.sub}</small></div>`;
+              row.onclick = () => selectDisambiguatedMedia(entry); list.appendChild(row);
             });
-          } else {
-            status.textContent = 'No exact matches found. Try a broader title.';
-          }
+          } else status.textContent = 'No exact matches found. Try a broader title.';
         } else if (type === 'book') {
-          const resp = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=6`);
-          const data = await resp.json();
+          const data = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=6`).then(r => r.json());
           if (data.docs && data.docs.length > 0) {
-            status.textContent = 'Tap the book edition below to auto-fill:';
-            list.style.display = 'flex';
+            status.textContent = 'Tap the book edition below to auto-fill:'; list.style.display = 'flex';
             data.docs.forEach(doc => {
-              const cover = doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : '';
-              const author = doc.author_name ? doc.author_name[0] : 'Unknown Author';
-              const yr = doc.first_publish_year || 2020;
-              const row = document.createElement('div');
-              row.className = 'disambig-item';
+              const cover = doc.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` : '', author = doc.author_name ? doc.author_name[0] : 'Unknown Author', yr = doc.first_publish_year || 2020;
+              const row = document.createElement('div'); row.className = 'disambig-item';
               row.innerHTML = `<img src="${cover}"><div class="d-info"><strong>${doc.title}</strong> (${yr})<small>📖 Book by ${author} • ${doc.number_of_pages_median || 300} pages</small></div>`;
-              row.onclick = () => selectDisambiguatedBook(doc);
-              list.appendChild(row);
+              row.onclick = () => selectDisambiguatedBook(doc); list.appendChild(row);
             });
-          } else {
-            status.textContent = 'No matching books found on OpenLibrary.';
-          }
+          } else status.textContent = 'No matching books found on OpenLibrary.';
         } else if (type === 'game') {
           const [omdbGames, cheapShark, wikiResp] = await Promise.all([
             fetchOMDb(`s=${encodeURIComponent(title)}&type=game`),
             fetch(`https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(title)}&limit=6`).then(r => r.json()).catch(() => []),
             fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(title + ' video game')}&format=json&origin=*`).then(r => r.json()).catch(() => ({}))
           ]);
-
-          const gameMatches = [];
-          const seenGames = new Set();
-
+          const gameMatches = [], seenGames = new Set();
           if (omdbGames && omdbGames.Search) {
             omdbGames.Search.forEach(g => {
               const key = g.Title.toLowerCase();
-              if (!seenGames.has(key)) {
-                seenGames.add(key);
-                gameMatches.push({
-                  imdbID: g.imdbID,
-                  title: g.Title,
-                  year: parseInt(g.Year) || 2024,
-                  poster: g.Poster !== 'N/A' ? g.Poster : '',
-                  sub: `🎮 Video Game (${g.Year}) • IMDb Game Archive`
-                });
-              }
+              if (!seenGames.has(key)) { seenGames.add(key); gameMatches.push({ imdbID: g.imdbID, title: g.Title, year: parseInt(g.Year) || 2024, poster: g.Poster !== 'N/A' ? g.Poster : '', sub: `🎮 Video Game (${g.Year}) • IMDb Game Archive` }); }
             });
           }
-
           if (Array.isArray(cheapShark)) {
             cheapShark.forEach(cs => {
               const key = cs.external.toLowerCase();
-              if (!seenGames.has(key)) {
-                seenGames.add(key);
-                gameMatches.push({
-                  title: cs.external,
-                  year: 2024,
-                  poster: cs.thumb || '',
-                  sub: `🎮 Video Game • Box Art Match`
-                });
-              }
+              if (!seenGames.has(key)) { seenGames.add(key); gameMatches.push({ title: cs.external, year: 2024, poster: cs.thumb || '', sub: `🎮 Video Game • Box Art Match` }); }
             });
           }
-
-          const wikiResults = wikiResp?.query?.search || [];
-          wikiResults.slice(0, 4).forEach(w => {
+          (wikiResp?.query?.search || []).slice(0, 4).forEach(w => {
             const key = w.title.toLowerCase();
-            if (!seenGames.has(key)) {
-              seenGames.add(key);
-              gameMatches.push({
-                title: w.title.replace(/\s*\(video game\)/i, ''),
-                wikiTitle: w.title,
-                year: 2024,
-                poster: '',
-                snippet: w.snippet.replace(/<\/?[^>]+(>|$)/g, ''),
-                sub: `🎮 Video Game • Wikipedia Encyclopedia`
-              });
-            }
+            if (!seenGames.has(key)) { seenGames.add(key); gameMatches.push({ title: w.title.replace(/\s*\(video game\)/i, ''), wikiTitle: w.title, year: 2024, poster: '', snippet: w.snippet.replace(/<\/?[^>]+(>|$)/g, ''), sub: `🎮 Video Game • Wikipedia Encyclopedia` }); }
           });
-
           if (gameMatches.length > 0) {
-            status.textContent = `Found ${gameMatches.length} video games—tap to auto-fill:`;
-            list.style.display = 'flex';
+            status.textContent = `Found ${gameMatches.length} video games—tap to auto-fill:`; list.style.display = 'flex';
             gameMatches.slice(0, 8).forEach(gm => {
-              const row = document.createElement('div');
-              row.className = 'disambig-item';
-              row.innerHTML = `
-                <img src="${gm.poster || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=200&q=80'}" onerror="this.style.opacity=0.2">
-                <div class="d-info"><strong>${gm.title}</strong> ${gm.year ? '('+gm.year+')' : ''}<small>${gm.sub}</small></div>
-              `;
-              row.onclick = () => selectDisambiguatedGame(gm);
-              list.appendChild(row);
+              const row = document.createElement('div'); row.className = 'disambig-item';
+              row.innerHTML = `<img src="${gm.poster || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=200&q=80'}" onerror="this.style.opacity=0.2"><div class="d-info"><strong>${gm.title}</strong> ${gm.year ? '('+gm.year+')' : ''}<small>${gm.sub}</small></div>`;
+              row.onclick = () => selectDisambiguatedGame(gm); list.appendChild(row);
             });
-          } else {
-            status.textContent = 'No matching video games found.';
-          }
+          } else status.textContent = 'No matching video games found.';
         }
-      } catch (e) {
-        status.textContent = '⚠️ Connection error while searching.';
-      }
+      } catch (e) { status.textContent = '⚠️ Connection error while searching.'; }
     }
 
     async function selectDisambiguatedMedia(entry) {
       document.getElementById('disambiguationList').style.display = 'none';
       const status = document.getElementById('fetchStatus');
       status.textContent = `⏳ Pulling full IMDb cast, synopsis & ratings for "${entry.title}"...`;
-
       document.getElementById('addTitleInput').value = entry.title;
       document.getElementById('addYearInput').value = entry.year;
-      if (entry.poster) {
-        document.getElementById('addPosterInput').value = entry.poster;
-        document.getElementById('addPreviewImg').src = entry.poster;
-      }
-
+      if (entry.poster) { document.getElementById('addPosterInput').value = entry.poster; document.getElementById('addPreviewImg').src = entry.poster; }
       if (entry.raw) {
         const it = entry.raw;
         if (it.trackTimeMillis) document.getElementById('addRuntimeInput').value = Math.round(it.trackTimeMillis / 60000);
@@ -1759,9 +1240,7 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         if (it.artistName) document.getElementById('addDirectorInput').value = it.artistName;
         if (it.longDescription || it.shortDescription) document.getElementById('addSynopsisInput').value = it.longDescription || it.shortDescription;
       }
-
-      const omdbQuery = entry.imdbID ? `i=${entry.imdbID}&plot=full` : `t=${encodeURIComponent(entry.title)}&y=${entry.year}&plot=full`;
-      const d = await fetchOMDb(omdbQuery);
+      const d = await fetchOMDb(entry.imdbID ? `i=${entry.imdbID}&plot=full` : `t=${encodeURIComponent(entry.title)}&y=${entry.year}&plot=full`);
       if (d) {
         if (d.Runtime && parseInt(d.Runtime)) document.getElementById('addRuntimeInput').value = parseInt(d.Runtime);
         if (d.Genre && d.Genre !== 'N/A') document.getElementById('addGenreInput').value = d.Genre;
@@ -1772,21 +1251,11 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         if (d.imdbRating && d.imdbRating !== 'N/A') document.getElementById('addImdbInput').value = d.imdbRating;
         const rt = (d.Ratings || []).find(r => r.Source === 'Rotten Tomatoes');
         if (rt) document.getElementById('addRtInput').value = rt.Value;
-        if (d.Poster && d.Poster !== 'N/A' && !document.getElementById('addPosterInput').value) {
-          document.getElementById('addPosterInput').value = d.Poster;
-          document.getElementById('addPreviewImg').src = d.Poster;
-        }
+        if (d.Poster && d.Poster !== 'N/A' && !document.getElementById('addPosterInput').value) { document.getElementById('addPosterInput').value = d.Poster; document.getElementById('addPreviewImg').src = d.Poster; }
       }
-
       const gLower = (document.getElementById('addGenreInput').value || '').toLowerCase();
-      if (gLower.includes('horror') || gLower.includes('action') || gLower.includes('war')) {
-        document.getElementById('addPetSafeSelect').value = 'alert';
-        document.getElementById('addSoundMixSelect').value = 'Wide Dynamic Range';
-      } else {
-        document.getElementById('addPetSafeSelect').value = 'safe';
-        document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
-      }
-
+      document.getElementById('addPetSafeSelect').value = (gLower.includes('horror') || gLower.includes('action') || gLower.includes('war')) ? 'alert' : 'safe';
+      document.getElementById('addSoundMixSelect').value = (gLower.includes('horror') || gLower.includes('action') || gLower.includes('war')) ? 'Wide Dynamic Range' : 'Balanced Mix';
       status.textContent = `✅ Auto-populated all details for "${entry.title}"!`;
     }
 
@@ -1800,13 +1269,8 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
       document.getElementById('addGenreInput').value = doc.subject ? doc.subject.slice(0, 4).join(', ') : 'Literature, Fiction';
       document.getElementById('addCastInput').value = doc.person ? doc.person.slice(0, 4).join(', ') : 'Book Characters';
       document.getElementById('addSynopsisInput').value = doc.first_sentence ? doc.first_sentence[0] : `Book by ${doc.author_name ? doc.author_name[0] : 'Author'}, first published in ${doc.first_publish_year || 'N/A'}.`;
-      if (doc.cover_i) {
-        const url = `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
-        document.getElementById('addPosterInput').value = url;
-        document.getElementById('addPreviewImg').src = url;
-      }
-      document.getElementById('addPetSafeSelect').value = 'safe';
-      document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
+      if (doc.cover_i) { const url = `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`; document.getElementById('addPosterInput').value = url; document.getElementById('addPreviewImg').src = url; }
+      document.getElementById('addPetSafeSelect').value = 'safe'; document.getElementById('addSoundMixSelect').value = 'Balanced Mix';
       document.getElementById('fetchStatus').textContent = `✅ Auto-populated book details for "${doc.title}"!`;
     }
 
@@ -1814,19 +1278,12 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
       document.getElementById('disambiguationList').style.display = 'none';
       const status = document.getElementById('fetchStatus');
       status.textContent = `⏳ Pulling video game box art, credits & overview for "${gm.title}"...`;
-
       document.getElementById('addTitleInput').value = gm.title;
       if (gm.year) document.getElementById('addYearInput').value = gm.year;
       document.getElementById('addRuntimeInput').value = 25;
       document.getElementById('addGenreInput').value = 'Video Game, Action/Adventure';
-      if (gm.poster) {
-        document.getElementById('addPosterInput').value = gm.poster;
-        document.getElementById('addPreviewImg').src = gm.poster;
-      }
-
-      // 1. Check OMDb Game Record for Voice Cast, Director, Writer, Plot, IMDb Rating
-      const omdbQuery = gm.imdbID ? `i=${gm.imdbID}&plot=full` : `t=${encodeURIComponent(gm.title)}&type=game&plot=full`;
-      const d = await fetchOMDb(omdbQuery);
+      if (gm.poster) { document.getElementById('addPosterInput').value = gm.poster; document.getElementById('addPreviewImg').src = gm.poster; }
+      const d = await fetchOMDb(gm.imdbID ? `i=${gm.imdbID}&plot=full` : `t=${encodeURIComponent(gm.title)}&type=game&plot=full`);
       if (d) {
         if (d.Year && parseInt(d.Year)) document.getElementById('addYearInput').value = parseInt(d.Year);
         if (d.Genre && d.Genre !== 'N/A') document.getElementById('addGenreInput').value = d.Genre;
@@ -1835,26 +1292,13 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         if (d.Actors && d.Actors !== 'N/A') document.getElementById('addCastInput').value = d.Actors;
         if (d.Plot && d.Plot !== 'N/A') document.getElementById('addSynopsisInput').value = d.Plot;
         if (d.imdbRating && d.imdbRating !== 'N/A') document.getElementById('addImdbInput').value = d.imdbRating;
-        if (d.Poster && d.Poster !== 'N/A') {
-          document.getElementById('addPosterInput').value = d.Poster;
-          document.getElementById('addPreviewImg').src = d.Poster;
-        }
+        if (d.Poster && d.Poster !== 'N/A') { document.getElementById('addPosterInput').value = d.Poster; document.getElementById('addPreviewImg').src = d.Poster; }
       }
-
-      // 2. Supplement with Wikipedia Summary & Cover Thumbnail if needed
       try {
-        const wikiPage = gm.wikiTitle || gm.title;
-        const r = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiPage)}`);
-        const w = await r.json();
-        if (w.extract && (!document.getElementById('addSynopsisInput').value || document.getElementById('addSynopsisInput').value.length < 30)) {
-          document.getElementById('addSynopsisInput').value = w.extract;
-        }
-        if (w.thumbnail?.source && !document.getElementById('addPosterInput').value) {
-          document.getElementById('addPosterInput').value = w.thumbnail.source;
-          document.getElementById('addPreviewImg').src = w.thumbnail.source;
-        }
+        const w = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(gm.wikiTitle || gm.title)}`).then(r => r.json());
+        if (w.extract && (!document.getElementById('addSynopsisInput').value || document.getElementById('addSynopsisInput').value.length < 30)) document.getElementById('addSynopsisInput').value = w.extract;
+        if (w.thumbnail?.source && !document.getElementById('addPosterInput').value) { document.getElementById('addPosterInput').value = w.thumbnail.source; document.getElementById('addPreviewImg').src = w.thumbnail.source; }
       } catch (e) {}
-
       status.textContent = `✅ Auto-populated video game details for "${gm.title}"!`;
     }
 
@@ -1872,11 +1316,8 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
       if (!title) { alert('Please enter a title.'); return; }
       const petSafe = document.getElementById('addPetSafeSelect').value === 'safe';
       const soundMix = document.getElementById('addSoundMixSelect').value;
-
       vault.unshift({
-        id: Date.now().toString(),
-        title,
-        type: document.getElementById('addTypeSelect').value,
+        id: Date.now().toString(), title, type: document.getElementById('addTypeSelect').value,
         genre: document.getElementById('addGenreInput').value.trim() || 'General',
         year: parseInt(document.getElementById('addYearInput').value) || 2024,
         runtime: parseInt(document.getElementById('addRuntimeInput').value) || 100,
@@ -1885,62 +1326,27 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         cast: document.getElementById('addCastInput').value.trim() || 'Cast not listed',
         imdbRating: document.getElementById('addImdbInput').value.trim() || '',
         rtRating: document.getElementById('addRtInput').value.trim() || '',
-        p1Rating: 0,
-        p2Rating: 0,
-        petSafe,
+        p1Rating: 0, p2Rating: 0, petSafe,
         petNotes: petSafe ? '🐾 Pet-Safe: Verified minimal abrupt noise triggers.' : '⚠️ Pet Alert: May contain sudden loud audio spikes or animal distress.',
-        soundMix,
-        soundNotes: soundMix === 'Balanced Mix' ? 'Dialogue-focused center mix.' : 'High dynamic range; heavy bass peaks.',
+        soundMix, soundNotes: soundMix === 'Balanced Mix' ? 'Dialogue-focused center mix.' : 'High dynamic range; heavy bass peaks.',
         synopsis: document.getElementById('addSynopsisInput').value.trim() || 'No synopsis provided.',
         poster: document.getElementById('addPosterInput').value.trim() || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80',
-        p1: false,
-        p2: false,
-        completed: false,
-        shelf: document.getElementById('addShelfInput').value.trim() || 'Digital'
+        p1: false, p2: false, completed: false, shelf: document.getElementById('addShelfInput').value.trim() || 'Digital'
       });
-
-      saveVault();
-      renderVault();
-      document.getElementById('addModal').style.display = 'none';
+      saveVault(); renderVault(); document.getElementById('addModal').style.display = 'none';
     }
 
-    /* ========================================================
-       7. SPIN WHEEL (MULTI-CATEGORY + ANIMATED CANVAS ROTATION)
-       ======================================================== */
-    let wheelSliceCount = 6;
-    let wheelPoolFilter = 'all';
-    let wheelSelectedCats = new Set(['all']);
-    let currentWheelCandidates = [];
-    let currentWheelRotation = 0;
+    /* 7. SPIN WHEEL */
+    let wheelSliceCount = 6, wheelPoolFilter = 'all', wheelSelectedCats = new Set(['all']), currentWheelCandidates = [], currentWheelRotation = 0;
 
-    function toggleWheelCategory(cat, el) {
-      if (cat === 'all') {
-        wheelSelectedCats = new Set(['all']);
-      } else {
-        wheelSelectedCats.delete('all');
-        if (wheelSelectedCats.has(cat)) wheelSelectedCats.delete(cat);
-        else wheelSelectedCats.add(cat);
-        if (wheelSelectedCats.size === 0) wheelSelectedCats.add('all');
-      }
-      document.querySelectorAll('#wheelCatRow .filter-chip').forEach(chip => {
-        chip.classList.toggle('active', wheelSelectedCats.has(chip.getAttribute('data-cat')));
-      });
+    function toggleWheelCategory(cat) {
+      if (cat === 'all') wheelSelectedCats = new Set(['all']);
+      else { wheelSelectedCats.delete('all'); if (wheelSelectedCats.has(cat)) wheelSelectedCats.delete(cat); else wheelSelectedCats.add(cat); if (wheelSelectedCats.size === 0) wheelSelectedCats.add('all'); }
+      document.querySelectorAll('#wheelCatRow .filter-chip').forEach(chip => chip.classList.toggle('active', wheelSelectedCats.has(chip.getAttribute('data-cat'))));
       reshuffleWheel();
     }
-
-    function setWheelSlices(count, el) {
-      wheelSliceCount = count;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      reshuffleWheel();
-    }
-
-    function setWheelPool(pool, el) {
-      wheelPoolFilter = pool;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-      reshuffleWheel();
-    }
+    function setWheelSlices(count, el) { wheelSliceCount = count; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); reshuffleWheel(); }
+    function setWheelPool(pool, el) { wheelPoolFilter = pool; el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); reshuffleWheel(); }
 
     function initWheelState() {
       const eligible = vault.filter(i => {
@@ -1952,95 +1358,85 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         if (wheelPoolFilter === 'petsafe' && !i.petSafe) return false;
         return true;
       });
-
-      const shuffled = [...eligible].sort(() => 0.5 - Math.random());
-      currentWheelCandidates = shuffled.slice(0, wheelSliceCount);
+      currentWheelCandidates = [...eligible].sort(() => 0.5 - Math.random()).slice(0, wheelSliceCount);
       document.getElementById('wheelStatus').textContent = `${eligible.length} matching backlog titles (${currentWheelCandidates.length} slices on wheel).`;
     }
 
-    function reshuffleWheel() {
-      initWheelState();
-      drawWheel();
-      document.getElementById('wheelResult').textContent = '';
-    }
-
+    function reshuffleWheel() { initWheelState(); drawWheel(); document.getElementById('wheelResult').textContent = ''; }
     function drawWheel() {
       const canvas = document.getElementById('wheelCanvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (currentWheelCandidates.length === 0) {
-        ctx.fillStyle = '#8b949e';
-        ctx.font = 'bold 13px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('No matching titles in pool', 145, 145);
-        return;
-      }
-
-      const n = currentWheelCandidates.length;
-      const arc = (2 * Math.PI) / n;
+      if (currentWheelCandidates.length === 0) { ctx.fillStyle = '#8b949e'; ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('No matching titles in pool', 145, 145); return; }
+      const n = currentWheelCandidates.length, arc = (2 * Math.PI) / n;
       const colors = ['#e36209', '#58a6ff', '#bc8cff', '#3fb950', '#d29922', '#f778ba', '#388bfd', '#2ea043', '#f85149', '#a371f7', '#db6d28', '#238636'];
-
       currentWheelCandidates.forEach((c, idx) => {
-        ctx.beginPath();
-        ctx.fillStyle = colors[idx % colors.length];
-        ctx.moveTo(145, 145);
-        ctx.arc(145, 145, 138, idx * arc, (idx + 1) * arc);
-        ctx.fill();
-        ctx.strokeStyle = '#0b0f14';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-
-        ctx.save();
-        ctx.translate(145, 145);
-        ctx.rotate(idx * arc + arc / 2);
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 11px sans-serif';
-        ctx.textAlign = 'right';
-        ctx.fillText(c.title.length > 15 ? c.title.slice(0, 13) + '…' : c.title, 128, 4);
-        ctx.restore();
+        ctx.beginPath(); ctx.fillStyle = colors[idx % colors.length]; ctx.moveTo(145, 145); ctx.arc(145, 145, 138, idx * arc, (idx + 1) * arc); ctx.fill();
+        ctx.strokeStyle = '#0b0f14'; ctx.lineWidth = 2; ctx.stroke();
+        ctx.save(); ctx.translate(145, 145); ctx.rotate(idx * arc + arc / 2); ctx.fillStyle = '#fff'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'right';
+        ctx.fillText(c.title.length > 15 ? c.title.slice(0, 13) + '…' : c.title, 128, 4); ctx.restore();
       });
     }
 
     function spinTheWheel() {
       if (currentWheelCandidates.length === 0) return;
-      const canvas = document.getElementById('wheelCanvas');
-      const res = document.getElementById('wheelResult');
+      const canvas = document.getElementById('wheelCanvas'), res = document.getElementById('wheelResult');
       res.textContent = 'Spinning the wheel... 🌀';
-
-      const winIdx = Math.floor(Math.random() * currentWheelCandidates.length);
-      const winner = currentWheelCandidates[winIdx];
-      const sliceDeg = 360 / currentWheelCandidates.length;
-      const targetDeg = 270 - (winIdx * sliceDeg + sliceDeg / 2);
+      const winIdx = Math.floor(Math.random() * currentWheelCandidates.length), winner = currentWheelCandidates[winIdx];
+      const sliceDeg = 360 / currentWheelCandidates.length, targetDeg = 270 - (winIdx * sliceDeg + sliceDeg / 2);
       currentWheelRotation += 1800 + ((targetDeg - (currentWheelRotation % 360) + 360) % 360);
-
       canvas.style.transform = `rotate(${currentWheelRotation}deg)`;
-
-      setTimeout(() => {
-        res.innerHTML = `🎉 Winner: <span style="text-decoration:underline; cursor:pointer;" onclick="openDetailModal('${winner.id}')">${winner.title} (${winner.year})</span>`;
-      }, 3200);
+      setTimeout(() => { res.innerHTML = `🎉 Winner: <span style="text-decoration:underline; cursor:pointer;" onclick="openDetailModal('${winner.id}')">${winner.title} (${winner.year})</span>`; }, 3200);
     }
 
-    /* ========================================================
-       8. SCRATCH-OFF TICKET
-       ======================================================== */
-    let currentScratchPool = 'all';
-    let scratchItem = null;
+    /* 8. REALISTIC MULTI-STYLE LOTTERY TICKET STUDIO & 82% PIXEL COVERAGE */
+    const LOTTERY_THEMES = [
+      { name: '🎰 MEGA GOLD RUSH', jackpot: '$1,000,000 JACKPOT', shellBg: 'linear-gradient(135deg, #1c1603 0%, #3d2f07 50%, #171202 100%)', border: '#f5c518', titleColor: '#ffe066', foilGrad: ['#d4af37', '#fff3a1', '#aa7c11', '#f3e5ab'], textCol: '#2b1d00', watermark: '$  $  $  GOLD RUSH  $  $  $', prompt: '🪙 SCRATCH 24K GOLD FOIL WITH COIN' },
+      { name: '💎 DIAMOND ROYALE', jackpot: 'VIP CINEMA PASS', shellBg: 'linear-gradient(135deg, #06152d 0%, #0f3266 50%, #051024 100%)', border: '#58a6ff', titleColor: '#a5d6ff', foilGrad: ['#9bb5ce', '#eef7ff', '#67829e', '#d8ecff'], textCol: '#061933', watermark: '💎  ♦  DIAMOND ROYALE  ♦  💎', prompt: '💎 RUB PLATINUM ICE FOIL TO REVEAL' },
+      { name: '🍀 LUCKY EMERALD 777', jackpot: 'TRIPLE 777 PRIZE', shellBg: 'linear-gradient(135deg, #052612 0%, #0e4d26 50%, #041c0d 100%)', border: '#3fb950', titleColor: '#7ee787', foilGrad: ['#b87333', '#ffd79e', '#8c4a15', '#f2be7e'], textCol: '#1f1002', watermark: '🍀  777  LUCKY EMERALD  777  🍀', prompt: '🍀 SCRATCH COPPER-GOLD LUCKY FOIL' },
+      { name: '🌆 NEON RETRO \'84', jackpot: 'ARCADE FEVER WIN', shellBg: 'linear-gradient(135deg, #240631 0%, #520e66 50%, #0b2239 100%)', border: '#f778ba', titleColor: '#ff9bce', foilGrad: ['#323949', '#8b99b8', '#1e222d', '#687796'], textCol: '#f0f6fc', watermark: '⚡  1984  SYNTHWAVE  1984  ⚡', prompt: '⚡ SCRAPE DARK CHROME HOLOGRAPHIC FOIL' },
+      { name: '🔥 INFERNO HOT PICKS', jackpot: ' SIZZLING BONUS', shellBg: 'linear-gradient(135deg, #2b0707 0%, #641212 50%, #1f0404 100%)', border: '#f85149', titleColor: '#ff948f', foilGrad: ['#3a3535', '#7c6f6f', '#242020', '#9e8f8f'], textCol: '#ffdcd7', watermark: '🔥  HOT  INFERNO PICKS  HOT  🔥', prompt: '🔥 SCRATCH CHARCOAL EMBER LATEX' },
+      { name: '🌌 COSMIC SUPERNOVA', jackpot: 'GALAXY GRAND PRIZE', shellBg: 'linear-gradient(135deg, #130929 0%, #2e1660 50%, #090414 100%)', border: '#bc8cff', titleColor: '#d2a8ff', foilGrad: ['#6e5494', '#d5c4f7', '#483466', '#b39ddb'], textCol: '#16092b', watermark: '✨  ✦  SUPERNOVA  ✦  ✨', prompt: '🌌 RUB IRIDESCENT STARDUST FOIL' }
+    ];
 
-    function setScratchPool(pool, el) {
-      currentScratchPool = pool;
-      el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    let scratchSelectedCats = new Set(['all']), scratchPetOnly = false, scratchDateOnly = false;
+    let lotteryThemeMode = 'auto', currentThemeIndex = 0, scratchItem = null, isScratchRevealed = false;
+
+    function toggleScratchCategory(cat) {
+      if (cat === 'all') scratchSelectedCats = new Set(['all']);
+      else { scratchSelectedCats.delete('all'); if (scratchSelectedCats.has(cat)) scratchSelectedCats.delete(cat); else scratchSelectedCats.add(cat); if (scratchSelectedCats.size === 0) scratchSelectedCats.add('all'); }
+      document.querySelectorAll('#scratchCatRow .filter-chip[data-scat]').forEach(c => c.classList.toggle('active', scratchSelectedCats.has(c.getAttribute('data-scat'))));
+      initScratchCard();
+    }
+
+    function toggleScratchTrait(trait, el) {
+      if (trait === 'petsafe') scratchPetOnly = !scratchPetOnly;
+      if (trait === 'date') scratchDateOnly = !scratchDateOnly;
+      el.classList.toggle('active', trait === 'petsafe' ? scratchPetOnly : scratchDateOnly);
+      initScratchCard();
+    }
+
+    function setLotteryTheme(mode, el) {
+      lotteryThemeMode = mode;
+      document.querySelectorAll('#lotteryThemeRow .filter-chip').forEach(c => c.classList.remove('active'));
       el.classList.add('active');
+      if (mode !== 'auto') currentThemeIndex = parseInt(mode);
+      initScratchCard();
+    }
+
+    function nextLotteryTicket() {
+      if (lotteryThemeMode === 'auto') currentThemeIndex = (currentThemeIndex + 1) % LOTTERY_THEMES.length;
       initScratchCard();
     }
 
     function initScratchCard() {
+      isScratchRevealed = false;
       const candidates = vault.filter(i => {
         if (i.completed) return false;
-        if (['movie', 'tv', 'book', 'game'].includes(currentScratchPool) && i.type !== currentScratchPool) return false;
-        if (currentScratchPool === 'petsafe' && !i.petSafe) return false;
-        if (currentScratchPool === 'date' && (!i.p1 || !i.p2)) return false;
+        if (!scratchSelectedCats.has('all') && !scratchSelectedCats.has(i.type)) return false;
+        if (scratchPetOnly && !i.petSafe) return false;
+        if (scratchDateOnly && (!i.p1 || !i.p2)) return false;
         return true;
       });
 
@@ -2053,41 +1449,151 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
         document.getElementById('scratchImg').src = scratchItem.poster || 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&q=80';
       }
 
+      // Apply Ticket Theme Styling
+      const theme = LOTTERY_THEMES[currentThemeIndex % LOTTERY_THEMES.length];
+      const shell = document.getElementById('lotteryTicketShell');
+      shell.style.background = theme.shellBg;
+      shell.style.borderColor = theme.border;
+      const titleEl = document.getElementById('lotteryThemeTitle');
+      titleEl.textContent = theme.name;
+      titleEl.style.color = theme.titleColor;
+      document.getElementById('lotteryJackpotBadge').textContent = theme.jackpot;
+      document.getElementById('lotteryJackpotBadge').style.color = theme.titleColor;
+      document.getElementById('lotterySerialNo').textContent = `SER #OV-${Math.floor(100000 + Math.random() * 900000)}-${currentThemeIndex + 1}`;
+      updateScratchProgressUI(0);
+
+      // Paint Realistic Metallic Latex Foil Layer
       const canvas = document.getElementById('scratchCanvas');
       if (!canvas) return;
-      const ctx = canvas.getContext('2d');
+      canvas.style.opacity = '1';
+      canvas.style.pointerEvents = 'auto';
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
       ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = '#8b949e';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#0d1117';
-      ctx.font = 'bold 14px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('🪙 RUB FINGER HERE TO REVEAL', 155, 95);
 
-      let drawing = false, count = 0;
-      canvas.onmousedown = canvas.ontouchstart = () => { drawing = true; };
-      canvas.onmouseup = canvas.ontouchend = () => { drawing = false; };
-      canvas.onmousemove = canvas.ontouchmove = (e) => {
-        if (!drawing) return;
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      grad.addColorStop(0, theme.foilGrad[0]);
+      grad.addColorStop(0.35, theme.foilGrad[1]);
+      grad.addColorStop(0.7, theme.foilGrad[2]);
+      grad.addColorStop(1, theme.foilGrad[3]);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Brushed Metallic Grain & Security Micro-Grid
+      ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+      ctx.lineWidth = 1;
+      for (let y = 8; y < canvas.height; y += 14) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+      }
+      ctx.fillStyle = theme.textCol;
+      ctx.globalAlpha = 0.16;
+      ctx.font = 'bold 11px monospace';
+      ctx.textAlign = 'center';
+      for (let r = 24; r < canvas.height; r += 38) {
+        ctx.fillText(theme.watermark, canvas.width / 2, r);
+      }
+      ctx.globalAlpha = 1;
+
+      // Center Scratch Prompt Banner
+      ctx.fillStyle = 'rgba(0,0,0,0.68)';
+      ctx.fillRect(20, 74, canvas.width - 40, 44);
+      ctx.strokeStyle = theme.border;
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(20, 74, canvas.width - 40, 44);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText(theme.prompt, canvas.width / 2, 100);
+
+      // Continuous Coin-Scrape Physics & Real Alpha-Pixel Sampling (82% Threshold)
+      let isDrawing = false, lastX = null, lastY = null, moveCounter = 0;
+
+      function getCoords(e) {
         const rect = canvas.getBoundingClientRect();
-        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: (clientX - rect.left) * (canvas.width / rect.width),
+          y: (clientY - rect.top) * (canvas.height / rect.height)
+        };
+      }
+
+      function scrapeMove(e) {
+        if (!isDrawing || isScratchRevealed) return;
+        if (e.cancelable) e.preventDefault();
+        const { x, y } = getCoords(e);
+
         ctx.globalCompositeOperation = 'destination-out';
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 30;
         ctx.beginPath();
-        ctx.arc(x, y, 24, 0, Math.PI * 2);
+        if (lastX !== null && lastY !== null) ctx.moveTo(lastX, lastY);
+        else ctx.moveTo(x, y);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+
+        // Coin edge micro-serrations
+        ctx.beginPath();
+        ctx.arc(x, y, 15, 0, Math.PI * 2);
         ctx.fill();
-        if (++count > 28) revealScratchCard();
+
+        lastX = x; lastY = y;
+
+        if (++moveCounter % 6 === 0) {
+          if (navigator.vibrate) navigator.vibrate(4);
+          checkRealScratchPercentage(canvas, ctx);
+        }
+      }
+
+      canvas.onmousedown = canvas.ontouchstart = (e) => {
+        isDrawing = true;
+        const c = getCoords(e);
+        lastX = c.x; lastY = c.y;
+        scrapeMove(e);
       };
+      window.onmouseup = window.ontouchend = () => {
+        if (isDrawing) {
+          isDrawing = false; lastX = null; lastY = null;
+          checkRealScratchPercentage(canvas, ctx);
+        }
+      };
+      canvas.onmousemove = canvas.ontouchmove = scrapeMove;
+    }
+
+    function checkRealScratchPercentage(canvas, ctx) {
+      if (isScratchRevealed) return;
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let clearPixels = 0, totalSampled = 0;
+      for (let i = 3; i < imgData.length; i += 32) {
+        totalSampled++;
+        if (imgData[i] < 64) clearPixels++;
+      }
+      const pct = Math.min(100, Math.round((clearPixels / totalSampled) * 100));
+      updateScratchProgressUI(pct);
+      if (pct >= 82) revealScratchCard();
+    }
+
+    function updateScratchProgressUI(pct) {
+      const txt = document.getElementById('scratchPctText');
+      const fill = document.getElementById('scratchProgFill');
+      if (txt) txt.textContent = `${pct}%`;
+      if (fill) fill.style.width = `${pct}%`;
     }
 
     function revealScratchCard() {
+      isScratchRevealed = true;
+      updateScratchProgressUI(100);
       const canvas = document.getElementById('scratchCanvas');
-      if (canvas) canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+      if (!canvas) return;
+      if (navigator.vibrate) navigator.vibrate([15, 30, 25]);
+      canvas.style.opacity = '0';
+      canvas.style.pointerEvents = 'none';
+      setTimeout(() => {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }, 450);
     }
 
-    /* ========================================================
-       9. SHOWDOWN, MARATHONS, SHELF, EAS & SYNC HUB
-       ======================================================== */
+    /* 9. SHOWDOWN, MARATHONS, SHELF, EAS & SYNC HUB */
     const MARATHONS = [
       { title: "🧠 Reality-Bending Paranoia", desc: "High-concept sci-fi & locked-room tension.", list: ["Coherence", "Annihilation", "The Thing"] },
       { title: "🐾 Dog-Friendly Quiet Night", desc: "Zero doorbells, zero barking, zero thunder spikes.", list: ["Coherence", "Panic Room", "Neuromancer"] }
@@ -2105,14 +1611,12 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
 
     function setupShowdown() {
       const box = document.getElementById('showdownBox');
-      const p1List = vault.filter(i => i.p1 && !i.completed);
-      const p2List = vault.filter(i => i.p2 && !i.completed);
+      const p1List = vault.filter(i => i.p1 && !i.completed), p2List = vault.filter(i => i.p2 && !i.completed);
       if (p1List.length === 0 || p2List.length === 0) {
         box.innerHTML = `<div style="grid-column:1/-1; color:var(--text-muted); font-size:0.82rem;">Both ${p1} and ${p2} need at least one voted backlog title!</div>`;
         return;
       }
-      const c1 = p1List[Math.floor(Math.random() * p1List.length)];
-      const c2 = p2List[Math.floor(Math.random() * p2List.length)];
+      const c1 = p1List[Math.floor(Math.random() * p1List.length)], c2 = p2List[Math.floor(Math.random() * p2List.length)];
       box.innerHTML = `
         <div class="duel-card" style="border-color:var(--p1);" onclick="openDetailModal('${c1.id}')">
           <div style="font-size:0.75rem; color:var(--p1); font-weight:bold;">${p1}'s Contender</div>
@@ -2159,8 +1663,7 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
           }
         }
       }
-      saveVault();
-      renderVault();
+      saveVault(); renderVault();
       alert('✅ All titles in your vault have been updated with IMDb ratings, Rotten Tomatoes scores, posters, and cast lists!');
     }
 
@@ -2194,17 +1697,13 @@ Return ONLY a valid JSON array of objects. Each object MUST have:
           if (parsed.vault) vault = parsed.vault;
           if (parsed.p1) { p1 = parsed.p1; localStorage.setItem('omni_p1', p1); }
           if (parsed.p2) { p2 = parsed.p2; localStorage.setItem('omni_p2', p2); }
-          migrateAndHealVault();
-          saveVault();
-          initPartners();
-          renderVault();
+          migrateAndHealVault(); saveVault(); initPartners(); renderVault();
           alert('✅ Backup imported and upgraded!');
         } catch (err) { alert('Invalid JSON backup file.'); }
       };
       reader.readAsText(file);
     }
 
-    // Initialize App
     migrateAndHealVault();
     initPartners();
     renderVault();
